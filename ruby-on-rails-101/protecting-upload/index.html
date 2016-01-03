@@ -1,0 +1,349 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+  <title>
+      Protecting upload – makzan’s sharings
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='http://fonts.googleapis.com/css?family=Bevan' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" media="all" href="/assets/application.css" data-turbolinks-track="true" />
+  <link href="https://makzan.net/ruby-on-rails-101/protecting-upload" rel="canonical" />  <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+mixpanel.init("26e7a62bc13d535df35f3aca1c4a009f");</script><!-- end Mixpanel -->
+
+  
+    <link rel="next" href="../ch6-challenges/">
+    
+  <script type="text/javascript" src="//use.typekit.net/gku5yms.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body id='top' class='book-page'>
+
+<header class="nav-bar centered"><a href="/" title="Back to makzan homepage"><canvas id="heading-canvas" width="572" height="200" style="background-color:#fffffa;width:143px;"><h1>makzan.</h1></canvas></a><div class="nav-text"><p>I build <a href="/works/#apps">utilities</a> and <a href="/works/#games">games</a>. <br />
+I share know-how via <a href="/works/#books">books</a>, <a href="/#courses">classes</a> and <a href="/essays/">essays</a>.</p>
+
+</div></header>
+
+<article class='book-page-content content'>
+  <div id='pjax-area' class="row">
+    <div id='side-bar-col' class="hidden col">
+
+    </div>
+    <div id='sheet-col' class="full col">
+<!--               <p><small class='aside'>You’re reading <a href="../">ruby-on-rails-101</a>. This article is part of the <a href="../">ruby-on-rails-101</a>, written by <a href="/">makzan</a>.</small></p>
+       -->
+            
+        <div class="page-nav header">
+ 
+  <p id='toggle-toc'>Table of Content</p>
+
+</div>
+
+  
+      <div class='sheet'>            
+
+          <h1>
+              Protecting upload
+          </h1>
+
+
+        <p>Before protecting uploading, we need to add the association between the user and the albums/photos.</p>
+
+<p>Execute the following migration generation commands and migrate the database.</p>
+
+<pre><code>$ rails generate migration AddUserIdToAlbum user_id:integer
+$ rails generate migration AddUserIdToPhoto user_id:integer
+$ rake db:migrate
+==  AddUserIdToAlbum: migrating ===========================
+-- add_column(:albums, :user_id, :integer)
+   -&gt; 0.0016s
+==  AddUserIdToAlbum: migrated (0.0018s) ==================
+
+==  AddUserIdToPhoto: migrating ===========================
+-- add_column(:photos, :user_id, :integer)
+   -&gt; 0.0009s
+==  AddUserIdToPhoto: migrated (0.0011s) ==================
+</code></pre>
+
+<p>Then add <code>belongs_to :user</code> to both <code>album.rb</code> class and <code>photo.rb</code> class.</p>
+
+<p>And the following to <code>user.rb</code> class.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>has_many <span style="color:#A60">:photos</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>has_many <span style="color:#A60">:albums</span>
+</pre></div>
+</div>
+</div>
+
+<p>Next, we would like to protect user upload in the photos controller.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>before_filter <span style="color:#A60">:authenticate_user</span>, <span style="color:#606">only</span>: [<span style="color:#A60">:new</span>, <span style="color:#A60">:edit</span>]
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">authenticate_user</span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>  redirect_to new_user_session_url <span style="color:#080;font-weight:bold">unless</span> user_signed_in? <span style="color:#080;font-weight:bold">and</span> !<span style="color:#33B">@album</span>.user.nil? <span style="color:#080;font-weight:bold">and</span> current_user == <span style="color:#33B">@album</span>.user
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>And we add the user association <code>@photo.user = current_user</code> in the create method.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">create</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  <span style="color:#33B">@photo</span> = <span style="color:#33B">@album</span>.photos.new params[<span style="color:#A60">:photo</span>]
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  <span style="color:#33B">@photo</span>.user = current_user
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>  <span style="color:#080;font-weight:bold">if</span> <span style="color:#33B">@photo</span>.save
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>    redirect_to <span style="color:#33B">@album</span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>  <span style="color:#080;font-weight:bold">else</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>    render <span style="color:#A60">:new</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Now when we go to any photo upload URL without logged in to the album owner, we will be redirected to the sign_in page.</p>
+
+<p>Then we apply the same to the albums controller.</p>
+
+<p>In the <code>albums_controller</code> file.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>before_filter <span style="color:#A60">:authenticate_user</span>, <span style="color:#606">only</span>: [<span style="color:#A60">:new</span>]
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">authenticate_user</span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>  redirect_to new_user_session_url <span style="color:#080;font-weight:bold">unless</span> user_signed_in?
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>And the user-albums association in the <code>create</code> method.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">create</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  <span style="color:#33B">@album</span> = <span style="color:#036;font-weight:bold">Album</span>.new params[<span style="color:#A60">:album</span>]
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  <span style="color:#33B">@album</span>.user = current_user
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>  <span style="color:#080;font-weight:bold">if</span> <span style="color:#33B">@album</span>.save
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>    redirect_to <span style="color:#33B">@album</span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>  <span style="color:#080;font-weight:bold">else</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>    render <span style="color:#A60">:new</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p class="note"><em>Note</em>: If both `authenticate_user` share the same logic, we can further extract it into their common parent class — application_controller.</p>
+
+<p>It’s time to test the function in web browser.</p>
+
+<p>We can create albums and upload photos as normal after we logged in. Now try to create another user account and access the album you just created, you should not be able to upload any new photos.</p>
+
+<h2 id="the-view">The view</h2>
+
+<p>One last thing, we don’t want the <code>upload photo</code> or <code>edit</code> link appears on the photo that isn’t belonged to the current user.</p>
+
+<p>In the <code>views/photos/show.html.erb</code> file.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%-</span> <span style="color:#080;font-weight:bold">if</span> user_signed_in? <span style="color:#080;font-weight:bold">and</span> current_user == <span style="color:#33B">@photo</span>.user <span style="font-weight:bold;color:#666">%&gt;</span></span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  <span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> link_to <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Edit</span><span style="color:#710">'</span></span>, edit_album_photo_path(<span style="color:#33B">@album</span>, <span style="color:#33B">@photo</span>) <span style="font-weight:bold;color:#666">%&gt;</span></span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%-</span> <span style="color:#080;font-weight:bold">end</span> <span style="font-weight:bold;color:#666">%&gt;</span></span>
+</pre></div>
+</div>
+</div>
+
+<p>And the <code>views/albums/show.html.erb</code> file.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%-</span> <span style="color:#080;font-weight:bold">if</span> user_signed_in? <span style="color:#080;font-weight:bold">and</span> current_user == <span style="color:#33B">@album</span>.user <span style="font-weight:bold;color:#666">%&gt;</span></span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  <span style="color:#070;font-weight:bold">&lt;p&gt;</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> link_to <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Upload new photo</span><span style="color:#710">'</span></span>, new_album_photo_path(<span style="color:#33B">@album</span>) <span style="font-weight:bold;color:#666">%&gt;</span></span><span style="color:#070;font-weight:bold">&lt;/p&gt;</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%-</span> <span style="color:#080;font-weight:bold">end</span> <span style="font-weight:bold;color:#666">%&gt;</span></span>
+</pre></div>
+</div>
+</div>
+
+
+        <!-- What’s next? -->
+          <!-- TODO: move this condition away from view -->
+            <p>What’s next? We’re going to take a look at <a class='pjaxer' href='../ch6-challenges/' title='Challenges'>“Challenges”</a>.</p>
+
+        <div class="page-nav">
+    <a class='left pjaxer' href='../authenticating-user/' title='Authenticating user'>◀ Authenticating user</a>
+
+    <a class='right pjaxer' href='../ch6-challenges/' title='Challenges'>Challenges ▶</a>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+</article>
+
+<div id='overlay' class='out'>
+  <img id='overlay-img' src='' alt='overlaied image when clicked on thumbnail'>
+  <div id='overlay-caption'></div>
+</div>
+  
+<div id='toc-overlay' class='out'>
+  <h4><a href='/'>Makzan</a> | Ruby on rails 101 | Table of Content</h4>
+  <ul>
+      <li><a href="../ruby-basic/">Ruby basic</a></li>            
+
+      <li><a href="../installing-rails/">Installing Rails</a></li>            
+
+      <li><a href="../rails-console/">Rails console</a></li>            
+
+      <li><a href="../lab-adding-category/">Lab – Adding category</a></li>            
+
+      <li><a href="../uploading-files/">Uploading files</a></li>            
+
+      <li><b><em><a href="../chapter5/">Ruby on Rails 101 – Chapter 5</a></em></b></li>          
+
+      <li><a href="../ch5-setting-up-the-project/">Setting up photo gallery project</a></li>            
+
+      <li><a href="../building-the-photo-model/">Building the photo model</a></li>            
+
+      <li><a href="../building-the-photo-controller-and-view/">Building the photo controller and view</a></li>            
+
+      <li><a href="../using-partial-file/">Using partial file</a></li>            
+
+      <li><a href="../dynamic-title-with-content-for/">Dynamic title with content for</a></li>            
+
+      <li><a href="../adding-album-resource/">Adding album resource</a></li>            
+
+      <li><a href="../associate-photo-to-album/">Associate photo to album</a></li>            
+
+      <li><a href="../introducing-asset-pipeline/">Introducing asset pipeline</a></li>            
+
+      <li><b><em><a href="../chapter6/">Ruby on Rails 101 – Chapter 6</a></em></b></li>          
+
+      <li><a href="../managing-asset-files/">Managing asset files</a></li>            
+
+      <li><a href="../creating-gallery-home-page/">Creating gallery home page</a></li>            
+
+      <li><a href="../adding-swipejs-library/">Adding swipejs library</a></li>            
+
+      <li><a href="../building-gallery-website-layout/">Building gallery website layout</a></li>            
+
+      <li><a href="../installing-devise-gem/">Installing devise gem</a></li>            
+
+      <li><a href="../authenticating-user/">Authenticating user</a></li>            
+
+      <li><strong>→<a href="../protecting-upload/">Protecting upload</a></strong></li>            
+
+      <li><a href="../ch6-challenges/">Challenges</a></li>            
+
+      <li><b><em><a href="../chapter7/">Ruby on Rails 101 – Chapter 7</a></em></b></li>          
+
+      <li><a href="../introducing-jbuilder/">Introducing jbuilder</a></li>            
+
+      <li><a href="../using-jbuilder/">Using jbuilder</a></li>            
+
+      <li><a href="../extracting-view-code-to-helpers/">Extracting view code to helpers</a></li>            
+
+      <li><a href="../partial-json-views/">Partial json views</a></li>            
+
+      <li><a href="../introducing-behavior-driven-development/">Introducing behavior driven development</a></li>            
+
+      <li><a href="../installing-cucumber-for-rails/">Installing cucumber for rails</a></li>            
+
+      <li><a href="../writing-our-first-feature/">Writing our first feature</a></li>            
+
+      <li><a href="../writing-the-user-authentication-component/">Writing the user authentication component</a></li>            
+
+      <li><a href="../writing-the-photo-upload-component/">Writing the photo upload component</a></li>            
+
+      <li><a href="../ch7-more/">What’s Next</a></li>            
+
+      <li><b><em><a href="../chapter8/">Ruby on Rails 101 – Chapter 8</a></em></b></li>          
+
+      <li><a href="../multilingual/">Multilingual</a></li>            
+
+      <li><a href="../adding-chinese/">Adding chinese</a></li>            
+
+      <li><a href="../switching-locale/">Switching locale</a></li>            
+
+      <li><a href="../pow-local-server/">Pow local server</a></li>            
+
+      <li><a href="../xip-io/">Mobile devices testing via local network</a></li>            
+
+      <li><a href="../deployment-database-config/">Deployment database config</a></li>            
+
+      <li><a href="../introducing-git/">Introducing git</a></li>            
+
+      <li><a href="../lab-try-git/">Lab – “Try Git”</a></li>            
+
+      <li><a href="../apply-git-to-our-project/">Apply git to our project</a></li>            
+
+      <li><a href="../push-git-to-server-repo/">Push git to server repo</a></li>            
+
+      <li><a href="../deploying-options/">Deploying options</a></li>            
+
+      <li><a href="../tutorial1/">Tutorial 1 – Task management</a></li>            
+
+      <li><a href="../tutorial2/">Tutorial 2 – Multiple Lists</a></li>            
+
+      <li><a href="../tutorial3/">Tutorial 3 – Misc Enhancement</a></li>            
+
+  </ul>
+</div>
+
+
+<div class="book-page-footer-nav"><ul><li>You’re reading <a href="/ruby-on-rails-101/">ruby-on-rails-101</a>.</li><li><a id='twitter-intent-link' href='https://twitter.com/intent/tweet?text=@makzan '>Discuss this post on Twitter.</a></li>         <li><a href='/'>Go back to home.</a></li><li>Go to <a href='#top'>top?</a></li> </ul><div class="mz-square"><img width="80" src="/images/mz-square.png" alt="Mz square" /></div></div><footer><div class="content"><p><small class="footer"><strong>Thanks for reading.</strong> All content is written by <a href='/about/'>Makzan</a>, from <a href='https://www.google.com/search?q=macau+china&safe=active&tbm=isch'>Macao</a>. Text are in <a href='http://creativecommons.org/licenses/by-nc/4.0/'>CC BY-NC 4.0</a> lincense. Code snippets in this site are in <a href='http://opensource.org/licenses/MIT'>MIT</a> license unless specified. Enjoy the rest of <span id='weekday'>day</span>!</small></p></div></footer>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-975238-12']);
+  _gaq.push(['_setDomainName', 'makzan.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<script src="/assets/application.js" data-turbolinks-track="true"></script>
+
+
+<script>
+mixpanel.track("Page Show", {"Parent": "ruby-on-rails-101", "Title": "Protecting upload"});
+mixpanel.track_links(".page-nav a", "Click page nav link");
+</script>
+<script data-no-instant>InstantClick.init();</script>
+<script type="text/javascript">
+  var FHChat = {product_id: "ae42b12bfcb3"};
+  FHChat.properties={};FHChat.set=function(key,data){this.properties[key]=data};FHChat.customAttributes=[];FHChat.sendCustomAttributes=function(data){this.customAttributes.push(data)};!function(){var a,b;return b=document.createElement("script"),a=document.getElementsByTagName("script")[0],b.src="https://chat-client-js.firehoseapp.com/chat-min.js",b.async=!0,a.parentNode.insertBefore(b,a)}();
+</script>
+  
+
+<script type="text/javascript">
+  var _sf_async_config = { uid: 59469, domain: 'makzan.net', useCanonical: true };
+  (function() {
+    function loadChartbeat() {
+      window._sf_endpt = (new Date()).getTime();
+      var e = document.createElement('script');
+      e.setAttribute('language', 'javascript');
+      e.setAttribute('type', 'text/javascript');
+      e.setAttribute('src','//static.chartbeat.com/js/chartbeat.js');
+      document.body.appendChild(e);
+    };
+    var oldonload = window.onload;
+    window.onload = (typeof window.onload != 'function') ?
+      loadChartbeat : function() { oldonload(); loadChartbeat(); };
+  })();
+</script>
+</body>
+</html>

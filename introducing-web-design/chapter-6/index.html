@@ -1,0 +1,540 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+  <title>
+      Chapter 6 – Introducing Ruby on Rails – makzan’s sharings
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='http://fonts.googleapis.com/css?family=Bevan' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" media="all" href="/assets/application.css" data-turbolinks-track="true" />
+  <link href="https://makzan.net/introducing-web-design/chapter-6" rel="canonical" />  <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+mixpanel.init("26e7a62bc13d535df35f3aca1c4a009f");</script><!-- end Mixpanel -->
+
+  
+    <link rel="next" href="../chapter-6b/">
+    
+  <script type="text/javascript" src="//use.typekit.net/gku5yms.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body id='top' class='book-page'>
+
+<header class="nav-bar centered"><a href="/" title="Back to makzan homepage"><canvas id="heading-canvas" width="572" height="200" style="background-color:#fffffa;width:143px;"><h1>makzan.</h1></canvas></a><div class="nav-text"><p>I build <a href="/works/#apps">utilities</a> and <a href="/works/#games">games</a>. <br />
+I share know-how via <a href="/works/#books">books</a>, <a href="/#courses">classes</a> and <a href="/essays/">essays</a>.</p>
+
+</div></header>
+
+<article class='book-page-content content'>
+  <div id='pjax-area' class="row">
+    <div id='side-bar-col' class="hidden col">
+
+    </div>
+    <div id='sheet-col' class="full col">
+<!--               <p><small class='aside'>You’re reading <a href="../">introducing-web-design</a>. This article is part of the <a href="../">introducing-web-design</a>, written by <a href="/">makzan</a>.</small></p>
+       -->
+            
+        <div class="page-nav header">
+ 
+  <p id='toggle-toc'>Table of Content</p>
+
+</div>
+
+  
+      <div class='sheet'>            
+
+          <h1>
+              Chapter 6 – Introducing Ruby on Rails
+          </h1>
+
+
+        <p><h2 id='section-1' class='separator'><span><a href='#section-1'>Introducing Ruby on Rails</a></span></h2></p>
+
+<p>In previous chapters, we focused on client side technology. They are technology that runs in web browser. They are HTML, CSS and some JavaScript. These tech focus on displaying content in an organised and stylish way.</p>
+
+<p>In this chapter, we move to server. Server is respond to serve content file to client side browser.</p>
+
+<p><img src="/images/phonegap-101/saas-1.png" alt="Saas 1" /></p>
+
+<p>For static file, any server should work. So we focus on dynamic content creation.</p>
+
+<p><img src="/images/phonegap-101/saas-3.png" alt="Saas 3" /></p>
+
+<p><h2 id='section-2' class='separator'><span><a href='#section-2'>MVC</a></span></h2></p>
+<div class="row"><div class="one wide-only col"><p><img src="/images/introducing-web-design/rails-servers.png" alt="Rails servers" /></p>
+</div><div class="two wide-only col"><p>Rails makes uses of a programming design pattern called MVC. It stands for Model-View-Controller.</p>
+
+<p>View is the generated file for client. In browser, this is the HTML file. Model is the data logic. No matter the data is in database, files, memory. Access and processing data is the model’s job.</p>
+
+<p>Controller is the logic for each request from client side. For example, when a request is to get all news recently. The controller gets the requests, ask model to get all news recently. The controller pauses the data returned from model to the view. The view file decides how this data displays.</p>
+</div></div><p>For example, view may loop the news and displays a list of news title. Or it may displays both title and content.</p>
+
+<p>So basically, we think about how the data is manipulated. Then define the data access in modal and define how the data is displayed in views. Controller should not contain too much logics. It’s the bridge between modal and view. Or a thin layer between them.</p>
+
+<p><h2 id='section-3' class='separator'><span><a href='#section-3'>Setting up the environment</a></span></h2></p>
+<p>The development environment requires Ruby development runtime. Ruby comes with a gem bundlers, which is a plugin system. Rails actually is a gem. So we can install rails by using gem install command.</p>
+
+<p>Note: After you get familiar with rails development environment, you may want to use Ruby versioning system, such as rvm or rbenv.</p>
+<div class="row"><div class="one wide-only col"><p><img src="/images/introducing-web-design/nitrous-logo.png" alt="Nitrous logo" /></p>
+</div><div class="two wide-only col"><p>Online IDE is a way to quickly get started without worrying much about the local development environment. We use <a href="https://www.nitrous.io/about">Nitrous.io</a> online development service.</p>
+</div></div><div class="row"><div class="one wide-only col"><p><img src="/images/exercise-time.png" alt="Exercise time" />
+<img src="/images/introducing-web-design/nitrous-ui.png" alt="Nitrous ui" /></p>
+</div><div class="two wide-only col"><p>Now nevigate to <a href="http://nitrous.io">Nitrous.io</a> and register an account. After registration:</p>
+
+<ol>
+  <li>Click “Open Dashboard” if we are at home page.</li>
+  <li>Click “New Box” to create a new development box.</li>
+  <li>Choose “Ruby/Rails” and leave other options default.</li>
+  <li>Click “Start” to boot up the virtual machine we just created.</li>
+  <li>Click “IDE” to get into the coding environment.</li>
+</ol>
+</div></div><p><h2 id='section-4' class='separator'><span><a href='#section-4'>Example App – Simple customer relationship management (CRM)</a></span></h2></p>
+
+<p>In this chapter, we will create a simple customer relationship management system. There are only two types of data: customer and note.</p>
+
+<p>We store the following information for each customer:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>name, birthday, gender, tel
+</pre></div>
+</div>
+</div>
+
+<p>We may add notes to each customer. So here is what each note should store:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>note content, creation time
+</pre></div>
+</div>
+</div>
+
+<p>Notes are associated to customer. To do that, we store a <code>customer_id</code> on each note.</p>
+
+<p>In Rails, each modal definition comes with the following default fields:</p>
+
+<ul>
+  <li><code>id</code> – unique to identify object within the data set.</li>
+  <li><code>created_at</code> – the date time of this data creation.</li>
+  <li><code>updated_at</code> – when does this data last updated?</li>
+</ul>
+
+<p>In this kind of Customer-Note relationship, we call it <strong>one-to-many</strong>. One customer can have many notes and any one note is belong to one customer.</p>
+
+<p>Steps to create the app:</p>
+
+<ol>
+  <li>Create new rails app</li>
+  <li>Rails generate scaffold Customer …</li>
+  <li>Rails generate scaffold Note</li>
+  <li>Modify the note to make it belongs to Customer</li>
+  <li>List notes in Customer view</li>
+  <li>Done</li>
+</ol>
+
+<p><h2 id='section-5' class='separator'><span><a href='#section-5'>Creating new app</a></span></h2></p>
+
+<p>We create a new rails app by using the following command.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>rails new &lt;app name&gt;
+</pre></div>
+</div>
+</div>
+
+<p>Running this command will create a new folder with the given name. All files of the rails project are created inside this folder.</p>
+<div class="row"><div class="one wide-only col"><p><img src="/images/exercise-time.png" alt="Exercise time" /></p>
+</div><div class="two wide-only col"><p>In the Nitrous box we just created, enter the following commands one by one.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>$ cd workspace
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>$ rails -v
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>$ rails new crm
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>$ cd crm
+</pre></div>
+</div>
+</div>
+</div></div><p>Take a look at the created project folder and the files generated.</p>
+
+<p>Here are the purpose of the generated files and folders, quoted from the <a href="http://guides.rubyonrails.org/getting_started.html">official guide</a>:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>app</td>
+      <td>Contains the controllers, models, views, helpers, mailers and assets for your application. You'll focus on this folder for the remainder of this guide.</td>
+    </tr>
+    <tr>
+      <td>config</td>
+      <td>Configure your application's routes, database, and more. This is covered in more detail in Configuring Rails Applications.</td>
+    </tr>
+    <tr>
+      <td>db</td>
+      <td>Contains your current database schema, as well as the database migrations.</td>
+    </tr>
+    <tr>
+      <td>Gemfile / Gemfile.lock</td>
+      <td>These files allow you to specify what gem dependencies are needed for your Rails application. These files are used by the Bundler gem. For more information about Bundler, see the Bundler website.</td>
+    </tr>
+    <tr>
+      <td>lib</td>
+      <td>Extended modules for your application.</td>
+    </tr>
+    <tr>
+      <td>log</td>
+      <td>Application log files.</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>The only folder seen by the world as-is. Contains static files and compiled assets.</td>
+    </tr>
+    <tr>
+      <td>tmp</td>
+      <td>Temporary files (like cache, pid, and session files).</td>
+    </tr>
+    <tr>
+      <td>vendor</td>
+      <td>A place for all third-party code. In a typical Rails application this includes vendored gems.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><h2 id='section-6' class='separator'><span><a href='#section-6'>Testing the web app</a></span></h2></p>
+<div class="row"><div class="one wide-only col"><p><img src="/images/exercise-time.png" alt="Exercise time" />
+<img src="/images/introducing-web-design/preview-8080.png" alt="Preview 8080" /></p>
+</div><div class="two wide-only col"><p>Execute the following command.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>$ rails server -p 8080
+</pre></div>
+</div>
+</div>
+
+<p>Click “Preview” &gt; “port 8080”.</p>
+
+<p>Then we would get the default rails index page.</p>
+
+<p><img src="/images/introducing-web-design/rails-default-index.png" alt="Rails default index" /></p>
+
+<p class="note">Note: To stop our server, we can press `CTRL+C` keyboard keys combination.</p>
+</div></div><p><h2 id='section-7' class='separator'><span><a href='#section-7'>Scaffolding</a></span></h2></p>
+
+<p>The default home page is just a static page. We’ll now create our first resource – Customer.</p>
+<div class="row"><div class="one wide-only col"><p><img src="/images/exercise-time.png" alt="Exercise time" /></p>
+</div><div class="two wide-only col"><p>Step 1: In the nitrous.io console, run the following command.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>$ rails generate scaffold Customer name:string tel:string gender:integer birthday:date
+</pre></div>
+</div>
+</div>
+
+<p><strong>Note, the above command is in one line</strong></p>
+
+<p>Step 2: Then run the following command to apply the database schema changes.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>$ rake db:migrate
+</pre></div>
+</div>
+</div>
+
+<p>Step 3: Start up our testing server.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>$ rails server -p 8080
+</pre></div>
+</div>
+</div>
+
+<p>Preview our web app by choosing <code>Preview</code> &gt; <code>Port 8080</code>.</p>
+
+<p>We still see the default index page. That’s normal. Now add <code>/customers/</code> at the end of the URL and we should see the following screen.</p>
+
+<p><img src="/images/introducing-web-design/customers-scaffold.png" alt="Customers scaffold" /></p>
+
+<p>Try click “New Customer” to add a new customer record.</p>
+</div></div><p>For first time rails developer, the following scaffold command is a good starting way.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>$ rails generate scaffold &lt;ResourceName&gt; &lt;field_name&gt;:&lt;type&gt; &lt;field_name2&gt;:&lt;type&gt;
+</pre></div>
+</div>
+</div>
+
+<p>The command basically tells the rails application that we want to generate a new resource named Customer. Following the resource name, we define some fields to store data. <em>Scaffold</em> is a special generator that let us have the access of the resource in browser immediately. It generates the model, views, controller and databases changes for us, in one command.</p>
+
+<p><h2 id='section-8' class='separator'><span><a href='#section-8'>The date_select helper</a></span></h2></p>
+<div class="row"><div class="one wide-only col"><p><img src="/images/introducing-web-design/customer-edit.png" alt="Customer edit" /></p>
+</div><div class="two wide-only col"><p>If we take a look at the <code>app/views/customers/_form.html.erb</code> file. It contains the form we need when creating or editing a customer record. In the birthday field:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> f.date_select <span style="color:#A60">:birthday</span> <span style="font-weight:bold;color:#666">%&gt;</span></span>
+</pre></div>
+</div>
+</div>
+</div></div><p>The default <a href="http://api.rubyonrails.org/classes/ActionView/Helpers/DateHelper.html#method-i-date_select">date_select</a> method shows only 10 years for selection. What we want for a birthday range is obviously more than 10 years. We can provide options for the starting and ending year. But better, we calculate these values based on the curret year. <code>Date.current.year-100</code> for the starting year and <code>Date.current.year</code> for the ending year.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> f.date_select <span style="color:#A60">:birthday</span>, <span style="color:#606">start_year</span>: <span style="color:#036;font-weight:bold">Date</span>.current.year-<span style="color:#00D">100</span>, <span style="color:#606">end_year</span>: <span style="color:#036;font-weight:bold">Date</span>.current.year <span style="font-weight:bold;color:#666">%&gt;</span></span>
+</pre></div>
+</div>
+</div>
+
+<p class="note">You can use <code>100.years.ago.year</code> to replace <code>Date.current.year-100</code></p>
+
+<p><h2 id='section-9' class='separator'><span><a href='#section-9'>Database and migration</a></span></h2></p>
+
+<p>The scaffolding command generates several files for us. One among them is a migration file. Migration file are for any database changes. We have a new resource that needs storage. So we need a new table in database to store the data.</p>
+
+<p>After the migration file is created, we need to execute the following command to apply the change to database.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>$ rake db:migrate
+</pre></div>
+</div>
+</div>
+
+<p>This is the output of the <code>db:migrate</code> task execution.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>== 20140703145327 CreateCustomers: migrating ==================================
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>-- create_table(:customers)
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span> -&gt; 0.0056s
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>== 20140703145327 CreateCustomers: migrated (0.0057s) =========================
+</pre></div>
+</div>
+</div>
+
+<p>One killing feature in Rails is the versioning of the database schema. This is done by database migration. Each time when we modify the database schema, we recorded the changes in a file.</p>
+
+<p>When the sync the files among developers, each developer has the same synchronized database.</p>
+
+<p>The first thing, we plan what data we need to store and their relationship.</p>
+
+<p>Let's take a look at the migration file rails generated from our scaffold command.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">CreateCustomers</span> &lt; <span style="color:#036;font-weight:bold">ActiveRecord</span>::<span style="color:#036;font-weight:bold">Migration</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">change</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>    create_table <span style="color:#A60">:customers</span> <span style="color:#080;font-weight:bold">do</span> |t|
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>      t.string <span style="color:#A60">:name</span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>      t.string <span style="color:#A60">:tel</span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>      t.integer <span style="color:#A60">:gender</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>      t.date <span style="color:#A60">:birthday</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>      t.timestamps
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>    <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p><h2 id='section-10' class='separator'><span><a href='#section-10'>Convention over Configuration</a></span></h2></p>
+
+<p>Rails uses convention over configuration. It means that when we follow the naming convention, rails can know what we want to do. For example, a model class <code>Customer</code> assumes the table name in database is <code>customers</code>.</p>
+
+<p><h2 id='section-11' class='separator'><span><a href='#section-11'>The concept of CRUD</a></span></h2></p>
+
+<p><em>CRUD</em> stands for</p>
+
+<ul>
+  <li>Create</li>
+  <li>Read</li>
+  <li>Update</li>
+  <li>Destroy</li>
+</ul>
+
+<p>For any resource, these 4 operations ane the essential ones.</p>
+
+<p><h2 id='section-12' class='separator'><span><a href='#section-12'>Routing</a></span></h2></p>
+
+<p>The CRUD can be reflected in the routing table.</p>
+
+<p>Here is the routing table for our rails app. We can get the following information by running <code>rake routes</code> in console within our app folder.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Verb</strong></td>
+      <td><strong>URI Pattern</strong></td>
+      <td><strong>Controller#Action</strong></td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/customers(.:format)</td>
+      <td>customers#index</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td>/customers(.:format)</td>
+      <td>customers#create</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/customers/new(.:format)</td>
+      <td>customers#new</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/customers/:id/edit(.:format)</td>
+      <td>customers#edit</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/customers/:id(.:format)</td>
+      <td>customers#show</td>
+    </tr>
+    <tr>
+      <td>PATCH</td>
+      <td>/customers/:id(.:format)</td>
+      <td>customers#update</td>
+    </tr>
+    <tr>
+      <td>PUT</td>
+      <td>/customers/:id(.:format)</td>
+      <td>customers#update</td>
+    </tr>
+    <tr>
+      <td>DELETE</td>
+      <td>/customers/:id(.:format)</td>
+      <td>customers#destroy</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Usually, the <code>/&lt;resource_name&gt;/</code> is for listing a collection of resource records.</p>
+
+<p>The <code>/&lt;resource_name&gt;/new</code> is for creating new record.</p>
+
+<p>The <code>/&lt;resource_name&gt;/&lt;id&gt;</code> is for viewing one record with given ID.</p>
+
+<p>The <code>/&lt;resource_name&gt;/&lt;id&gt;/edit</code> is for editing record with given ID.</p>
+
+<p>Note that the <code>&lt;resource_name&gt;</code> above is in plural form.</p>
+
+<p><h2 id='section-13' class='separator'><span><a href='#section-13'>Managing assets</a></span></h2></p>
+
+<p>Remember the <a href="/introducing-web-design/chapter-3/#section-16">CSS preprocessor</a> we introduced in <a href="/introducing-web-design/chapter-3/">chapter 3 – CSS and new features</a>? Rails uses a concept called assets pipeline, which processes all the assets and serves to client.</p>
+
+<p>Read the <a href="http://guides.rubyonrails.org/asset_pipeline.html">assets pipeline</a> for detail assets management.</p>
+
+<p><h2 id='section-14' class='separator'><span><a href='#section-14'>Where to learn more?</a></span></h2></p>
+
+<p>The following lists some resources that you can learn more on Ruby on Rails.</p>
+
+<ul>
+  <li><a href="http://tryruby.org/">Try Ruby</a></li>
+  <li><a href="http://guides.rubyonrails.org/">The Ruby on Rails guide</a>.</li>
+  <li><a href="https://learn.thoughtbot.com/ruby">Thoughtbot</a></li>
+  <li><a href="http://railscasts.com">RailsCast</a></li>
+  <li><a href="https://onemonth.com/courses/one-month-rails">One Month</a></li>
+  <li><a href="/ruby-on-rails-101/">My Ruby on Rails 101 course</a>.</li>
+</ul>
+
+<p><h2 id='section-15' class='separator'><span><a href='#section-15'>What’s next?</a></span></h2></p>
+
+<p>Next, if we are really want to use this app, we need an authentication system to protect our customer data and privacy.</p>
+
+<p>In rails, there are different plugins. They are called gem. There are authentication gem out there. <a href="https://github.com/plataformatec/devise">Devise</a> is a popular one.</p>
+
+<p>Note, we are actually 50% completed my planning. We made the <code>Customer</code> resources. We still need the <code>Note</code> resource. <a href="../chapter-6b/">Part B</a> of the chapter works on the Note resource.</p>
+
+
+        <!-- What’s next? -->
+
+        <div class="page-nav">
+    <a class='left pjaxer' href='../chapter-5/' title='Chapter 5 – Media queries and responsive web designing'>◀ Chapter 5 – Media queries and responsive web designing</a>
+
+    <a class='right pjaxer' href='../chapter-6b/' title='Chapter 6 – Introducing Ruby on Rails (Part B)'>Chapter 6 – Introducing Ruby on Rails (Part B) ▶</a>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+</article>
+
+<div id='overlay' class='out'>
+  <img id='overlay-img' src='' alt='overlaied image when clicked on thumbnail'>
+  <div id='overlay-caption'></div>
+</div>
+  
+<div id='toc-overlay' class='out'>
+  <h4><a href='/'>Makzan</a> | Introducing web design | Table of Content</h4>
+  <ul>
+      <li><b><em><a href="../chapter-1/">Chapter 1 – Tools web designers use</a></em></b></li>          
+
+      <li><b><em><a href="../chapter-2/">Chapter 2 – Introducing HTML5</a></em></b></li>          
+
+      <li><b><em><a href="../chapter-3/">Chapter 3 – CSS and new features</a></em></b></li>          
+
+      <li><b><em><a href="../chapter-4/">Chapter 4 – PSD to HTML/CSS layout with Zurb Foundation</a></em></b></li>          
+
+      <li><b><em><a href="../chapter-5/">Chapter 5 – Media queries and responsive web designing</a></em></b></li>          
+
+      <li><strong>→<a href="../chapter-6/">Chapter 6 – Introducing Ruby on Rails</a></strong></li>            
+
+      <li><a href="../chapter-6b/">Chapter 6 – Introducing Ruby on Rails (Part B)</a></li>            
+
+      <li><b><em><a href="../chapter-7/">Chapter 7 – Introducing jQuery</a></em></b></li>          
+
+      <li><b><em><a href="../chapter-8/">Chapter 8 – Dedicated mobile site with jQuery mobile</a></em></b></li>          
+
+  </ul>
+</div>
+
+
+<div class="book-page-footer-nav"><ul><li>You’re reading <a href="/introducing-web-design/">introducing-web-design</a>.</li><li><a id='twitter-intent-link' href='https://twitter.com/intent/tweet?text=@makzan '>Discuss this post on Twitter.</a></li>         <li><a href='/'>Go back to home.</a></li><li>Go to <a href='#top'>top?</a></li> </ul><div class="mz-square"><img width="80" src="/images/mz-square.png" alt="Mz square" /></div></div><footer><div class="content"><p><small class="footer"><strong>Thanks for reading.</strong> All content is written by <a href='/about/'>Makzan</a>, from <a href='https://www.google.com/search?q=macau+china&safe=active&tbm=isch'>Macao</a>. Text are in <a href='http://creativecommons.org/licenses/by-nc/4.0/'>CC BY-NC 4.0</a> lincense. Code snippets in this site are in <a href='http://opensource.org/licenses/MIT'>MIT</a> license unless specified. Enjoy the rest of <span id='weekday'>day</span>!</small></p></div></footer>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-975238-12']);
+  _gaq.push(['_setDomainName', 'makzan.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<script src="/assets/application.js" data-turbolinks-track="true"></script>
+
+
+<script>
+mixpanel.track("Page Show", {"Parent": "introducing-web-design", "Title": "Chapter 6 – Introducing Ruby on Rails"});
+mixpanel.track_links(".page-nav a", "Click page nav link");
+</script>
+<script data-no-instant>InstantClick.init();</script>
+<script type="text/javascript">
+  var FHChat = {product_id: "ae42b12bfcb3"};
+  FHChat.properties={};FHChat.set=function(key,data){this.properties[key]=data};FHChat.customAttributes=[];FHChat.sendCustomAttributes=function(data){this.customAttributes.push(data)};!function(){var a,b;return b=document.createElement("script"),a=document.getElementsByTagName("script")[0],b.src="https://chat-client-js.firehoseapp.com/chat-min.js",b.async=!0,a.parentNode.insertBefore(b,a)}();
+</script>
+  
+
+<script type="text/javascript">
+  var _sf_async_config = { uid: 59469, domain: 'makzan.net', useCanonical: true };
+  (function() {
+    function loadChartbeat() {
+      window._sf_endpt = (new Date()).getTime();
+      var e = document.createElement('script');
+      e.setAttribute('language', 'javascript');
+      e.setAttribute('type', 'text/javascript');
+      e.setAttribute('src','//static.chartbeat.com/js/chartbeat.js');
+      document.body.appendChild(e);
+    };
+    var oldonload = window.onload;
+    window.onload = (typeof window.onload != 'function') ?
+      loadChartbeat : function() { oldonload(); loadChartbeat(); };
+  })();
+</script>
+</body>
+</html>

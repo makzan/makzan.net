@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+  <title>
+      Mobile Web Design – makzan’s sharings
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" media="all" href="/assets/application.css" data-turbolinks-track="true" />
+  <link href="https://makzan.net/mobile-web-design" rel="canonical" />  <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+mixpanel.init("26e7a62bc13d535df35f3aca1c4a009f");</script><!-- end Mixpanel -->
+
+
+  <script type="text/javascript" src="//use.typekit.net/gku5yms.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body id='top' class='normal-page'>
+
+<header class="nav-bar centered"><a href="/" title="Back to makzan homepage"><canvas id="heading-canvas" width="572" height="200" style="background-color:#fffffa;width:143px;"><h1>makzan.</h1></canvas></a><div class="nav-text"><p>I build <a href="/works/#apps">utilities</a> and <a href="/works/#games">games</a>. <br />
+I share know-how via <a href="/works/#books">books</a>, <a href="/#courses">classes</a> and <a href="/essays/">essays</a>.</p>
+
+</div></header>
+
+
+<article class="content"><div class="sheet"><div class="full-width cover-image"><img src="/images/mobile-web-design/mobile-web-design-cover.png" alt="Mobile web design cover" /></div><h1 id="mobile-web-design">Mobile Web Design</h1>
+
+<p>Hi there, this is <a href="/a-brief-history-on-makzan/">Thomas</a> (aka. Makzan on the web). I am an <a href="/works/#books">author</a> on web technology and game design. This is a course about making website that works in mobile devices.</p>
+
+<div class="flip3d-container"><a href="./chapter-1-getting-started/" class="button flip3d-content">Start Reading →</a></div>
+</div><h2 class="separator"><span>Table of Content</span></h2><ul>
+  <li><a href="#prefix">Prefix</a></li>
+  <li><a href="#chapter1">Chapter 1 – Getting Started</a></li>
+  <li><a href="#chapter2">Chapter 2 – Content Strategy</a></li>
+  <li><a href="#chapter3">Chapter 3 – Using Zurb Foundation</a></li>
+  <li><a href="#chapter4">Chapter 4 – Responsive with Media Query</a></li>
+  <li><a href="#chapter5">Chapter 5 – CSS Preprocessing</a></li>
+  <li><a href="#chapter6">Chapter 6 – Typography</a></li>
+  <li><a href="#chapter7">Chapter 7 – Handling Touches</a></li>
+  <li><a href="#chapter8">Chapter 8 – Form Inputs</a></li>
+  <li><a href="#chapter9">Chapter 9 – Taking the Web Offline</a></li>
+  <li><a href="#chapter10">Chapter 10 – Create Dedicated Mobile Website</a></li>
+  <li><a href="#chapter11">Chapter 11 – Packing the Web as App</a></li>
+  <li><a href="#chapter12">Chapter 12 – Summary</a></li>
+</ul>
+<h2 class="separator" id="prefix"><span>Overview</span></h2><p><figure style='width:33.3%; float:right'><img title="" alt="" src="/images/mobile-web-design/mobile-web-design.png" /><figcaption></figcaption></figure></p>
+
+<p>In this course, we will explore different techniques to create our content in mobile web. We will focus on <strong>content strategy</strong> for mobile devices. We will try to fit our <strong>layout</strong> into small screen. We will make the <strong>form inputs</strong> fit the virtual keyboards in touch devices. We will fetch device data such as raw <strong>touches events</strong> and <strong>device orientation</strong>. Finally, we will <strong>pack and deploy</strong> our web.</p>
+<h3 class="separator"><span>Course Style</span></h3><p>In my course, I focus on the concept rather that listing all the specs here. It's because you can find the official spec from <a href="https://developer.mozilla.org/">Mozilla</a> or <a href="http://www.w3.org/standards/webdesign/">W3C</a>. My value here is to show how things are designed and why it is designed like that. It's about the concept that you apply in your practical work.</p>
+
+<p>I used to use examples to during the learning journey. You may find the code example repository on <a href="https://github.com/makzan/Course-Mobile-Web-Design">this Github repo</a>.</p>
+
+<p>In case you have any questions, you may reach me via the chat box below the web page. If I’m away from keyboard, you may leave a comment or send me emails.</p>
+<h2 class="small separator" id="chapter1"><span><a href="chapter-1-getting-started/">Chapter 1</a></span></h2><p>Getting started.</p>
+
+<ol>
+  <li><a href="./setting-up-the-development-environment/">Setting up the development environment</a></li>
+  <li><a href="./testing-environment/">Testing environment</a></li>
+  <li><a href="./where-to-reference-documentation/">Where to reference documentation?</a></li>
+</ol>
+<h2 class="small separator" id="chapter2"><span><a href="chapter-2-content-strategy/">Chapter 2</a></span></h2><p>Content is king.</p>
+
+<ol>
+  <li><a href="./document-title/">Document title</a></li>
+  <li><a href="./content-strategy/">Content strategy</a></li>
+  <li><a href="./content-structure/">Content structure</a></li>
+  <li><a href="./mobile-first-approach/">Mobile first approach</a></li>
+  <li><a href="./sketching-for-mobile-web/">Sketching for mobile web</a></li>
+  <li><a href="./minimal-mobile-friendly-website/">Minimal mobile friendly website</a></li>
+  <li><a href="./listview/">List view</a></li>
+  <li><a href="./do-mobile-web-has-to-be-a-webpage/">Do mobile web has to be a webpage?</a></li>
+</ol>
+<h2 class="small separator" id="chapter3"><span><a href="chapter-3-using-zurb-foundation/">Chapter 3</a></span></h2><p>The modern CSS framework.</p>
+
+<ol>
+  <li><a href="./trying-zurb-foundation-on-jsfiddle/">Trying Zurb Foundation on jsFiddle</a></li>
+  <li><a href="./setting-up-foundation/">Setting up Foundation</a></li>
+  <li><a href="./foundation-grid/">Foundation grid</a></li>
+  <li><a href="./centered-column/">Centered column</a></li>
+  <li><a href="./push-and-pull-column/">Push and pull column</a></li>
+  <li><a href="./block-grid/">Block grid</a></li>
+  <li><a href="./flex-video/">Flex video</a></li>
+  <li><a href="./foundation-topbar/">Foundation topbar</a></li>
+  <li><a href="./off-canvas/">Off canvas</a></li>
+  <li><a href="./interchangable-content/">Interchangable content</a></li>
+  <li><a href="./chapter-3-assginment/">Assignment</a></li>
+</ol>
+<h2 class="small separator" id="chapter4"><span><a href="chapter-4-response-with-media-query/">Chapter 4</a></span></h2><p>The core of mobile web design.</p>
+
+<ol>
+  <li><a href="./recap-minimal-mobile-friendly-website/">Recap – Minimal mobile friendly website</a></li>
+  <li><a href="./using-viewport-to-define-initial-browser-rendering/">Using viewport to define initial browser rendering</a></li>
+  <li><a href="./using-media-query-to-define-styles-with-condition/">Using media query to define styles with condition</a></li>
+  <li><a href="./navigation-strategy-for-small-screen/">Navigation strategy for small screen</a></li>
+  <li><a href="./putting-navigation-at-bottom/">Putting navigation at bottom</a></li>
+  <li><a href="./building-our-own-grid-system/">Building our own grid system</a></li>
+  <li><a href="./introducing-ungrid-another-minimal-grid-approach/">Introducing Ungrid – Another minimal grid approach</a></li>
+  <li><a href="./media-queries-in-zurb-foundation/">Media queries in Zurb Foundation</a></li>
+</ol>
+<h2 class="small separator" id="chapter5"><span><a href="chapter-5-css-preprocessing/">Chapter 5</a></span></h2><p>Adding logics to CSS.</p>
+
+<ol>
+  <li><a href="./what-is-css-preprocessor/">What is Proprocessor?</a></li>
+  <li><a href="./preprocessor-options/">Preprocessor options</a></li>
+  <li><a href="./nested-styles/">Nested styles</a></li>
+  <li><a href="./scss-variable/">SCSS variable</a></li>
+  <li><a href="./scss-mixin/">SCSS mixin</a></li>
+  <li><a href="./using-loop-to-define-grid/">Using loop to define grid</a></li>
+</ol>
+<h2 class="small separator" id="chapter6"><span><a href="chapter-6-typography/">Chapter 6</a></span></h2><p>Providing a good reading experience.</p>
+
+<ol>
+  <li><a href="./different-font-sizes/">Different font sizes</a></li>
+  <li><a href="./font-size-and-distance/">Reading distance and font size</a></li>
+  <li><a href="./adaptive-copywriting-basecamp/">Adaptive copywriting from Basecamp</a></li>
+  <li><a href="./apadative-copywriting-for-different-screens/">Our own adaptive copywriting</a></li>
+</ol>
+<h2 class="small separator" id="chapter7"><span><a href="chapter-7-handling-touches/">Chapter 7</a></span></h2><ol>
+  <li><a href="./click-delay/">Handling 300ms click delay</a></li>
+  <li><a href="./using-slick/">Using Slick for mobile carousel</a></li>
+  <li><a href="./hammerjs/">Recognizing gesture with HammerJS</a></li>
+</ol>
+<h2 class="small separator" id="chapter8"><span><a href="chapter-8-form-inputs/">Chapter 8</a></span></h2><p>Styling form inputs for mobile.</p>
+
+<ol>
+  <li><a href="./specify-input-types/">Specify input types</a></li>
+  <li><a href="./styling-inputs-for-mobile/">Styling inputs for mobile</a></li>
+  <li><a href="./styling-radio-button/">Styling radio button</a></li>
+  <li><a href="./styling-input-range/">Styling input range</a></li>
+  <li><a href="./using-file-button/">Using file button</a></li>
+</ol>
+<h2 class="small separator" id="chapter9"><span><a href="chapter-9-taking-the-web-offline/">Chapter 9</a></span></h2><p>Taking the web offline.</p>
+
+<ol>
+  <li><a href="./storing-data-with-localstorage/">LocalStorage</a></li>
+  <li><a href="./offline-access-with-app-cache/">Application Cache</a></li>
+</ol>
+<h2 class="small separator" id="chapter10"><span><a href="chapter-10-create-dedicated-mobile-website/">Chapter 10</a></span></h2><p>Create dedicated mobile website.</p>
+
+<ol>
+  <li><a href="./quick-prototyping-jquery-mobile-with-online-code-editors/">Quick prototyping with online code editors</a></li>
+  <li><a href="./jquery-mobile-one-page-application/">One page application</a></li>
+  <li><a href="./jquery-mobile-link-between-pages/">Link between pages</a></li>
+  <li><a href="./jquery-mobile-page-transition/">Page transition</a></li>
+  <li><a href="./jquery-mobile-button/">jQuery mobile button</a></li>
+  <li><a href="./ui-action-flow/">UI Action Flow</a></li>
+  <li><a href="./ui-flow-exercise/">UI flow exercise</a></li>
+  <li><a href="./jquery-mobile-list-view/">List view</a></li>
+  <li><a href="./customizing-jquery-mobile/">Customizing jQuery Mobile</a></li>
+</ol>
+<h2 class="small separator" id="chapter11"><span><a href="chapter-11-packing-the-web-as-app/">Chapter 11</a></span></h2><p>Packing the web as application.</p>
+
+<ol>
+  <li><a href="./add-web-page-to-homescreen/">Adding web page to home screen</a></li>
+  <li><a href="./phonegap-build/">PhoneGap Build</a></li>
+  <li><a href="./native-app-or-web-app/">Native app or web app?</a></li>
+</ol>
+<h2 class="small separator" id="chapter12"><span><a href="chapter-12-summary/">Chapter 12</a></span></h2><p>Summary.</p>
+
+<ul>
+  <li><a href="./performance-tips/">Performance tips</a></li>
+</ul>
+</article>
+
+<div id='overlay' class='out'>
+  <img id='overlay-img' src='' alt='overlaied image when clicked on thumbnail'>
+  <div id='overlay-caption'></div>
+</div>
+
+  
+<div class="book-page-footer-nav"><ul><li>You’re reading <a href="/mobile-web-design/">mobile-web-design</a>.</li><li><a id='twitter-intent-link' href='https://twitter.com/intent/tweet?text=@makzan '>Discuss this post on Twitter.</a></li>         <li><a href='/'>Go back to home.</a></li><li>Go to <a href='#top'>top?</a></li> </ul><div class="mz-square"><img width="80" src="/images/mz-square.png" alt="Mz square" /></div></div><footer><div class="content"><p><small class="footer"><strong>Thanks for reading.</strong> All content is written by <a href='/about/'>Makzan</a>, from <a href='https://www.google.com/search?q=macau+china&safe=active&tbm=isch'>Macao</a>. Text are in <a href='http://creativecommons.org/licenses/by-nc/4.0/'>CC BY-NC 4.0</a> lincense. Code snippets in this site are in <a href='http://opensource.org/licenses/MIT'>MIT</a> license unless specified. Enjoy the rest of <span id='weekday'>day</span>!</small></p></div></footer>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-975238-12']);
+  _gaq.push(['_setDomainName', 'makzan.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script src="/assets/application.js" data-turbolinks-track="true"></script>
+
+  <script>
+    mixpanel.track("Page Show", {"Parent": "Root", "Title": "Mobile Web Design"});
+    mixpanel.track_links(".page-nav a", "Click page nav link");
+    mixpanel.track_links(".top-bar a", "Click top bar link");
+  </script>
+<script data-no-instant>InstantClick.init();</script>
+<script type="text/javascript">
+  var FHChat = {product_id: "ae42b12bfcb3"};
+  FHChat.properties={};FHChat.set=function(key,data){this.properties[key]=data};FHChat.customAttributes=[];FHChat.sendCustomAttributes=function(data){this.customAttributes.push(data)};!function(){var a,b;return b=document.createElement("script"),a=document.getElementsByTagName("script")[0],b.src="https://chat-client-js.firehoseapp.com/chat-min.js",b.async=!0,a.parentNode.insertBefore(b,a)}();
+</script>
+  
+
+  <script type="text/javascript">
+  var _sf_async_config = { uid: 59469, domain: 'makzan.net', useCanonical: true };
+  (function() {
+    function loadChartbeat() {
+      window._sf_endpt = (new Date()).getTime();
+      var e = document.createElement('script');
+      e.setAttribute('language', 'javascript');
+      e.setAttribute('type', 'text/javascript');
+      e.setAttribute('src','//static.chartbeat.com/js/chartbeat.js');
+      document.body.appendChild(e);
+    };
+    var oldonload = window.onload;
+    window.onload = (typeof window.onload != 'function') ?
+      loadChartbeat : function() { oldonload(); loadChartbeat(); };
+  })();
+</script>
+</body>
+</html>

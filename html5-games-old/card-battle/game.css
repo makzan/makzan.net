@@ -1,0 +1,235 @@
+/* normalize */
+body {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  background: #26292c;
+}
+p {
+  margin: 0;
+  padding: 1em 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* page layout */
+.row {
+  width: 480px;
+  margin: 0 auto;
+}
+
+/* Scenes */
+#game {
+  width: 480px;
+  height: 600px;
+  margin: 0 auto;
+  border-radius: 8px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.scene {
+  background: #f9f9f9;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  border-radius: 8px;
+  -webkit-transition: all .3s ease-out;
+}
+
+  .scene.out {
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+  .scene.in {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+.hidden {
+  display: none;
+}
+
+.button {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+#start-scene {
+  background: url(images/start-scene-bg.png);
+}
+#game-scene {
+  background: url(images/battle-bg.png);
+}
+#gameover-scene.won {
+  background: url(images/you-won.png);
+}
+#gameover-scene.loss {
+  background: url(images/you-lose.png);
+}
+
+
+/* Animation definition */
+@-webkit-keyframes shake {
+  0%   { -webkit-transform: translate3d(0, 0, 0); }
+  20%  { -webkit-transform: translate3d(-5%, 0, 0);}
+  40% { -webkit-transform: translate3d(5%, 0, 0); }
+  60% { -webkit-transform: translate3d(-5%, 0, 0); }
+  80% { -webkit-transform: translate3d(5%, 0, 0); }
+  100% { -webkit-transform: translate3d(0, 0, 0); }
+}
+
+/* Card */
+.card {
+  width: 140px;
+  height: 180px;
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  -webkit-perspective: 700;
+  -webkit-transition: all .3s ease-out;
+}
+  .card.a { left: 15px; }
+  .card.b { left: 170px; }
+  .card.c { left: 325px; }
+
+  .card.opponent {
+    bottom: 250px;
+  }
+    .card.opponent.out {
+      left: -200px;
+    }
+    .card.opponent.in {
+      -webkit-transition-delay:.8s;
+      left: 40px;
+    }
+
+  .card.player.out {
+    -webkit-transform: translate3d(0, 150%, 0);
+  }
+  .card.player.in {
+    -webkit-transform: translate3d(0, 0, 0);
+  }
+
+  .card.player.flipped {
+    cursor: pointer;
+  }
+  .card.player.in.flipped:hover {  /* ensure only plafer, flipped and the just in card get this hover event */
+    -webkit-transform: translate3d(0, -10px, 0);
+  }
+
+  .card.selected {
+    bottom: 250px;
+    left: 300px;
+  }
+
+  .card.shake {
+    -webkit-animation: shake 300ms ease-out;
+  }
+
+  /* card flipping related */
+  .card > .face {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    -webkit-backface-visibility: hidden;
+    -webkit-transition: all 0.3s ease-out;
+  }
+  .card > .face.front {
+    background: #81d1e9 url(images/front-face.png);
+    -webkit-transform: rotate3d(0, 1, 0, 0deg);
+  }
+  .card > .face.back {
+    background: #4474b5 url(images/back-face-pattern.png);
+    -webkit-transform: rotate3d(0, 1, 0, 180deg);
+    border: 3px solid white;
+  }
+  .card.flipped > .face.front {
+    -webkit-transform: rotate3d(0, 1, 0, -180deg);
+  }
+  .card.flipped > .face.back {
+    -webkit-transform: rotate3d(0, 1, 0, 0deg);
+  }
+  /* end flipping related */
+
+  .card .power{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 30px;
+    font-size: 2em;
+  }
+
+
+/* Blaze */
+.blaze {
+  position: absolute;
+  bottom: 300px;
+  width: 50px;
+  height: 50px;
+  opacity: 0;
+  -webkit-animation-timing-function: ease-out;
+  -webkit-animation-duration: 1000ms;
+}
+  .blaze.toward-left {
+    background-image: url(images/blaze-left.png);
+  }
+  .blaze.toward-right {
+    background-image: url(images/blaze-right.png);
+  }
+@-webkit-keyframes blaze-toward-left {
+  0%,20%{ opacity: 1; -webkit-transform: translate3d(300px, 0, 0); }
+  80%  { -webkit-transform: translate3d(100px, 0, 0); }
+  100% { opacity: 0; -webkit-transform: translate3d(100px, 0, 0); }
+}
+@-webkit-keyframes blaze-toward-right {
+  0%,20%{ opacity: 1; -webkit-transform: translate3d(130px, 0, 0); }
+  80%  { -webkit-transform: translate3d(330px, 0, 0); }
+  100% { opacity: 0; -webkit-transform: translate3d(330px, 0, 0); }
+}
+  .blaze.toward-left.attack {
+    -webkit-animation-name: blaze-toward-left;
+  }
+  .blaze.toward-right.attack {
+    -webkit-animation-name: blaze-toward-right;
+  }
+
+/* Battle HUD */
+.battle-indicator {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top: 0;
+  left: 200px;
+  background: url(images/battle.png)
+}
+
+/* HP */
+.hp-background {
+  border-bottom: 1px solid #333;
+  background: #ababab;
+  height: 30px;
+}
+.hp {
+  position: absolute;
+  width: 210px;
+  height: 30px;
+  transition: all .3s ease-out;
+}
+  .hp.opponent {
+    background: url(images/blue-hp.png) repeat;
+    left: 0;
+  }
+  .hp.player {
+    background: url(images/red-hp.png) repeat;
+    right: 0;
+  }

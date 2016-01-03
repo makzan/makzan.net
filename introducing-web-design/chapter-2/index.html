@@ -1,0 +1,404 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+  <title>
+      Chapter 2 – Introducing HTML5 – makzan’s sharings
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='http://fonts.googleapis.com/css?family=Bevan' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" media="all" href="/assets/application.css" data-turbolinks-track="true" />
+  <link href="https://makzan.net/introducing-web-design/chapter-2" rel="canonical" />  <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+mixpanel.init("26e7a62bc13d535df35f3aca1c4a009f");</script><!-- end Mixpanel -->
+
+  
+    <link rel="next" href="../chapter-3/">
+    
+  <script type="text/javascript" src="//use.typekit.net/gku5yms.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body id='top' class='book-page'>
+
+<header class="nav-bar centered"><a href="/" title="Back to makzan homepage"><canvas id="heading-canvas" width="572" height="200" style="background-color:#fffffa;width:143px;"><h1>makzan.</h1></canvas></a><div class="nav-text"><p>I build <a href="/works/#apps">utilities</a> and <a href="/works/#games">games</a>. <br />
+I share know-how via <a href="/works/#books">books</a>, <a href="/#courses">classes</a> and <a href="/essays/">essays</a>.</p>
+
+</div></header>
+
+<article class='book-page-content content'>
+  <div id='pjax-area' class="row">
+    <div id='side-bar-col' class="hidden col">
+
+    </div>
+    <div id='sheet-col' class="full col">
+<!--               <p><small class='aside'>You’re reading <a href="../">introducing-web-design</a>. This article is part of the <a href="../">introducing-web-design</a>, written by <a href="/">makzan</a>.</small></p>
+       -->
+            
+        <div class="page-nav header">
+ 
+  <p id='toggle-toc'>Table of Content</p>
+
+</div>
+
+  
+      <div class='sheet'>            
+
+          <h1>
+              Chapter 2 – Introducing HTML5
+          </h1>
+
+
+        <p>HTML is the content organizer of the web page. It is the core part and we need very special care to make our content works in various environments.</p>
+
+<p>Note: in case you need a quick getting started guide. The following handout of my dreamweaver course may help. <a href="http://cm266.herokuapp.com/?content=lesson1">http://cm266.herokuapp.com/?content=lesson1</a></p>
+<h2 id="strong-versus-bold">Strong versus bold</h2>
+<div class="row"><div class="one wide-only col"><p>Can you point out the difference between the following tags?</p>
+
+<p><code>&lt;strong&gt;</code> and <code>&lt;b&gt;</code></p>
+
+<p><code>&lt;em&gt;</code> and <code>&lt;i&gt;</code></p>
+</div><div class="two wide-only col"><p><img src="/images/introducing-web-design/strong-vs-b.png" alt="Strong vs b" /></p>
+</div></div><div class="row"><div class="one wide-only col"><p></p></div><div class="two wide-only col"><p>Exception: Facebook photo uses <code>&lt;i&gt;</code> for its photo. The reason may be to save a few bytes on the pages. The <code>&lt;i&gt;</code> tag is quite useless among all tags. It can be a huge saving of bandwidth for this kind of popular website.</p>
+</div></div><h2 id="new-tags-for-content-structure">New tags for content structure</h2>
+
+<ul>
+  <li>&lt;header&gt; <a href="http://html5doctor.com/the-header-element/">http://html5doctor.com/the-header-element/</a></li>
+  <li>&lt;footer&gt; <a href="http://html5doctor.com/the-footer-element/">http://html5doctor.com/the-footer-element/</a></li>
+  <li>&lt;section&gt; <a href="http://html5doctor.com/the-section-element/">http://html5doctor.com/the-section-element/</a></li>
+  <li>&lt;article&gt; <a href="http://html5doctor.com/the-article-element/">http://html5doctor.com/the-article-element/</a></li>
+  <li>&lt;aside&gt; <a href="http://html5doctor.com/aside-revisited/">http://html5doctor.com/aside-revisited/</a></li>
+  <li>&lt;figure&gt; <a href="http://html5doctor.com/the-figure-figcaption-elements/">http://html5doctor.com/the-figure-figcaption-elements/</a></li>
+</ul>
+<div class="row"><div class="one wide-only col"><p>Also remember to take a look at how we should <a href="http://html5doctor.com/avoiding-common-html5-mistakes/">avoid common HTML5 mistakes</a> from HTML5Doctor.</p>
+</div><div class="two wide-only col"><h4 id="live-standard">Live Standard</h4>
+
+<p>Note that HTML is proposed as a live standard now. That means we try to define the spec with the current best practices. The spec and definition is always under discussions and it will keep changing. For example, aside tag was not original designed as sidebar content. It was content that's related to the main content but doesn't fit into the content itself. Now the spec suggests that aside may also be used for secondary content, such as sidebar in website.</p>
+</div></div><h2 id="structure-example">Structure example</h2>
+
+<p>Sample HTML5 structure from <a href="http://css-tricks.com/">CSS-tricks</a>.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#34b">&lt;!DOCTYPE HTML&gt;</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span><span style="color:#070;font-weight:bold">&lt;html&gt;</span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span><span style="color:#070;font-weight:bold">&lt;head&gt;</span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>  <span style="color:#070;font-weight:bold">&lt;meta</span> <span style="color:#b48">http-equiv</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Content-Type</span><span style="color:#710">&quot;</span></span> <span style="color:#b48">content</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">text/html; charset=UTF-8</span><span style="color:#710">&quot;</span></span> <span style="color:#070;font-weight:bold">/&gt;</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>  <span style="color:#070;font-weight:bold">&lt;title&gt;</span>Your Website<span style="color:#070;font-weight:bold">&lt;/title&gt;</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span><span style="color:#070;font-weight:bold">&lt;/head&gt;</span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span><span style="color:#070;font-weight:bold">&lt;body&gt;</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>  <span style="color:#070;font-weight:bold">&lt;header&gt;</span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>    <span style="color:#070;font-weight:bold">&lt;h1&gt;</span>Main Heading<span style="color:#070;font-weight:bold">&lt;/h1&gt;</span>
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>    <span style="color:#070;font-weight:bold">&lt;nav&gt;</span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>      <span style="color:#070;font-weight:bold">&lt;ul&gt;</span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>        <span style="color:#070;font-weight:bold">&lt;li&gt;</span>Your menu<span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>      <span style="color:#070;font-weight:bold">&lt;/ul&gt;</span>
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>    <span style="color:#070;font-weight:bold">&lt;/nav&gt;</span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>  <span style="color:#070;font-weight:bold">&lt;/header&gt;</span>
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>  <span style="color:#070;font-weight:bold">&lt;section&gt;</span>
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>    <span style="color:#070;font-weight:bold">&lt;article&gt;</span>
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>      <span style="color:#070;font-weight:bold">&lt;header&gt;</span>
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>        <span style="color:#070;font-weight:bold">&lt;h2&gt;</span>Article title<span style="color:#070;font-weight:bold">&lt;/h2&gt;</span>
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>        <span style="color:#070;font-weight:bold">&lt;p&gt;</span>Posted on <span style="color:#070;font-weight:bold">&lt;time</span> <span style="color:#b48">datetime</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">2009-09-04T16:31:24+02:00</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>September 4th 2009<span style="color:#070;font-weight:bold">&lt;/time&gt;</span> by <span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">#</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>Writer<span style="color:#070;font-weight:bold">&lt;/a&gt;</span> - <span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">#comments</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>6 comments<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/p&gt;</span>
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>      <span style="color:#070;font-weight:bold">&lt;/header&gt;</span>
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>      <span style="color:#070;font-weight:bold">&lt;p&gt;</span>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.<span style="color:#070;font-weight:bold">&lt;/p&gt;</span>
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>    <span style="color:#070;font-weight:bold">&lt;/article&gt;</span>
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span>    <span style="color:#070;font-weight:bold">&lt;article&gt;</span>
+<span class="line-numbers"><a href="#n32" name="n32">32</a></span>      <span style="color:#070;font-weight:bold">&lt;header&gt;</span>
+<span class="line-numbers"><a href="#n33" name="n33">33</a></span>        <span style="color:#070;font-weight:bold">&lt;h2&gt;</span>Article title<span style="color:#070;font-weight:bold">&lt;/h2&gt;</span>
+<span class="line-numbers"><a href="#n34" name="n34">34</a></span>        <span style="color:#070;font-weight:bold">&lt;p&gt;</span>Posted on <span style="color:#070;font-weight:bold">&lt;time</span> <span style="color:#b48">datetime</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">2009-09-04T16:31:24+02:00</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>September 4th 2009<span style="color:#070;font-weight:bold">&lt;/time&gt;</span> by <span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">#</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>Writer<span style="color:#070;font-weight:bold">&lt;/a&gt;</span> - <span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">#comments</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>6 comments<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/p&gt;</span>
+<span class="line-numbers"><a href="#n35" name="n35">35</a></span>      <span style="color:#070;font-weight:bold">&lt;/header&gt;</span>
+<span class="line-numbers"><a href="#n36" name="n36">36</a></span>      <span style="color:#070;font-weight:bold">&lt;p&gt;</span>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.<span style="color:#070;font-weight:bold">&lt;/p&gt;</span>
+<span class="line-numbers"><a href="#n37" name="n37">37</a></span>    <span style="color:#070;font-weight:bold">&lt;/article&gt;</span>
+<span class="line-numbers"><a href="#n38" name="n38">38</a></span>
+<span class="line-numbers"><a href="#n39" name="n39">39</a></span>  <span style="color:#070;font-weight:bold">&lt;/section&gt;</span>
+<span class="line-numbers"><strong><a href="#n40" name="n40">40</a></strong></span>
+<span class="line-numbers"><a href="#n41" name="n41">41</a></span>  <span style="color:#070;font-weight:bold">&lt;aside&gt;</span>
+<span class="line-numbers"><a href="#n42" name="n42">42</a></span>    <span style="color:#070;font-weight:bold">&lt;h2&gt;</span>About section<span style="color:#070;font-weight:bold">&lt;/h2&gt;</span>
+<span class="line-numbers"><a href="#n43" name="n43">43</a></span>    <span style="color:#070;font-weight:bold">&lt;p&gt;</span>content here<span style="color:#070;font-weight:bold">&lt;/p&gt;</span>
+<span class="line-numbers"><a href="#n44" name="n44">44</a></span>  <span style="color:#070;font-weight:bold">&lt;/aside&gt;</span>
+<span class="line-numbers"><a href="#n45" name="n45">45</a></span>
+<span class="line-numbers"><a href="#n46" name="n46">46</a></span>  <span style="color:#070;font-weight:bold">&lt;footer&gt;</span>
+<span class="line-numbers"><a href="#n47" name="n47">47</a></span>    <span style="color:#070;font-weight:bold">&lt;p&gt;</span>Copyright 2014 Your name<span style="color:#070;font-weight:bold">&lt;/p&gt;</span>
+<span class="line-numbers"><a href="#n48" name="n48">48</a></span>  <span style="color:#070;font-weight:bold">&lt;/footer&gt;</span>
+<span class="line-numbers"><a href="#n49" name="n49">49</a></span>
+<span class="line-numbers"><strong><a href="#n50" name="n50">50</a></strong></span><span style="color:#070;font-weight:bold">&lt;/body&gt;</span>
+<span class="line-numbers"><a href="#n51" name="n51">51</a></span>
+<span class="line-numbers"><a href="#n52" name="n52">52</a></span><span style="color:#070;font-weight:bold">&lt;/html&gt;</span>
+</pre></div>
+</div>
+</div>
+
+<p>From CSS-tricks
+<a href="http://css-tricks.com/snippets/html/html5-page-structure/">http://css-tricks.com/snippets/html/html5-page-structure/</a></p>
+
+<h2 id="section-versus-article">Section versus article</h2>
+
+<p>Good structure helps web service analysis your content.</p>
+
+<p>Two notes about the section tag from the <a href="http://www.w3.org/TR/2011/WD-html5-author-20110705/the-section-element.html">w3 spec</a>.</p>
+
+<blockquote>
+  <p>Authors are encouraged to use the article element instead of the section element when it would make sense to syndicate the contents of the element.</p>
+</blockquote>
+
+<blockquote>
+  <p>When an element is needed for styling purposes or as a convenience for scripting, authors are encouraged to use the div element instead. A general rule is that the section element is appropriate only if the element's contents would be listed explicitly in the document's outline.</p>
+</blockquote>
+
+<h2 id="where-to-reference-documentation">Where to reference documentation?</h2>
+<div class="row"><div class="two wide-only col"><ul>
+  <li><a href="https://developer.mozilla.org">Mozilla developer network</a><br />(Add “mdn” as keyword when searching on web)</li>
+  <li><a href="WebPlatform.org">WebPlatform.org</a></li>
+</ul>
+</div><div class="one wide-only col"><p>In my Mac, I use <a href="http://kapeli.com/dash">Dash</a> to have quick access to the spec without opening the browser.</p>
+</div></div><h2 id="the-importance-of-headings">The importance of headings</h2>
+
+<p>We often overlook the headings for content hierarchy.</p>
+
+<p>Example of not using heading tags for heading:</p>
+
+<p><p class=center><img src="/images/introducing-web-design/macaodaily.png" alt="Macaodaily" /></p>
+<p class=center><img src="/images/introducing-web-design/macaodaily_article.png" alt="Macaodaily article" /></p></p>
+
+<p><a href="http://html5doctor.com/howto-subheadings/">More on heading from html5 doctor.</a></p>
+
+<h2 id="data-set-attributes">Data set attributes</h2>
+<div class="row"><div class="one wide-only col"><p>When we have DOM elements as game elements, we may attach extra values to the node via data attributes.</p>
+
+<p>dataset is used to access the HTML5 data-* attributes added to DOM elements.</p>
+</div><div class="two wide-only col"><p>For example, given the following HTML.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;div</span> <span style="color:#b48">id</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">test</span><span style="color:#710">&quot;</span></span> <span style="color:#b48">data-game-score</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">123</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span><span style="color:#070;font-weight:bold">&lt;/div&gt;</span>
+</pre></div>
+</div>
+</div>
+
+<p>We can access the <code>data-game-score</code> by the following JavaScript.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">var</span> element = document.getElementById(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">test</span><span style="color:#710">&quot;</span></span>);
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>element.dataset.gameScore; <span style="color:#777">// 123</span>
+</pre></div>
+</div>
+</div>
+
+<p>Note that we used the hyphens in the HTML and the camel case in JavaScript, in order to follow both naming conventions.</p>
+</div></div><h2 id="geolocation">Geolocation</h2>
+
+<p>Code example to get geolocation</p>
+
+<p>Insert Screenshot of asking location in web browser</p>
+
+<p><a href="http://makzan.net/mobile-web-app-dev-with-phonegap/rain-or-not-getting-user-location/">My post on getting user location</a>.</p>
+
+<h2 id="canvas">Canvas</h2>
+
+<p>Canvas is where we can draw any graphics on it.</p>
+
+<ol>
+  <li><a href="http://jsfiddle.net/makzan/ubcnc/">Canvas demo</a></li>
+  <li><a href="http://jsfiddle.net/makzan/u9EtU/">Canvas demo mirror drawing</a></li>
+</ol>
+
+<p>We will discuss more in the JavaScript section.</p>
+
+<h2 id="localstorage">LocalStorage</h2>
+
+<p><a href="http://makzan.net/mobile-web-app-dev-with-phonegap/introducing-localstorage/">Introducing LocalStorage</a></p>
+
+<p>We will discuss more in the JavaScript section.</p>
+
+<h2 id="web-video--audio">Web Video / Audio</h2>
+
+<p>Now We have <code>&lt;video&gt;</code> tag and <code>&lt;audio&gt;</code> tag. We also have related JavaScript API.</p>
+
+<h2 id="new-input-types-and-attributes">New input types and attributes</h2>
+
+<ul>
+  <li>Input for email / URL / tel / number</li>
+  <li>Autofocus</li>
+  <li>Placeholder</li>
+  <li>Required</li>
+  <li>New Input types</li>
+  <li>Regex Pattern</li>
+  <li>Date and DateTime</li>
+  <li>Limiting the Range</li>
+</ul>
+
+<p>Virtual device shows format-sensitive keyboard layout.   Browser also provides extra format validation.</p>
+
+<p><a href="http://makzan.net/mobile-web-app-dev-with-phonegap/input-range/">Input range</a></p>
+
+<p><a href="http://html5-workshop-42games.herokuapp.com/courses/html5-workshop-2013/sections/input-form/pages/1">Workshop for Inputs</a></p>
+
+<h2 id="what-css-does">What CSS does?</h2>
+
+<p>It selects elements in HTML and apply styles to them.</p>
+
+<p>Selector:</p>
+
+<ul>
+  <li>tag</li>
+  <li>class</li>
+  <li>ID</li>
+  <li>selectorA selectorB</li>
+  <li>selectorA &gt; selectorB</li>
+</ul>
+
+<p>Pseudo class:</p>
+
+<ul>
+  <li>:link</li>
+  <li>:visited</li>
+  <li>:hover</li>
+  <li>:active</li>
+</ul>
+
+<p>“LoVe HAte”</p>
+
+<ul>
+  <li>
+    <p>:checked</p>
+  </li>
+  <li>:first-child</li>
+  <li>:last-child</li>
+  <li>:nth-child</li>
+  <li>:first-of-type</li>
+  <li>:last-of-type</li>
+  <li>:nth-of-type</li>
+</ul>
+
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Getting_started/Selectors">Getting started guide for Selectors, by Mozilla</a></p>
+
+<h2 id="cascading-in-css">Cascading in CSS</h2>
+
+<p><a href="http://jsfiddle.net/makzan/GyWKc/">CSS Cascading Test</a></p>
+<div class="row"><div class="one wide-only col"><p><img src="/images/introducing-web-design/css-cascading.png" alt="Css cascading" /></p>
+</div><div class="two wide-only col"><h4 id="html">HTML</h4>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;p&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">class1 class2</span><span style="color:#710">'</span></span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>Test<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/p&gt;</span>
+</pre></div>
+</div>
+</div>
+
+<h4 id="css">CSS</h4>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#B06;font-weight:bold">.class1</span><span style="color:#B06;font-weight:bold">.class2</span> {
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>    <span style="color:#606">color</span>: <span style="color:#088">orange</span>;
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>}
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span><span style="color:#070;font-weight:bold">p</span> <span style="color:#070;font-weight:bold">a</span><span style="color:#B06;font-weight:bold">.class1</span> {
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>    <span style="color:#606">color</span>: <span style="color:#088">green</span>;
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span>}
+</pre></div>
+</div>
+</div>
+
+<p><iframe width='100%' height='100' src='http://jsfiddle.net/makzan/4Tt4D/embedded/result/' allowfullscreen='allowfullscreen' frameborder='0'></iframe></p>
+</div></div>
+
+        <!-- What’s next? -->
+
+        <div class="page-nav">
+    <a class='left pjaxer' href='../chapter-1/' title='Chapter 1 – Tools web designers use'>◀ Chapter 1 – Tools web designers use</a>
+
+    <a class='right pjaxer' href='../chapter-3/' title='Chapter 3 – CSS and new features'>Chapter 3 – CSS and new features ▶</a>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+</article>
+
+<div id='overlay' class='out'>
+  <img id='overlay-img' src='' alt='overlaied image when clicked on thumbnail'>
+  <div id='overlay-caption'></div>
+</div>
+  
+<div id='toc-overlay' class='out'>
+  <h4><a href='/'>Makzan</a> | Introducing web design | Table of Content</h4>
+  <ul>
+      <li><b><em><a href="../chapter-1/">Chapter 1 – Tools web designers use</a></em></b></li>          
+
+      <li><strong>→<a href="../chapter-2/">Chapter 2 – Introducing HTML5</a></strong></li>            
+
+      <li><b><em><a href="../chapter-3/">Chapter 3 – CSS and new features</a></em></b></li>          
+
+      <li><b><em><a href="../chapter-4/">Chapter 4 – PSD to HTML/CSS layout with Zurb Foundation</a></em></b></li>          
+
+      <li><b><em><a href="../chapter-5/">Chapter 5 – Media queries and responsive web designing</a></em></b></li>          
+
+      <li><b><em><a href="../chapter-6/">Chapter 6 – Introducing Ruby on Rails</a></em></b></li>          
+
+      <li><a href="../chapter-6b/">Chapter 6 – Introducing Ruby on Rails (Part B)</a></li>            
+
+      <li><b><em><a href="../chapter-7/">Chapter 7 – Introducing jQuery</a></em></b></li>          
+
+      <li><b><em><a href="../chapter-8/">Chapter 8 – Dedicated mobile site with jQuery mobile</a></em></b></li>          
+
+  </ul>
+</div>
+
+
+<div class="book-page-footer-nav"><ul><li>You’re reading <a href="/introducing-web-design/">introducing-web-design</a>.</li><li><a id='twitter-intent-link' href='https://twitter.com/intent/tweet?text=@makzan '>Discuss this post on Twitter.</a></li>         <li><a href='/'>Go back to home.</a></li><li>Go to <a href='#top'>top?</a></li> </ul><div class="mz-square"><img width="80" src="/images/mz-square.png" alt="Mz square" /></div></div><footer><div class="content"><p><small class="footer"><strong>Thanks for reading.</strong> All content is written by <a href='/about/'>Makzan</a>, from <a href='https://www.google.com/search?q=macau+china&safe=active&tbm=isch'>Macao</a>. Text are in <a href='http://creativecommons.org/licenses/by-nc/4.0/'>CC BY-NC 4.0</a> lincense. Code snippets in this site are in <a href='http://opensource.org/licenses/MIT'>MIT</a> license unless specified. Enjoy the rest of <span id='weekday'>day</span>!</small></p></div></footer>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-975238-12']);
+  _gaq.push(['_setDomainName', 'makzan.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<script src="/assets/application.js" data-turbolinks-track="true"></script>
+
+
+<script>
+mixpanel.track("Page Show", {"Parent": "introducing-web-design", "Title": "Chapter 2 – Introducing HTML5"});
+mixpanel.track_links(".page-nav a", "Click page nav link");
+</script>
+<script data-no-instant>InstantClick.init();</script>
+<script type="text/javascript">
+  var FHChat = {product_id: "ae42b12bfcb3"};
+  FHChat.properties={};FHChat.set=function(key,data){this.properties[key]=data};FHChat.customAttributes=[];FHChat.sendCustomAttributes=function(data){this.customAttributes.push(data)};!function(){var a,b;return b=document.createElement("script"),a=document.getElementsByTagName("script")[0],b.src="https://chat-client-js.firehoseapp.com/chat-min.js",b.async=!0,a.parentNode.insertBefore(b,a)}();
+</script>
+  
+
+<script type="text/javascript">
+  var _sf_async_config = { uid: 59469, domain: 'makzan.net', useCanonical: true };
+  (function() {
+    function loadChartbeat() {
+      window._sf_endpt = (new Date()).getTime();
+      var e = document.createElement('script');
+      e.setAttribute('language', 'javascript');
+      e.setAttribute('type', 'text/javascript');
+      e.setAttribute('src','//static.chartbeat.com/js/chartbeat.js');
+      document.body.appendChild(e);
+    };
+    var oldonload = window.onload;
+    window.onload = (typeof window.onload != 'function') ?
+      loadChartbeat : function() { oldonload(); loadChartbeat(); };
+  })();
+</script>
+</body>
+</html>

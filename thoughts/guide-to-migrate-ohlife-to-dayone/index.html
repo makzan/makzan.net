@@ -1,0 +1,259 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+  <title>
+      Guide to migrate OhLife entries to DayOne – makzan’s sharings
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='http://fonts.googleapis.com/css?family=Bevan' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" media="all" href="/assets/application.css" data-turbolinks-track="true" />
+  <link href="https://makzan.net/thoughts/guide-to-migrate-ohlife-to-dayone" rel="canonical" />  <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+mixpanel.init("26e7a62bc13d535df35f3aca1c4a009f");</script><!-- end Mixpanel -->
+
+  
+    <link rel="next" href="../responsive-philosophy/">
+    
+  <script type="text/javascript" src="//use.typekit.net/gku5yms.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body id='top' class='book-page'>
+
+<header class="nav-bar centered"><a href="/" title="Back to makzan homepage"><canvas id="heading-canvas" width="572" height="200" style="background-color:#fffffa;width:143px;"><h1>makzan.</h1></canvas></a><div class="nav-text"><p>I build <a href="/works/#apps">utilities</a> and <a href="/works/#games">games</a>. <br />
+I share know-how via <a href="/works/#books">books</a>, <a href="/#courses">classes</a> and <a href="/essays/">essays</a>.</p>
+
+</div></header>
+
+<article class='book-page-content content'>
+  <div id='pjax-area' class="row">
+    <div id='side-bar-col' class="hidden col">
+
+    </div>
+    <div id='sheet-col' class="full col">
+<!--               <p><small class='aside'>You’re reading <a href="../">thoughts</a>. This article is part of the <a href="../">thoughts</a>, written by <a href="/">makzan</a>.</small></p>
+       -->
+            
+  
+      <div class='sheet'>            
+
+          <h1>
+              Guide to migrate OhLife entries to DayOne
+          </h1>
+
+
+        <p>This is a step-by-step guide to migrate your OhLife entries into DayOne. It’s text only because of the limitation of format OhLife exported.</p>
+
+<h2 id="prepare">Prepare</h2>
+
+<p>You need the exported text entries from OhLife. The service is generating the archive for every user. You can download the archive from the header of OhLife. The archive contains photos and a text file. The text file is what we need.</p>
+
+<p><p class=center><img src="/images/thoughts/ohlife-0.png" alt="Ohlife 0" /></p></p>
+
+<p>You will need the Terminal app to perform the task. That’s just several short commands that I’ll guide you through them. You can launch the the “Terminal” via spotlight or LaunchPad.</p>
+
+<p><p class=center><img src="/images/thoughts/ohlife-1.png" alt="Ohlife 1" /></p></p>
+
+<p>Also please make sure you backup your DayOne entries just in case anything go wrong.</p>
+
+<h2 id="steps">Steps</h2>
+
+<p>1) Get the script from the following <a href="https://github.com/BooneJS/OhLife2DayOne">code repo</a> by <a href="https://twitter.com/BooneJS">BooneJS</a>, by clicking “Download as zip”</p>
+
+<p><a href="https://github.com/BooneJS/OhLife2DayOne">https://github.com/BooneJS/OhLife2DayOne</a></p>
+
+<p><p class=center><img src="/images/thoughts/ohlife-2.png" alt="Ohlife 2" /></p></p>
+
+<p>2) Download the CLI, Command-line interface, from the official <a href="http://dayoneapp.com/tools/">DayOne support website</a>.</p>
+
+<p><a href="http://dayoneapp.com/tools/">http://dayoneapp.com/tools/</a></p>
+
+<p><p class=center><img src="/images/thoughts/ohlife-3.png" alt="Ohlife 3" /></p></p>
+
+<p>The direct download link to the CLI package:
+<a href="http://dayoneapp.com/downloads/dayone-cli.pkg">http://dayoneapp.com/downloads/dayone-cli.pkg</a></p>
+
+<p>3) Install the downloaded package.</p>
+
+<p><p class=center><img src="/images/thoughts/ohlife-4.png" alt="Ohlife 4" /></p></p>
+
+<p>Note: If you want to ensure the CLI is properly installed, you can type the following command in Terminal app and it should output a help screen.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>dayone
+</pre></div>
+</div>
+</div>
+
+<p><p class=center><img src="/images/thoughts/ohlife-5.png" alt="Ohlife 5" /></p></p>
+
+<p>4) Make the downloaded migration script executable via the following command. (You can ensure the path is correct by dragging the file directly into the Terminal)</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>chmod +x /Users/makzan/Downloads/OhLife2DayOne-master/ohlife2dayone.pl 
+</pre></div>
+</div>
+</div>
+
+<p>Take a look at the following video on how to avoid typing the long path of the script file.</p>
+
+<iframe src="//player.vimeo.com/video/107215645?color=f8cf1f" width="100%" height="417" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+
+<p>Note: This is a protection in Mac OS X that prevents any good or evil script executes before having your permission.</p>
+
+<p>5) Finally, the real migration step.</p>
+
+<p>This is the pattern of the command.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>cat &lt;Path to OhLife Export File&gt; | &lt;Downloaded Script&gt; 
+</pre></div>
+</div>
+</div>
+
+<p>This is the command with file paths that works in my computer.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>cat /Users/makzan/Downloads/export_2014-09-22.txt | /Users/makzan/Downloads/OhLife2DayOne-master/ohlife2dayone.pl 
+</pre></div>
+</div>
+</div>
+
+<p>The path to the files depends on where you store them in your computer. You can ensure a correct path by dragging the target file directly into the Terminal.</p>
+
+<p>Take a look at the following video on how I write the command by combining typing and drag-n-drop.</p>
+
+<iframe src="//player.vimeo.com/video/107215646?color=f8cf1f" width="100%" height="423" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+
+<h2 id="done">Done</h2>
+
+<p>After the long progress, which depends on your amount of OhLife entries, the script stops. At this moment your OhLife entries should be in DayOne.</p>
+
+<p><p class=center><img src="/images/thoughts/ohlife-6.png" alt="Ohlife 6" /></p></p>
+
+<h2 id="updated-2014-09-28">Updated (2014-09-28):</h2>
+
+<p>I wrote a <a href="https://github.com/makzan/OhLifePhotos2DayOne">script</a> to import the exported photos as entries in DayOne.</p>
+
+<p><a href="https://github.com/makzan/OhLifePhotos2DayOne">https://github.com/makzan/OhLifePhotos2DayOne</a></p>
+
+<p>The steps to use the photo importing script.</p>
+
+<ol>
+  <li>Copy the <code>OhLifePhotos2DayOne.rb</code> script file to the OhLife exported folder.</li>
+  <li>Open terminal, execute: <code>cd &lt;Path of the OhLife exported folder&gt;</code>. <small>(Note, you can drag the folder to terminal instead of typing the path yourself)</small></li>
+  <li>Execute the command <code>ls -m img_*</code> and you should see a list of photo files. This is to ensure we have the photos ready.</li>
+  <li>Execute the command <code>ls -m img_* | ruby OhLifePhotos2DayOne.rb</code> and the importing starts until the commnd stops.</li>
+</ol>
+
+<p>The following video shows how I imported the exported photos by using the script.</p>
+
+<iframe src="//player.vimeo.com/video/107388435?color=f8cf1f" width="100%" height="471" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+
+<p class="right">–mz <br><small>2014 Sep.</small>  </p>
+
+        <!-- What’s next? -->
+
+        <div class="page-nav">
+    <a class='left pjaxer' href='../do-you-really-need-so-many-apps/' title='Do you really need so many apps?'>◀ Do you really need so many apps?</a>
+
+    <a class='right pjaxer' href='../responsive-philosophy/' title='Responsive philosophy'>Responsive philosophy ▶</a>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+</article>
+
+<div id='overlay' class='out'>
+  <img id='overlay-img' src='' alt='overlaied image when clicked on thumbnail'>
+  <div id='overlay-caption'></div>
+</div>
+  
+<div id='toc-overlay' class='out'>
+  <h4><a href='/'>Makzan</a> | Thoughts | Table of Content</h4>
+  <ul>
+      <li><a href="../get-focus-tips-unplug-the-ac-power/">Get focus tips – Unplug the A/C Power</a></li>            
+
+      <li><a href="../learning-flexbox/">Learning flexbox</a></li>            
+
+      <li><a href="../the-css-3d-book-flipping-effect/">The CSS 3D book effect</a></li>            
+
+      <li><a href="../how-writer-pro-fits-my-usage/">How Writer Pro fits my usage</a></li>            
+
+      <li><a href="../sharing-of-my-career-path/">Sharing of my career path</a></li>            
+
+      <li><a href="../my-thought-about-death/">My thought about death</a></li>            
+
+      <li><a href="../story-of-makzan/">Story of makzan</a></li>            
+
+      <li><a href="../do-you-really-need-so-many-apps/">Do you really need so many apps?</a></li>            
+
+      <li><strong>→<a href="../guide-to-migrate-ohlife-to-dayone/">Guide to migrate OhLife to DayOne</a></strong></li>            
+
+      <li><a href="../responsive-philosophy/">Responsive philosophy</a></li>            
+
+      <li><a href="../focus-means-saying-no-to-phenomenal-ideas/">Focus means saying no to phenomenal ideas</a></li>            
+
+      <li><a href="../example-of-selling-benefits/">Example of selling benefits</a></li>            
+
+      <li><a href="../how-dollar-sign-was-born/">How dollar sign was born</a></li>            
+
+  </ul>
+</div>
+
+
+<div class="book-page-footer-nav"><ul><li>You’re reading <a href="/thoughts/">thoughts</a>.</li><li><a id='twitter-intent-link' href='https://twitter.com/intent/tweet?text=@makzan '>Discuss this post on Twitter.</a></li>         <li><a href='/'>Go back to home.</a></li><li>Go to <a href='#top'>top?</a></li> </ul><div class="mz-square"><img width="80" src="/images/mz-square.png" alt="Mz square" /></div></div><footer><div class="content"><p><small class="footer"><strong>Thanks for reading.</strong> All content is written by <a href='/about/'>Makzan</a>, from <a href='https://www.google.com/search?q=macau+china&safe=active&tbm=isch'>Macao</a>. Text are in <a href='http://creativecommons.org/licenses/by-nc/4.0/'>CC BY-NC 4.0</a> lincense. Code snippets in this site are in <a href='http://opensource.org/licenses/MIT'>MIT</a> license unless specified. Enjoy the rest of <span id='weekday'>day</span>!</small></p></div></footer>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-975238-12']);
+  _gaq.push(['_setDomainName', 'makzan.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<script src="/assets/application.js" data-turbolinks-track="true"></script>
+
+
+<script>
+mixpanel.track("Page Show", {"Parent": "thoughts", "Title": "Guide to migrate OhLife to DayOne"});
+mixpanel.track_links(".page-nav a", "Click page nav link");
+</script>
+<script data-no-instant>InstantClick.init();</script>
+<script type="text/javascript">
+  var FHChat = {product_id: "ae42b12bfcb3"};
+  FHChat.properties={};FHChat.set=function(key,data){this.properties[key]=data};FHChat.customAttributes=[];FHChat.sendCustomAttributes=function(data){this.customAttributes.push(data)};!function(){var a,b;return b=document.createElement("script"),a=document.getElementsByTagName("script")[0],b.src="https://chat-client-js.firehoseapp.com/chat-min.js",b.async=!0,a.parentNode.insertBefore(b,a)}();
+</script>
+  
+
+<script type="text/javascript">
+  var _sf_async_config = { uid: 59469, domain: 'makzan.net', useCanonical: true };
+  (function() {
+    function loadChartbeat() {
+      window._sf_endpt = (new Date()).getTime();
+      var e = document.createElement('script');
+      e.setAttribute('language', 'javascript');
+      e.setAttribute('type', 'text/javascript');
+      e.setAttribute('src','//static.chartbeat.com/js/chartbeat.js');
+      document.body.appendChild(e);
+    };
+    var oldonload = window.onload;
+    window.onload = (typeof window.onload != 'function') ?
+      loadChartbeat : function() { oldonload(); loadChartbeat(); };
+  })();
+</script>
+</body>
+</html>

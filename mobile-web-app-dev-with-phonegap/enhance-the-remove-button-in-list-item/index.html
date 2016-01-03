@@ -1,0 +1,525 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+  <title>
+      Enhance the remove button in list item – makzan’s sharings
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='http://fonts.googleapis.com/css?family=Bevan' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" media="all" href="/assets/application.css" data-turbolinks-track="true" />
+  <link href="https://makzan.net/mobile-web-app-dev-with-phonegap/enhance-the-remove-button-in-list-item" rel="canonical" />  <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+mixpanel.init("26e7a62bc13d535df35f3aca1c4a009f");</script><!-- end Mixpanel -->
+
+  
+    <link rel="next" href="../books-to-buy-challenge/">
+    
+  <script type="text/javascript" src="//use.typekit.net/gku5yms.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body id='top' class='book-page'>
+
+<header class="nav-bar centered"><a href="/" title="Back to makzan homepage"><canvas id="heading-canvas" width="572" height="200" style="background-color:#fffffa;width:143px;"><h1>makzan.</h1></canvas></a><div class="nav-text"><p>I build <a href="/works/#apps">utilities</a> and <a href="/works/#games">games</a>. <br />
+I share know-how via <a href="/works/#books">books</a>, <a href="/#courses">classes</a> and <a href="/essays/">essays</a>.</p>
+
+</div></header>
+
+<article class='book-page-content content'>
+  <div id='pjax-area' class="row">
+    <div id='side-bar-col' class="hidden col">
+
+    </div>
+    <div id='sheet-col' class="full col">
+<!--               <p><small class='aside'>You’re reading <a href="../">mobile-web-app-dev-with-phonegap</a>. This article is part of the <a href="../">mobile-web-app-dev-with-phonegap</a>, written by <a href="/">makzan</a>.</small></p>
+       -->
+            
+        <div class="page-nav header">
+ 
+  <p id='toggle-toc'>Table of Content</p>
+
+</div>
+
+  
+      <div class='sheet'>            
+
+          <h1>
+              Enhance the remove button in list item
+          </h1>
+
+
+        <script>(function() {
+  window.tab = function(name) {
+    var tab1, tab2, toggle1, toggle2;
+    tab1 = document.getElementById(name + "-tab1");
+    tab2 = document.getElementById(name + "-tab2");
+    toggle1 = document.getElementById(name + "-toggle1");
+    toggle2 = document.getElementById(name + "-toggle2");
+    tab1.style.display = 'none';
+    toggle1.onclick = function(e) {
+      tab1.style.display = 'block';
+      tab2.style.display = 'none';
+      e.preventDefault();
+      return false;
+    };
+    return toggle2.onclick = function(e) {
+      tab1.style.display = 'none';
+      tab2.style.display = 'block';
+      e.preventDefault();
+      return false;
+    };
+  };
+
+}).call(this);
+</script><p>We are going to change the Remove Book button into split button. This is done by a minor change.</p>
+
+<p><p class=center><img src="/images/phonegap-101/split-button.png" alt="Split button" /></p></p>
+
+<p>First we change the list item by making the delete button a second link outside the amazon link.</p>
+<aside><p>Toggle the code between: <a href='' id='delete-toggle1'>Old</a> | <a href='' id='delete-toggle2'>New</a></p>
+</aside><div id="delete-tab1"><div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;li</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">book-entry</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  <span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">amazon-link</span><span style="color:#710">'</span></span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>    <span style="color:#070;font-weight:bold">&lt;h1</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">book-title</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span><span style="color:#070;font-weight:bold">&lt;/h1&gt;</span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>    <span style="color:#070;font-weight:bold">&lt;p</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">isbn</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span><span style="color:#070;font-weight:bold">&lt;/p&gt;</span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>    <span style="color:#070;font-weight:bold">&lt;p</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">tags</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span><span style="color:#070;font-weight:bold">&lt;/p&gt;</span>
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span>    <span style="color:#070;font-weight:bold">&lt;p</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">ui-li-count</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#</span><span style="color:#710">'</span></span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">delete-btn</span><span style="color:#710">'</span></span> <span style="color:#b48">data-isbn</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>X Remove<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/p&gt;</span>
+<span class="line-numbers"><a href="#n7" name="n7">7</a></span>  <span style="color:#070;font-weight:bold">&lt;/a&gt;</span>
+<span class="line-numbers"><a href="#n8" name="n8">8</a></span><span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+</pre></div>
+</div>
+</div>
+</div><div id="delete-tab2"><div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;li</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">book-entry</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  <span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">amazon-link</span><span style="color:#710">'</span></span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>    <span style="color:#070;font-weight:bold">&lt;h1</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">book-title</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span><span style="color:#070;font-weight:bold">&lt;/h1&gt;</span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>    <span style="color:#070;font-weight:bold">&lt;p</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">isbn</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span><span style="color:#070;font-weight:bold">&lt;/p&gt;</span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>    <span style="color:#070;font-weight:bold">&lt;p</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">tags</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span><span style="color:#070;font-weight:bold">&lt;/p&gt;</span>
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span>  <span style="color:#070;font-weight:bold">&lt;/a&gt;</span>
+<span class="line-numbers"><a href="#n7" name="n7">7</a></span>  <span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#</span><span style="color:#710">'</span></span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">delete-btn</span><span style="color:#710">'</span></span> <span style="color:#b48">data-isbn</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>X Remove<span style="color:#070;font-weight:bold">&lt;/a&gt;</span>
+<span class="line-numbers"><a href="#n8" name="n8">8</a></span><span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+</pre></div>
+</div>
+</div>
+</div><script>(function() {
+  tab('delete');
+
+}).call(this);
+</script><p>Then we add <code>data-split-icon='delete'</code> which defines which icon to use in the split button area.</p>
+<aside><p>Toggle the code between: <a href='' id='ul-toggle1'>Old</a> | <a href='' id='ul-toggle2'>New</a></p>
+</aside><div id="ul-tab1"><div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;ul</span> <span style="color:#b48">data-role</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">listview</span><span style="color:#710">'</span></span> <span style="color:#b48">data-filter</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">true</span><span style="color:#710">'</span></span> <span style="color:#b48">data-inset</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">true</span><span style="color:#710">'</span></span> <span style="color:#b48">id</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">books</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span><span style="color:#070;font-weight:bold">&lt;/ul&gt;</span>
+</pre></div>
+</div>
+</div>
+</div><div id="ul-tab2"><div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;ul</span> <span style="color:#b48">data-role</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">listview</span><span style="color:#710">'</span></span> <span style="color:#b48">data-filter</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">true</span><span style="color:#710">'</span></span> <span style="color:#b48">data-inset</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">true</span><span style="color:#710">'</span></span> <span style="color:#b48">data-split-icon</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">delete</span><span style="color:#710">'</span></span> <span style="color:#b48">id</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">books</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span><span style="color:#070;font-weight:bold">&lt;/ul&gt;</span>
+</pre></div>
+</div>
+</div>
+</div><script>(function() {
+  tab('ul');
+
+}).call(this);
+</script>
+
+
+        <!-- What’s next? -->
+          <!-- TODO: move this condition away from view -->
+            <p>What’s next? We’re going to take a look at <a class='pjaxer' href='../books-to-buy-challenge/' title='Books-to-buy challenge'>“Books-to-buy challenge”</a>.</p>
+
+        <div class="page-nav">
+    <a class='left pjaxer' href='../adding-amazon-link/' title='Adding Amazon link'>◀ Adding Amazon link</a>
+
+    <a class='right pjaxer' href='../books-to-buy-challenge/' title='Books-to-buy challenge'>Books-to-buy challenge ▶</a>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+</article>
+
+<div id='overlay' class='out'>
+  <img id='overlay-img' src='' alt='overlaied image when clicked on thumbnail'>
+  <div id='overlay-caption'></div>
+</div>
+  
+<div id='toc-overlay' class='out'>
+  <h4><a href='/'>Makzan</a> | Mobile web app dev with phonegap | Table of Content</h4>
+  <ul>
+      <li><a href="../learning-resources/">Learning resources</a></li>            
+
+      <li><a href="../using-diff-tool/">Using diff tool</a></li>            
+
+      <li><b><em><a href="../chapter0/">Mobile web app dev – Introduction</a></em></b></li>          
+
+      <li><a href="../entering-the-era-of-mobile-app/">Entering the era of mobile app</a></li>            
+
+      <li><a href="../client-side-technology/">Client side technology</a></li>            
+
+      <li><a href="../server-side-technology/">Server side technology</a></li>            
+
+      <li><a href="../web-app-and-saas/">Web app and Software-as-a-Service</a></li>            
+
+      <li><a href="../the-modern-web/">The modern web</a></li>            
+
+      <li><a href="../what-is-phonegap/">What is PhoneGap</a></li>            
+
+      <li><a href="../the-use-of-phonegap/">The use of phonegap</a></li>            
+
+      <li><a href="../write-once-run-everywhere/">Write once &amp; run everywhere?</a></li>            
+
+      <li><a href="../the-tools-we-need-in-this-course/">The tools we need in this course</a></li>            
+
+      <li><a href="../app-categories/">App categories</a></li>            
+
+      <li><a href="../knowing-javascript/">Knowing javascript</a></li>            
+
+      <li><a href="../choosing-javascript-ui-frameworks/">Choosing javascript ui frameworks</a></li>            
+
+      <li><a href="../going-mvc/">Going mvc</a></li>            
+
+      <li><a href="../idea-and-execution/">Idea and execution</a></li>            
+
+      <li><a href="../jquery-project-boilerplate/">jQuery project boilerplate</a></li>            
+
+      <li><b><em><a href="../chapter1/">Project 1 – Twenty Five Timer</a></em></b></li>          
+
+      <li><a href="../twenty-five-timer/">Twenty five timer</a></li>            
+
+      <li><a href="../linking-pages/">Linking pages</a></li>            
+
+      <li><a href="../timer-logic-entry-point/">Timer logic — Entry point</a></li>            
+
+      <li><a href="../timer-logic-timer-ticker/">Timer logic — Timer ticker</a></li>            
+
+      <li><a href="../timer-logic-core/">Timer logic — Core</a></li>            
+
+      <li><a href="../timer-logic-times-up/">Timer logic — Time’s up</a></li>            
+
+      <li><a href="../about-function-context/">About function context</a></li>            
+
+      <li><a href="../touchstart-and-touchend-event/">TouchStart and TouchEnd event</a></li>            
+
+      <li><b><em><a href="../chapter2/">Project 2 – Customize Page Transition</a></em></b></li>          
+
+      <li><a href="../transition/">Transition</a></li>            
+
+      <li><a href="../customize-page-transition/">Customize page transition</a></li>            
+
+      <li><a href="../page-transition-the-css-part/">Page transition — The CSS part</a></li>            
+
+      <li><a href="../sequential-and-simultaneous/">Sequential and simultaneous</a></li>            
+
+      <li><a href="../enhance-the-transition-with-blur-filter/">Enhance the transition with blur filter</a></li>            
+
+      <li><a href="../ch2-exercises/">Exercises</a></li>            
+
+      <li><a href="../ch2-quiz-time/">Quiz time</a></li>            
+
+      <li><b><em><a href="../chapter3/">Project 3 – Welcome Screen</a></em></b></li>          
+
+      <li><a href="../changing-the-app-style/">Changing the app style</a></li>            
+
+      <li><a href="../adding-tutorial-page-at-the-beginning/">Adding tutorial page at the beginning</a></li>            
+
+      <li><a href="../adding-swipejs-to-welcome-page/">Adding swipejs to welcome page</a></li>            
+
+      <li><a href="../welcome-tutorial-with-style/">Welcome tutorial with style</a></li>            
+
+      <li><a href="../the-done-button/">The done button</a></li>            
+
+      <li><b><em><a href="../chapter4/">Project 4 – Rain or Not</a></em></b></li>          
+
+      <li><a href="../example-weather-app-for-macao/">Example weather app for macao</a></li>            
+
+      <li><a href="../rain-or-not-the-openweathermap/">The OpenWeatherMap</a></li>            
+
+      <li><a href="../rain-or-not-getjson/">$.getJSON</a></li>            
+
+      <li><a href="../rain-or-not-parse-json/">Parse JSON</a></li>            
+
+      <li><a href="../rain-or-not-rainy-code/">Code for rain</a></li>            
+
+      <li><a href="../rain-or-not-jsonp/">JSON-P</a></li>            
+
+      <li><a href="../rain-or-not-graphics/">Preparing graphics</a></li>            
+
+      <li><a href="../rain-or-not-our-code/">Crafting our Rain-or-Not app</a></li>            
+
+      <li><a href="../rain-or-not-refactor1/">Refactoring</a></li>            
+
+      <li><a href="../rain-or-not-refactor2/">Refactoring again</a></li>            
+
+      <li><a href="../rain-or-not-geolocation/">Getting weather from location</a></li>            
+
+      <li><a href="../rain-or-not-getting-user-location/">Getting user location</a></li>            
+
+      <li><a href="../rain-or-not-fetch-weather-from-location/">Fetch weather from location</a></li>            
+
+      <li><a href="../rain-or-not-integrate-location-into-code/">Integrating location into our app</a></li>            
+
+      <li><b><em><a href="../chapter5/">Project 5 – Exchange Rate</a></em></b></li>          
+
+      <li><a href="../exchange-rate-1-planning/">Exchange rate example – Planning</a></li>            
+
+      <li><a href="../exchange-rate-2-api/">Exchange rate example – API</a></li>            
+
+      <li><a href="../exchange-rate-3-exchange-function/">Exchange rate example – Exchange function</a></li>            
+
+      <li><a href="../exchange-rate-4-full-example/">Exchange rate example – Full example</a></li>            
+
+      <li><a href="../ch4-challenge/">Challenges</a></li>            
+
+      <li><b><em><a href="../chapter6/">Project 6 – HTML5 Cheatsheet</a></em></b></li>          
+
+      <li><a href="../example-html5-cheatsheet-list-view-in-jquery-mobile/">HTML5 Cheatsheet Example – List view in jQuery mobile</a></li>            
+
+      <li><a href="../example-html5-cheatsheet-moving-data-from-html-to-js/">HTML5 Cheatsheet Example – Moving data from HTML to Javascript</a></li>            
+
+      <li><a href="../example-html5-cheatsheet-showing-more-detail/">HTML5 Cheatsheet Example – Showing more detail</a></li>            
+
+      <li><a href="../ch5-challenges/">Challenges</a></li>            
+
+      <li><a href="../example-html5cheatsheet-refractoring/">Refractoring</a></li>            
+
+      <li><a href="../example-html5cheatsheet-obsolated-tags/">Obsolated tags</a></li>            
+
+      <li><a href="../listview-adding-links/">Adding links</a></li>            
+
+      <li><a href="../listview-adding-an-icon/">Adding an icon</a></li>            
+
+      <li><a href="../listview-divider/">Divider</a></li>            
+
+      <li><a href="../listview-filtering/">Filtering</a></li>            
+
+      <li><a href="../listview-exercise/">Listview exercise</a></li>            
+
+      <li><a href="../example-html5cheatsheet-nested-list/">Nested list</a></li>            
+
+      <li><a href="../example-html5cheatsheet-tabs/">List with tabs</a></li>            
+
+      <li><b><em><a href="../chapter7/">Project 7 – Books to Buy</a></em></b></li>          
+
+      <li><a href="../list-examples-books-wishlist/">Example – Books to buy</a></li>            
+
+      <li><a href="../books-to-buy-mockup/">Books-to-buy Mockup</a></li>            
+
+      <li><a href="../books-to-buy-model-for-adding-book/">Model for adding book</a></li>            
+
+      <li><a href="../books-to-buy-view-for-adding-book/">View for adding book</a></li>            
+
+      <li><a href="../books-to-buy-cloning-with-data/">Cloning with data</a></li>            
+
+      <li><a href="../books-to-buy-remove-book-entry/">Remove book entry</a></li>            
+
+      <li><a href="../books-to-buy-taking-the-inputs-data/">Taking the inputs data</a></li>            
+
+      <li><a href="../introducing-localstorage/">Introducing LocalStorage</a></li>            
+
+      <li><a href="../converting-objects-into-json-string/">Converting objects into JSON string</a></li>            
+
+      <li><a href="../more-complex-keys/">More complex keys</a></li>            
+
+      <li><a href="../complex-keys-hands-on-exercise/">Complex keys – Hands on exercise</a></li>            
+
+      <li><a href="../saving-the-book-list/">Saving the book list</a></li>            
+
+      <li><a href="../adding-tags-as-string/">Adding tags as string</a></li>            
+
+      <li><a href="../refractoring-the-localstorage-module/">Refractoring the LocalStorage module</a></li>            
+
+      <li><a href="../planning-the-tags-data-structure/">Planning the tags data structure</a></li>            
+
+      <li><a href="../introducing-lo-dash/">Introducing Lo-Dash</a></li>            
+
+      <li><a href="../listing-all-the-tags/">Listing all the tags</a></li>            
+
+      <li><a href="../know-which-checkboxes-are-checked/">Know which checkboxes are checked</a></li>            
+
+      <li><a href="../adding-the-isbns-to-tag-data/">Adding the ISBNs to tag data</a></li>            
+
+      <li><a href="../getting-the-book-list-from-tag/">Getting the book list from tag</a></li>            
+
+      <li><a href="../render-book-list-with-argument/">Render book list with argument</a></li>            
+
+      <li><a href="../reseting-all-data/">Reseting all data</a></li>            
+
+      <li><a href="../optional-panel/">Optional – Panel</a></li>            
+
+      <li><a href="../adding-amazon-link/">Adding Amazon link</a></li>            
+
+      <li><strong>→<a href="../enhance-the-remove-button-in-list-item/">Enhance the remove button in list item</a></strong></li>            
+
+      <li><a href="../books-to-buy-challenge/">Books-to-buy challenge</a></li>            
+
+      <li><b><em><a href="../chapter8/">Project 8 – Setting Up PhoneGap</a></em></b></li>          
+
+      <li><a href="../when-we-need-phonegap/">When we need PhoneGap?</a></li>            
+
+      <li><a href="../setting-up-the-phonegap-environment/">Setting up the PhoneGap environment</a></li>            
+
+      <li><a href="../testing-on-emulator/">Testing on emulator</a></li>            
+
+      <li><a href="../creating-android-phonegap-project/">Creating Android PhoneGap project</a></li>            
+
+      <li><a href="../the-nodejs-approach/">The node.js approach</a></li>            
+
+      <li><b><em><a href="../chapter9/">Project 9 – Company Informative App</a></em></b></li>          
+
+      <li><a href="../building-a-company-app/">Building a company app</a></li>            
+
+      <li><a href="../jquery-google-map/">jQuery Google Map</a></li>            
+
+      <li><a href="../news-page/">News page</a></li>            
+
+      <li><a href="../news-content/">News content</a></li>            
+
+      <li><a href="../momentjs/">MomentJS</a></li>            
+
+      <li><a href="../gallery/">Gallery</a></li>            
+
+      <li><a href="../view-photo/">View photo</a></li>            
+
+      <li><a href="../setup-mongolab/">Setup mongolab</a></li>            
+
+      <li><a href="../feedback-form-html/">Feedback form html</a></li>            
+
+      <li><a href="../feedback-form-model/">Feedback form model</a></li>            
+
+      <li><a href="../feedback-form-view/">Feedback form view</a></li>            
+
+      <li><a href="../more-controls/">More controls</a></li>            
+
+      <li><a href="../input-range/">Input range</a></li>            
+
+      <li><b><em><a href="../chapter10/">Project 10 – Canvas Drawing</a></em></b></li>          
+
+      <li><a href="../canvas-drawing/">Canvas drawing</a></li>            
+
+      <li><a href="../using-canvas/">Using canvas</a></li>            
+
+      <li><a href="../drawing-with-touch/">Drawing with touch</a></li>            
+
+      <li><a href="../mirror-drawing/">Mirror drawing</a></li>            
+
+      <li><a href="../challenge-kaleidoscope/">Challenge kaleidoscope</a></li>            
+
+      <li><a href="../base64-encode/">Base64 encode</a></li>            
+
+      <li><a href="../list-of-drawings/">List of drawings</a></li>            
+
+      <li><a href="../introducing-websql/">Introducing WebSQL</a></li>            
+
+      <li><a href="../storing-drawings-in-websql/">Storing drawings in websql</a></li>            
+
+      <li><a href="../phonegap-device-ready-event/">Phonegap device ready event</a></li>            
+
+      <li><a href="../challenge-color/">Challenge – Adding Color</a></li>            
+
+      <li><a href="../challenge-replay/">Challenge – Replay Drawing</a></li>            
+
+      <li><a href="../drawing-pad-future-plan/">Drawing pad future plan</a></li>            
+
+      <li><b><em><a href="../chapter11/">Project 11 – Accessing Device Resources</a></em></b></li>          
+
+      <li><a href="../photo-capture/">Photo capture</a></li>            
+
+      <li><a href="../capture-video/">Capture video</a></li>            
+
+      <li><a href="../capture-audio/">Capture audio</a></li>            
+
+      <li><a href="../video-audio-playback/">Video audio playback</a></li>            
+
+      <li><a href="../inspecting-the-accelerometer-sensor/">Inspecting the accelerometer sensor</a></li>            
+
+      <li><a href="../accelerometer-value-bar-chart/">Accelerometer value bar chart</a></li>            
+
+      <li><a href="../inspecting-the-gyroscope-sensor/">Inspecting the gyroscope sensor</a></li>            
+
+      <li><b><em><a href="../chapter12/">Project 12 – Distribution Channels</a></em></b></li>          
+
+      <li><a href="../testing-web-app-on-devices-in-local-network/">Testing web app on devices in local network</a></li>            
+
+      <li><a href="../app-distribution/">App distribution</a></li>            
+
+      <li><a href="../distributing-to-the-web/">Distributing to the web</a></li>            
+
+      <li><a href="../minify-your-code/">Minify your code</a></li>            
+
+      <li><a href="../adding-the-web-app-to-ios-home-screen/">Adding the web app to iOS home screen</a></li>            
+
+      <li><a href="../phonegap-build/">Phonegap Build</a></li>            
+
+      <li><a href="../publish-to-app-store/">Publish to App Store</a></li>            
+
+      <li><a href="../publish-to-google-play/">Publish to Google Play</a></li>            
+
+      <li><a href="../distribution-is-just-the-beginning/">Distribution is just the beginning</a></li>            
+
+      <li><a href="../some-more-tips/">Some more tips</a></li>            
+
+      <li><a href="../sublime-text-tips/">Extra – SublimeText tips</a></li>            
+
+      <li><a href="../priority-of-css-selectors/">Extra – Priority of CSS selectors</a></li>            
+
+      <li><a href="../project-requirement/">Project requirement</a></li>            
+
+  </ul>
+</div>
+
+
+<div class="book-page-footer-nav"><ul><li>You’re reading <a href="/mobile-web-app-dev-with-phonegap/">mobile-web-app-dev-with-phonegap</a>.</li><li><a id='twitter-intent-link' href='https://twitter.com/intent/tweet?text=@makzan '>Discuss this post on Twitter.</a></li>         <li><a href='/'>Go back to home.</a></li><li>Go to <a href='#top'>top?</a></li> </ul><div class="mz-square"><img width="80" src="/images/mz-square.png" alt="Mz square" /></div></div><footer><div class="content"><p><small class="footer"><strong>Thanks for reading.</strong> All content is written by <a href='/about/'>Makzan</a>, from <a href='https://www.google.com/search?q=macau+china&safe=active&tbm=isch'>Macao</a>. Text are in <a href='http://creativecommons.org/licenses/by-nc/4.0/'>CC BY-NC 4.0</a> lincense. Code snippets in this site are in <a href='http://opensource.org/licenses/MIT'>MIT</a> license unless specified. Enjoy the rest of <span id='weekday'>day</span>!</small></p></div></footer>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-975238-12']);
+  _gaq.push(['_setDomainName', 'makzan.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<script src="/assets/application.js" data-turbolinks-track="true"></script>
+
+
+<script>
+mixpanel.track("Page Show", {"Parent": "mobile-web-app-dev-with-phonegap", "Title": "Enhance the remove button in list item"});
+mixpanel.track_links(".page-nav a", "Click page nav link");
+</script>
+<script data-no-instant>InstantClick.init();</script>
+<script type="text/javascript">
+  var FHChat = {product_id: "ae42b12bfcb3"};
+  FHChat.properties={};FHChat.set=function(key,data){this.properties[key]=data};FHChat.customAttributes=[];FHChat.sendCustomAttributes=function(data){this.customAttributes.push(data)};!function(){var a,b;return b=document.createElement("script"),a=document.getElementsByTagName("script")[0],b.src="https://chat-client-js.firehoseapp.com/chat-min.js",b.async=!0,a.parentNode.insertBefore(b,a)}();
+</script>
+  
+
+<script type="text/javascript">
+  var _sf_async_config = { uid: 59469, domain: 'makzan.net', useCanonical: true };
+  (function() {
+    function loadChartbeat() {
+      window._sf_endpt = (new Date()).getTime();
+      var e = document.createElement('script');
+      e.setAttribute('language', 'javascript');
+      e.setAttribute('type', 'text/javascript');
+      e.setAttribute('src','//static.chartbeat.com/js/chartbeat.js');
+      document.body.appendChild(e);
+    };
+    var oldonload = window.onload;
+    window.onload = (typeof window.onload != 'function') ?
+      loadChartbeat : function() { oldonload(); loadChartbeat(); };
+  })();
+</script>
+</body>
+</html>

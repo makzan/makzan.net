@@ -1,0 +1,553 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+  <title>
+      Chapter 5 – Media queries and responsive web designing – makzan’s sharings
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='http://fonts.googleapis.com/css?family=Bevan' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" media="all" href="/assets/application.css" data-turbolinks-track="true" />
+  <link href="https://makzan.net/introducing-web-design/chapter-5" rel="canonical" />  <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+mixpanel.init("26e7a62bc13d535df35f3aca1c4a009f");</script><!-- end Mixpanel -->
+
+  
+    <link rel="next" href="../chapter-6/">
+    
+  <script type="text/javascript" src="//use.typekit.net/gku5yms.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body id='top' class='book-page'>
+
+<header class="nav-bar centered"><a href="/" title="Back to makzan homepage"><canvas id="heading-canvas" width="572" height="200" style="background-color:#fffffa;width:143px;"><h1>makzan.</h1></canvas></a><div class="nav-text"><p>I build <a href="/works/#apps">utilities</a> and <a href="/works/#games">games</a>. <br />
+I share know-how via <a href="/works/#books">books</a>, <a href="/#courses">classes</a> and <a href="/essays/">essays</a>.</p>
+
+</div></header>
+
+<article class='book-page-content content'>
+  <div id='pjax-area' class="row">
+    <div id='side-bar-col' class="hidden col">
+
+    </div>
+    <div id='sheet-col' class="full col">
+<!--               <p><small class='aside'>You’re reading <a href="../">introducing-web-design</a>. This article is part of the <a href="../">introducing-web-design</a>, written by <a href="/">makzan</a>.</small></p>
+       -->
+            
+        <div class="page-nav header">
+ 
+  <p id='toggle-toc'>Table of Content</p>
+
+</div>
+
+  
+      <div class='sheet'>            
+
+          <h1>
+              Chapter 5 – Media queries and responsive web designing
+          </h1>
+
+
+        <p><h2 id='section-1' class='separator'><span><a href='#section-1'>What is responsive web design?</a></span></h2></p>
+
+<p>Web designer used to ask: <strong>What screen resolution is dominant one?</strong></p>
+
+<ul>
+  <li>15” 1024 x 768</li>
+  <li>19” 1280 x 960</li>
+  <li>23” 1920 x 1080</li>
+</ul>
+
+<p>In reality, this is not the question: <strike>What screen resolution is dominant one?</strike></p>
+<div class="row"><div class="half wide-only col"><p><img src="/images/introducing-web-design/example-tablet.png" alt="Example tablet" /></p>
+</div><div class="half wide-only col"><p><img src="/images/introducing-web-design/example-mobile.png" alt="Example mobile" /></p>
+</div></div><p><img src="/images/introducing-web-design/devices-photo-by-jeremy-keith.png" alt="Devices photo by jeremy keith" /></p>
+
+<p><small>Photo taken by <a href="http://www.flickr.com/photos/adactio/6800966731/">Jeremy Keith</a>.</small></p>
+
+<p><h2 id='section-2' class='separator'><span><a href='#section-2'>Introducing media queries</a></span></h2></p>
+<div class="row"><div class="two wide-only col"><div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>@media &lt;media type&gt; {
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>}
+</pre></div>
+</div>
+</div>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>@media &lt;media type&gt; and &lt;conditions&gt; {
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>}
+</pre></div>
+</div>
+</div>
+</div><div class="one wide-only col"><p><img src="/images/introducing-web-design/at_media.png" alt="At media" /></p>
+</div></div><p>Nowadays, the common media types we use are <code>screen</code> and <code>print</code>. Other options are <code>handheld</code>, <code>projection</code>, <code>tv</code>. The media type <code>all</code> means it apply to all media types where the web page is displayed.</p>
+
+<p>For example, in the <a href="http://jsfiddle.net/makzan/jktAT/">simple grid system</a> I introdcued in <a href="../chapter-3/">chapter 3</a>, it defines a media query that change the columns into 100% when the screen size is smaller than or equely to 400px;</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#088;font-weight:bold">@media</span> <span style="color:#339;font-weight:bold">screen</span> <span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">d</span> (<span style="color:#F00;background-color:#FAA">m</span><span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">x</span><span style="color:#F00;background-color:#FAA">-</span><span style="color:#F00;background-color:#FAA">w</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">d</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">h</span>: <span style="color:#60E">400px</span>) {
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  <span style="color:#B06;font-weight:bold">.col</span> {
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>    <span style="color:#606">width</span>: <span style="color:#60E">100%</span>;
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>  }
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>}
+</pre></div>
+</div>
+</div>
+
+<p>CSS styles that’s defined inside media query scope apply only when the media query matches the conditions.</p>
+
+<p><a href="http://css-tricks.com/snippets/css/media-queries-for-standard-devices/">Media Queries for Standard Devices</a> by CSS-tricks.</p>
+
+<p><a href="http://foundation.zurb.com/docs/media-queries.html">Foundation’s media queries</a></p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>// <span style="color:#070;font-weight:bold">Small</span> <span style="color:#070;font-weight:bold">screens</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span><span style="color:#088;font-weight:bold">@media</span> <span style="color:#339;font-weight:bold">only</span> <span style="color:#F00;background-color:#FAA">s</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">n</span> { } <span style="color:#777">/* Define mobile styles */</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span><span style="color:#088;font-weight:bold">@media</span> <span style="color:#339;font-weight:bold">only</span> <span style="color:#F00;background-color:#FAA">s</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">n</span> <span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">d</span> (<span style="color:#F00;background-color:#FAA">m</span><span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">x</span><span style="color:#F00;background-color:#FAA">-</span><span style="color:#F00;background-color:#FAA">w</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">d</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">h</span>: <span style="color:#60E">40em</span>) { } <span style="color:#777">/* max-width 640px, mobile-only styles, use when QAing mobile issues */</span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>// <span style="color:#070;font-weight:bold">Medium</span> <span style="color:#070;font-weight:bold">screens</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span><span style="color:#088;font-weight:bold">@media</span> <span style="color:#339;font-weight:bold">only</span> <span style="color:#F00;background-color:#FAA">s</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">n</span> <span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">d</span> (<span style="color:#F00;background-color:#FAA">m</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">-</span><span style="color:#F00;background-color:#FAA">w</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">d</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">h</span>: <span style="color:#60E">40.063em</span>) { } <span style="color:#777">/* min-width 641px, medium screens */</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span><span style="color:#088;font-weight:bold">@media</span> <span style="color:#339;font-weight:bold">only</span> <span style="color:#F00;background-color:#FAA">s</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">n</span> <span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">d</span> (<span style="color:#F00;background-color:#FAA">m</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">-</span><span style="color:#F00;background-color:#FAA">w</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">d</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">h</span>: <span style="color:#60E">40.063em</span>) <span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">d</span> (<span style="color:#F00;background-color:#FAA">m</span><span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">x</span><span style="color:#F00;background-color:#FAA">-</span><span style="color:#F00;background-color:#FAA">w</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">d</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">h</span>: <span style="color:#60E">64em</span>) { } <span style="color:#777">/* min-width 641px and max-width 1024px, use when QAing tablet-only issues */</span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>// <span style="color:#070;font-weight:bold">Large</span> <span style="color:#070;font-weight:bold">screens</span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span><span style="color:#088;font-weight:bold">@media</span> <span style="color:#339;font-weight:bold">only</span> <span style="color:#F00;background-color:#FAA">s</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">n</span> <span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">d</span> (<span style="color:#F00;background-color:#FAA">m</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">-</span><span style="color:#F00;background-color:#FAA">w</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">d</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">h</span>: <span style="color:#60E">64.063em</span>) { } <span style="color:#777">/* min-width 1025px, large screens */</span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span><span style="color:#088;font-weight:bold">@media</span> <span style="color:#339;font-weight:bold">only</span> <span style="color:#F00;background-color:#FAA">s</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">n</span> <span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">d</span> (<span style="color:#F00;background-color:#FAA">m</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">-</span><span style="color:#F00;background-color:#FAA">w</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">d</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">h</span>: <span style="color:#60E">64.063em</span>) <span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">d</span> (<span style="color:#F00;background-color:#FAA">m</span><span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">x</span><span style="color:#F00;background-color:#FAA">-</span><span style="color:#F00;background-color:#FAA">w</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">d</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">h</span>: <span style="color:#60E">90em</span>) { } <span style="color:#777">/* min-width 1025px and max-width 1440px, use when QAing large screen-only issues */</span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>// <span style="color:#070;font-weight:bold">XLarge</span> <span style="color:#070;font-weight:bold">screens</span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span><span style="color:#088;font-weight:bold">@media</span> <span style="color:#339;font-weight:bold">only</span> <span style="color:#F00;background-color:#FAA">s</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">n</span> <span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">d</span> (<span style="color:#F00;background-color:#FAA">m</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">-</span><span style="color:#F00;background-color:#FAA">w</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">d</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">h</span>: <span style="color:#60E">90.063em</span>) { } <span style="color:#777">/* min-width 1441px, xlarge screens */</span>
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span><span style="color:#088;font-weight:bold">@media</span> <span style="color:#339;font-weight:bold">only</span> <span style="color:#F00;background-color:#FAA">s</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">n</span> <span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">d</span> (<span style="color:#F00;background-color:#FAA">m</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">-</span><span style="color:#F00;background-color:#FAA">w</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">d</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">h</span>: <span style="color:#60E">90.063em</span>) <span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">d</span> (<span style="color:#F00;background-color:#FAA">m</span><span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">x</span><span style="color:#F00;background-color:#FAA">-</span><span style="color:#F00;background-color:#FAA">w</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">d</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">h</span>: <span style="color:#60E">120em</span>) { } <span style="color:#777">/* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */</span>
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>// <span style="color:#070;font-weight:bold">XXLarge</span> <span style="color:#070;font-weight:bold">screens</span>
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span><span style="color:#088;font-weight:bold">@media</span> <span style="color:#339;font-weight:bold">only</span> <span style="color:#F00;background-color:#FAA">s</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">n</span> <span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">d</span> (<span style="color:#F00;background-color:#FAA">m</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">-</span><span style="color:#F00;background-color:#FAA">w</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">d</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">h</span>: <span style="color:#60E">120.063em</span>) { } <span style="color:#777">/* min-width 1921px, xxlarge screens */</span>
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>
+</pre></div>
+</div>
+</div>
+
+<p>Note: Another way to apply the media queries.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;link</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">css/mobile.css</span><span style="color:#710">&quot;</span></span> <span style="color:#b48">rel</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">stylesheet</span><span style="color:#710">&quot;</span></span> <span style="color:#b48">type</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">text/css</span><span style="color:#710">&quot;</span></span> <span style="color:#b48">media</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">only screen and (max-width: 649px)</span><span style="color:#710">&quot;</span></span> <span style="color:#070;font-weight:bold">&gt;</span>
+</pre></div>
+</div>
+</div>
+
+<p>Media is not limited to screen. We can also define rules that applies only when printing.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#088;font-weight:bold">@media</span> <span style="color:#339;font-weight:bold">print</span> {
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>}
+</pre></div>
+</div>
+</div>
+
+<p>Note: we also need to set a viewport meta for mobile device to work. It forces the mobile device to use device width. Otherwise, mobile phone may set the initial viewport to desktop width, resulting your website in very small scale.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;meta</span> <span style="color:#b48">name</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">viewport</span><span style="color:#710">&quot;</span></span> <span style="color:#b48">content</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">width=device-width</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+</pre></div>
+</div>
+</div>
+
+<p><h2 id='section-3' class='separator'><span><a href='#section-3'>Foundation grid system</a></span></h2></p>
+
+<p><a href="http://foundation.zurb.com/docs/components/grid.html">Foundation’s grid system</a></p>
+<div class="row"><div class="half wide-only col"><p>As introduced in previous chapters, we have grid system in foundation like the following:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;div</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">row</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  <span style="color:#070;font-weight:bold">&lt;div</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">small-6 medium-4 large-2 columns</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>...<span style="color:#070;font-weight:bold">&lt;/div&gt;</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  <span style="color:#070;font-weight:bold">&lt;div</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">small-6 medium-4 large-4 columns</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>...<span style="color:#070;font-weight:bold">&lt;/div&gt;</span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>  <span style="color:#070;font-weight:bold">&lt;div</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">small-6 medium-4 large-6 columns</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>...<span style="color:#070;font-weight:bold">&lt;/div&gt;</span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span><span style="color:#070;font-weight:bold">&lt;/div&gt;</span>
+</pre></div>
+</div>
+</div>
+</div><div class="half wide-only col"><p>The <code>small-x</code> classes is the essential one. The <code>medium-x</code> and <code>large-x</code> is needed only when we want to sepecific set a different layout for the larger screens.</p>
+</div></div><p>Here is the guide from the Foundation documentation:</p>
+
+<blockquote>
+  <p>Foundation is mobile-first. Code for small screens first, and larger devices will inherit those styles. Customize for larger screens as necessary.</p>
+</blockquote>
+
+<p><h2 id='section-4' class='separator'><span><a href='#section-4'>Why mobile first?</a></span></h2></p>
+
+<p>We design website for mobile first because:</p>
+
+<ul>
+  <li>We can focus on the most important thing.</li>
+  <li>We must carefully choose what to show in such a small screen.</li>
+  <li>If eventually we do not have time for the desktop layout, the mobile one works everywhere.</li>
+</ul>
+
+<p><h2 id='section-5' class='separator'><span><a href='#section-5'>Drawing mobile sketch</a></span></h2></p>
+<div class="row"><div class="one wide-only col"><p><img src="/images/exercise-time.png" alt="Exercise time" />
+<img src="/images/introducing-web-design/psd-mockup-design-1.png" alt="Psd mockup design 1" /></p>
+</div><div class="two wide-only col"><p>We have implemented a website in last chapter:</p>
+
+<p>Now try to draw the website layout on paper. Sketching how elements lay out in a small screen. We will be using a <a href="http://zurb.com/playground/responsive-sketchsheets">responsive sketchsheets</a> from <a href="http://zurb.com">Zurb</a>.</p>
+
+<p><img src="/images/introducing-web-design/zurb-sketch.png" alt="Zurb sketch" /></p>
+</div></div><p><h2 id='section-6' class='separator'><span><a href='#section-6'>Optimizing font-size</a></span></h2></p>
+
+<p>If you resize this web page, you may notice that the font size changes. Here is the exactly source code snippet for the font size.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#777">/* Scss */</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span><span style="color:#F00;background-color:#FAA">$</span><span style="color:#070;font-weight:bold">font-break-point-wide</span>: <span style="color:#60E">900px</span>;
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span><span style="color:#F00;background-color:#FAA">$</span><span style="color:#070;font-weight:bold">font-break-point-medium</span>: <span style="color:#60E">800px</span>;
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span><span style="color:#F00;background-color:#FAA">$</span><span style="color:#070;font-weight:bold">font-break-point-narrow</span>: <span style="color:#60E">700px</span>;
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span><span style="color:#F00;background-color:#FAA">$</span><span style="color:#070;font-weight:bold">break-point</span>: <span style="color:#60E">560px</span>;
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span><span style="color:#070;font-weight:bold">body</span> {
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>  <span style="color:#606">font-size</span>: <span style="color:#60E">21px</span>;
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>  <span style="color:#606">font-family</span>: <span style="color:#088">Georgia</span>, <span style="color:#088">serif</span>;
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  <span style="color:#606">line-height</span>: <span style="color:#60E">150%</span>;
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>  <span style="color:#088;font-weight:bold">@media</span> (<span style="color:#606">max-width</span>: <span style="color:#F00;background-color:#FAA">$</span><span style="color:#088">font-break-point-wide</span>) {
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>    <span style="color:#606">font-size</span>: <span style="color:#60E">21px</span>;
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>  }
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>  <span style="color:#088;font-weight:bold">@media</span> (<span style="color:#606">max-width</span>: <span style="color:#F00;background-color:#FAA">$</span><span style="color:#088">font-break-point-medium</span>) {
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>    <span style="color:#606">font-size</span>: <span style="color:#60E">19px</span>;
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>  }
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>  <span style="color:#088;font-weight:bold">@media</span> (<span style="color:#606">max-width</span>: <span style="color:#F00;background-color:#FAA">$</span><span style="color:#088">font-break-point-narrow</span>) {
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>    <span style="color:#606">font-size</span>: <span style="color:#60E">18px</span>;
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>  }
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>  <span style="color:#088;font-weight:bold">@media</span> (<span style="color:#606">max-width</span>: <span style="color:#F00;background-color:#FAA">$</span><span style="color:#088">break-point</span>) {
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>    <span style="color:#606">font-size</span>: <span style="color:#60E">16px</span>;
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>  }
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>  <span style="color:#777">/* iPhone Retina */</span>
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>  <span style="color:#088;font-weight:bold">@media</span> <span style="color:#606">only</span> <span style="color:#606">screen</span> <span style="color:#606">and</span> (<span style="color:#606">-webkit-min-device-pixel-ratio</span> : <span style="color:#60E">1.5</span>) <span style="color:#088">and</span> (<span style="color:#088">max-width</span>: <span style="color:#F00;background-color:#FAA">$</span><span style="color:#088">break-point</span>), <span style="color:#088">only</span> <span style="color:#088">screen</span> <span style="color:#088">and</span> (<span style="color:#088">min-device-pixel-ratio</span> : <span style="color:#60E">1.5</span>) <span style="color:#088">and</span> (<span style="color:#088">max-width</span>: <span style="color:#F00;background-color:#FAA">$</span><span style="color:#088">break-point</span>) {
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>    <span style="color:#606">font-size</span>: <span style="color:#60E">16px</span>;
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>  }
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>}
+</pre></div>
+</div>
+</div>
+
+<p>Please note that the code above is Scss. In Scss, we can put <code>@media</code> condition directily inside another scope. This is much straightforward when we adjust the same property of one selector across different screen sizes.</p>
+
+<p><strong>Further reading:</strong> <a href="http://ia.net/blog/responsive-typography-the-basics/">Responsive Typography: The Basics</a> by <a href="http://ia.net">iA</a>.</p>
+
+<p><h2 id='section-7' class='separator'><span><a href='#section-7'>Responsive copywriting</a></span></h2></p>
+
+<p>It's not only about layout. We should also take care of our copywritings.</p>
+
+<p>An example on Basecamp homepage.</p>
+
+<p><img src="/images/introducing-web-design/response-text-demo-basecamp.gif" alt="Response text demo basecamp" /></p>
+
+<p>Take a closer look on the top navigation. When the screen has more space, the copywriting of sign-up button is <strong>See prices &amp; start a free trial”</strong>, detail enough so I know what information to expect after the link, right? When the screen has less space, this link changes to a simply <strong>“Sign up”</strong> text. Short and precise enough.</p>
+
+<p>Another example from the same company. Take a look at the top sentense.</p>
+
+<p><img src="/images/introducing-web-design/response-text-demo-signalvnoise.gif" alt="Response text demo signalvnoise" /></p>
+<div class="row"><div class="one wide-only col"><p>When wide enough, it shows: <strong>“You’re reading Signal v. Noise, a publication about the web by Basecamp since 1999. Happy Thursday.”</strong></p>
+</div><div class="one wide-only col"><p>When it’s not wide enough, it shows: <strong>“Signal v. Noise, a publication about the web by Basecamp since 1999.”</strong></p>
+</div><div class="one wide-only col"><p>In extreme case that the screen is too narrow, it displays: <strong>“Signal v. Noise by Basecamp”</strong></p>
+</div></div><p>With Foundation, we can archive the same result by using the visibility utility classes.</p>
+
+<p><a href="http://foundation.zurb.com/docs/components/visibility.html">Foundation’s visibility on various screens</a></p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;p</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">panel</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  <span style="color:#070;font-weight:bold">&lt;strong</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">show-for-small-only</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>This text is shown only on a small screen.<span style="color:#070;font-weight:bold">&lt;/strong&gt;</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  <span style="color:#070;font-weight:bold">&lt;strong</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">show-for-medium-up</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>This text is shown on medium screens and up.<span style="color:#070;font-weight:bold">&lt;/strong&gt;</span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>  <span style="color:#070;font-weight:bold">&lt;strong</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">show-for-medium-only</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>This text is shown only on a medium screen.<span style="color:#070;font-weight:bold">&lt;/strong&gt;</span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>  <span style="color:#070;font-weight:bold">&lt;strong</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">show-for-large-up</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>This text is shown on large screens and up.<span style="color:#070;font-weight:bold">&lt;/strong&gt;</span>
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span>  <span style="color:#070;font-weight:bold">&lt;strong</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">show-for-large-only</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>This text is shown only on a large screen.<span style="color:#070;font-weight:bold">&lt;/strong&gt;</span>
+<span class="line-numbers"><a href="#n7" name="n7">7</a></span><span style="color:#070;font-weight:bold">&lt;/p&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="row"><div class="one wide-only col"><p><img src="/images/exercise-time.png" alt="Exercise time" /></p>
+
+<p><button class='button' onclick='window.open("http://jsfiddle.net/makzan/f2679/")'>Exercise: Create a width-sensitive heading</button></p>
+
+<p><button class='button' onclick='window.open("http://jsfiddle.net/makzan/c25D9/")'>Suggested solution</button></p>
+
+<p><button class='button' onclick='window.open("http://jsfiddle.net/makzan/uA9GN/3/")'>Another solution using @media</button></p>
+</div><div class="two wide-only col"><p>Re-create a heading like the <a href="http://signalvnoise.com">Signal v. Noise</a> website.</p>
+
+<p><iframe width='100%' height='300' src='http://jsfiddle.net/makzan/f2679/embedded/result/' allowfullscreen='allowfullscreen' frameborder='0'></iframe></p>
+</div></div><p><h2 id='section-8' class='separator'><span><a href='#section-8'>Interchange responsize content</a></span></h2></p>
+
+<p>Responsive design comes with a downside: It wastes (mobile data) bandwidth if a lot of information is hidden in small screen. And it slows down the page loading.</p>
+
+<p>An optimal way to archive the same effect is by using interchange. We use javascript to load the image at the size that fits the reader's screen. Smaller image for small screen. Higher resolution image for larger screen. The readers only need to load what they are going to read. They should never load something that they don't see and use.</p>
+
+<p>The reason we need to interchange content is because of the loading bandwidth. In the visibility section, we show and hide content based on the screen size. But the reader have to download all the content. Assuming the reader is reading on mobile but we load a large image for large screen reader. Then the mobile reader needs to download a high resolution image with the cecular data but never see this image.</p>
+
+<p><a href="http://foundation.zurb.com/docs/components/interchange.html">Foundation’s interchange content</a></p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;img</span> <span style="color:#b48">data-interchange</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">[/path/to/default.jpg, (default)], [/path/to/bigger-image.jpg, (large)]</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span><span style="color:#070;font-weight:bold">&lt;noscript&gt;</span><span style="color:#070;font-weight:bold">&lt;img</span> <span style="color:#b48">src</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/path/to/default.jpg</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span><span style="color:#070;font-weight:bold">&lt;/noscript&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="row"><div class="one wide-only col"><p><img src="/images/exercise-time.png" alt="Exercise time" /></p>
+</div><div class="two wide-only col"><p>Exercise: Try to implement an interchange image.</p>
+
+<p><button class='button' onclick='window.open("http://jsfiddle.net/makzan/hLHBu/")'>Exercise: Interchange Image</button></p>
+
+<p><button class='button' onclick='window.open("http://jsfiddle.net/makzan/XFye6/")'>Suggested Solution</button></p>
+</div></div><p>If the page is generated by server logic, we can put this interchange code snippet into a server-side rendering funciton. For example, if it’s ruby, we may have the following code:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">interchange_photo</span>(default_path, large_path)
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">&lt;img data-interchange='[</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>default_path<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20">, (default)], [</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>large_path<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20">, (large)]'&gt;</span></span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">  &lt;noscript&gt;&lt;img src='</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>default_path<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20">'&gt;&lt;/noscript&gt;</span><span style="color:#710">&quot;</span></span>.html_safe
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Or we can further simlify the the function by using convention. Assuming the large screen name is always <code>&lt;name&gt;-large</code> and the function is for jpg only.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">interchange_photo</span>(default_path)
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">&lt;img data-interchange='[</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>default_path<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20">.jpg, (default)], [</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>default_path<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20">-large.jpg, (large)]'&gt;</span></span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">  &lt;noscript&gt;&lt;img src='</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>default_path<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20">.jpg'&gt;&lt;/noscript&gt;</span><span style="color:#710">&quot;</span></span>.html_safe
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p><h2 id='section-9' class='separator'><span><a href='#section-9'>Navigation strategy</a></span></h2></p>
+
+<p>There are different approaches to display navigation in small screen.</p>
+
+<h4 id="using-block-grid">Using block grid</h4>
+<div class="row"><div class="half wide-only col"><div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;ul</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">medium-block-grid-4 small-block-grid-2</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  <span style="color:#070;font-weight:bold">&lt;li&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>Home<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  <span style="color:#070;font-weight:bold">&lt;li&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>About<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>  <span style="color:#070;font-weight:bold">&lt;li&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>Works<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>  <span style="color:#070;font-weight:bold">&lt;li&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>Contact<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span><span style="color:#070;font-weight:bold">&lt;/ul&gt;</span>
+</pre></div>
+</div>
+</div>
+</div><div class="half wide-only col"><p><iframe width='100%' height='600' src='http://jsfiddle.net/makzan/q334q/embedded/result,html/' allowfullscreen='allowfullscreen' frameborder='0'></iframe></p>
+</div></div><h4 id="footer-navigation">Footer navigation</h4>
+<div class="row"><div class="two wide-only col"><div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;header</span> <span style="color:#b48">id</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">top</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  <span style="color:#070;font-weight:bold">&lt;h1&gt;</span>Demo on footer navigation strategy<span style="color:#070;font-weight:bold">&lt;/h1&gt;</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span><span style="color:#070;font-weight:bold">&lt;/header&gt;</span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span><span style="color:#070;font-weight:bold">&lt;nav&gt;</span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>  <span style="color:#070;font-weight:bold">&lt;ul</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">small-block-grid-4 hide-for-small-only</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>    <span style="color:#070;font-weight:bold">&lt;li&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>Home<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>    <span style="color:#070;font-weight:bold">&lt;li&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>About<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>    <span style="color:#070;font-weight:bold">&lt;li&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>Works<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>    <span style="color:#070;font-weight:bold">&lt;li&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>Contact<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  <span style="color:#070;font-weight:bold">&lt;/ul&gt;</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>  <span style="color:#070;font-weight:bold">&lt;p</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">show-for-small-only</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#footer-nav</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>Menu<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/p&gt;</span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span><span style="color:#070;font-weight:bold">&lt;/nav&gt;</span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span><span style="color:#070;font-weight:bold">&lt;article&gt;</span>
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>  <span style="color:#070;font-weight:bold">&lt;p&gt;</span>A long text here.<span style="color:#070;font-weight:bold">&lt;/p&gt;</span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span><span style="color:#070;font-weight:bold">&lt;/article&gt;</span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span><span style="color:#070;font-weight:bold">&lt;footer&gt;</span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>  <span style="color:#070;font-weight:bold">&lt;nav</span> <span style="color:#b48">id</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">footer-nav</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>    <span style="color:#070;font-weight:bold">&lt;ul&gt;</span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>      <span style="color:#070;font-weight:bold">&lt;li&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#top</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>Top<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>      <span style="color:#070;font-weight:bold">&lt;li&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>Home<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>      <span style="color:#070;font-weight:bold">&lt;li&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>About<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>      <span style="color:#070;font-weight:bold">&lt;li&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>Works<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>      <span style="color:#070;font-weight:bold">&lt;li&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>Contact<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>    <span style="color:#070;font-weight:bold">&lt;/ul&gt;</span>
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>  <span style="color:#070;font-weight:bold">&lt;/nav&gt;</span>
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span><span style="color:#070;font-weight:bold">&lt;/footer&gt;</span>
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>
+</pre></div>
+</div>
+</div>
+<div class="row"><div class="half wide-only col"><p><img src="/images/exercise-time.png" alt="Exercise time" /></p>
+</div><div class="half wide-only col"><p>Exercise: follow the code snippet above. Modify the navigation to make it work in small screen.</p>
+
+<p><button class='button' onclick='window.open("http://jsfiddle.net/makzan/qX5kP/")'>Exercise: footer link</button></p>
+</div></div></div><div class="one wide-only col"><p><iframe width='100%' height='700' src='http://jsfiddle.net/makzan/tJy3z/embedded/result,html/' allowfullscreen='allowfullscreen' frameborder='0'></iframe></p>
+</div></div><h4 id="hamburger-link">Hamburger link</h4>
+<div class="row"><div class="one wide-only col"><p><img src="/images/exercise-time.png" alt="Exercise time" /></p>
+</div><div class="two wide-only col"><p>Exercise: Use <a href="http://foundation.zurb.com/docs/components/topbar.html">Foundation’s top bar component</a> to create an navigation that changes into hamburger menu when in small screen.</p>
+
+<p><button class='button' onclick='window.open("http://jsfiddle.net/makzan/QVCHT/")'>Exercise: Create Foundation top bar</button></p>
+</div></div><div class="row"><div class="half wide-only col"><div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;nav</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">top-bar</span><span style="color:#710">&quot;</span></span> <span style="color:#b48">data-topbar</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  <span style="color:#070;font-weight:bold">&lt;ul</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">title-area</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>    <span style="color:#070;font-weight:bold">&lt;li</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">name</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>      <span style="color:#070;font-weight:bold">&lt;h1&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>Website Title<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/h1&gt;</span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>    <span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>    <span style="color:#070;font-weight:bold">&lt;li</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">toggle-topbar menu-icon</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>      <span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">#</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span><span style="color:#070;font-weight:bold">&lt;span&gt;</span>Menu<span style="color:#070;font-weight:bold">&lt;/span&gt;</span><span style="color:#070;font-weight:bold">&lt;/a&gt;</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>    <span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>  <span style="color:#070;font-weight:bold">&lt;/ul&gt;</span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  <span style="color:#070;font-weight:bold">&lt;section</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">top-bar-section</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>    <span style="color:#070;font-weight:bold">&lt;ul</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">left</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>    <span style="color:#070;font-weight:bold">&lt;/ul&gt;</span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>    <span style="color:#070;font-weight:bold">&lt;ul</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">right</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>      <span style="color:#070;font-weight:bold">&lt;li&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/users/sign_up</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>Sign Up<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>      <span style="color:#070;font-weight:bold">&lt;li&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/users/sign_in</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>Login<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>    <span style="color:#070;font-weight:bold">&lt;/ul&gt;</span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>  <span style="color:#070;font-weight:bold">&lt;/section&gt;</span>
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span><span style="color:#070;font-weight:bold">&lt;/nav&gt;</span>
+</pre></div>
+</div>
+</div>
+</div><div class="half wide-only col"><p><img src="/images/introducing-web-design/top-bar.png" alt="Top bar" />
+<img src="/images/introducing-web-design/top-bar-menu.png" alt="Top bar menu" /></p>
+</div></div><p><strong>Further reading:</strong> Foundation provides another navigation approach that slides in the menu when the hamburger button is clicked. They call it <a href="http://foundation.zurb.com/docs/components/offcanvas.html">Offcanvas</a>.</p>
+
+<p><strong>Further reading 2:</strong> Disprite the popularity of the hamburger button, more and more designer considering it as harmful to user interaction: <a href="http://techcrunch.com/2014/05/24/before-the-hamburger-button-kills-you/">Kill The Hamburger Button</a>. Think twice before you really need to use the hamburger.</p>
+
+<p><h2 id='section-10' class='separator'><span><a href='#section-10'>Testing various screens in Firefox</a></span></h2></p>
+
+<p>Firefox comes with a tool to test the website in various screen sizes. You may find it in <code>Tools | Web Developer | Responsive Design View</code>.</p>
+
+<p><img src="/images/introducing-web-design/firefox-responsive-menu.png" alt="Firefox responsive menu" />
+<img src="/images/introducing-web-design/firefox-responsive-tool.png" alt="Firefox responsive tool" /></p>
+<div class="row"><div class="half wide-only col"><p>Other tools that we may use:</p>
+
+<ul>
+  <li><a href="http://lab.maltewassermann.com/viewport-resizer/">Viewport resizer bookmarklet</a></li>
+  <li><a href="http://www.responsinator.com">Responsinator</a></li>
+</ul>
+</div><div class="half wide-only col"><p><img src="/images/introducing-web-design/responsinator.png" alt="Responsinator" /></p>
+</div></div><p><h2 id='section-11' class='separator'><span><a href='#section-11'>Using simulator to test websites</a></span></h2></p>
+<div class="row"><div class="two wide-only col"><p>Testing small screen website in browser simulation is not enough. Mobile devices come with different resolution, different pixel density. In order to really make things work in mobile, we need to use real devices. Or at least, we need to use device simulator.</p>
+
+<p><img src="/images/introducing-web-design/test-in-ios-simulator.png" alt="Test in ios simulator" /></p>
+</div><div class="one wide-only col"><p><img src="/images/introducing-web-design/ios-simulator-icon.png" alt="Ios simulator icon" /></p>
+</div></div><div class="row"><div class="two wide-only col"><p>For Android, we may use <a href="http://www.genymotion.com">Genymotion</a> to simulate different system versions from different brands.</p>
+
+<p><img src="/images/introducing-web-design/genymotion-list.png" alt="Genymotion list" /></p>
+</div><div class="one wide-only col"><p><img src="/images/introducing-web-design/genymotion-icon.png" alt="Genymotion icon" />
+<img src="/images/introducing-web-design/test-website-in-nexus-simulator.png" alt="Test website in nexus simulator" /></p>
+</div></div><p><h2 id='section-12' class='separator'><span><a href='#section-12'>Foundation and jsFiddle template</a></span></h2></p>
+
+<p>Note: If you want to experiement Foundation in jsFiddle, you’ll need to include the CSS and JavaScript. The fiddle should also selected to use jQuery where Foundation depends on it.</p>
+
+<pre><code>http://www.cdn.jsdelivr.net/foundation/5.2.3/css/foundation.min.css
+http://www.cdn.jsdelivr.net/foundation/5.2.3/js/foundation.min.js
+</code></pre>
+
+<p>Or you may start in the following fiddle where I have included the Foundation resources.</p>
+
+<p><button class='button' onclick='window.open("http://jsfiddle.net/makzan/QVCHT/")'>Foundation-jsFiddle Template</button></p>
+
+<p><h2 id='section-13' class='separator'><span><a href='#section-13'>Conclusion: Foundation’s responsive rule of thumb</a></span></h2></p>
+
+<ol>
+  <li>Always put <code>.columns</code> inside <code>.row</code></li>
+  <li>Sum of columns equals to 12 inside one row</li>
+  <li><code>large-N</code> for defining columns in large screen</li>
+  <li><code>small-N</code> to specify small screen columns</li>
+  <li>by default a column is large-12/small-12 (full width)</li>
+  <li><code>display-for-small</code> / <code>hide-for-large</code> for screen size sensitive components.</li>
+</ol>
+
+
+        <!-- What’s next? -->
+
+        <div class="page-nav">
+    <a class='left pjaxer' href='../chapter-4/' title='Chapter 4 – PSD to HTML/CSS layout with Zurb Foundation'>◀ Chapter 4 – PSD to HTML/CSS layout with Zurb Foundation</a>
+
+    <a class='right pjaxer' href='../chapter-6/' title='Chapter 6 – Introducing Ruby on Rails'>Chapter 6 – Introducing Ruby on Rails ▶</a>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+</article>
+
+<div id='overlay' class='out'>
+  <img id='overlay-img' src='' alt='overlaied image when clicked on thumbnail'>
+  <div id='overlay-caption'></div>
+</div>
+  
+<div id='toc-overlay' class='out'>
+  <h4><a href='/'>Makzan</a> | Introducing web design | Table of Content</h4>
+  <ul>
+      <li><b><em><a href="../chapter-1/">Chapter 1 – Tools web designers use</a></em></b></li>          
+
+      <li><b><em><a href="../chapter-2/">Chapter 2 – Introducing HTML5</a></em></b></li>          
+
+      <li><b><em><a href="../chapter-3/">Chapter 3 – CSS and new features</a></em></b></li>          
+
+      <li><b><em><a href="../chapter-4/">Chapter 4 – PSD to HTML/CSS layout with Zurb Foundation</a></em></b></li>          
+
+      <li><strong>→<a href="../chapter-5/">Chapter 5 – Media queries and responsive web designing</a></strong></li>            
+
+      <li><b><em><a href="../chapter-6/">Chapter 6 – Introducing Ruby on Rails</a></em></b></li>          
+
+      <li><a href="../chapter-6b/">Chapter 6 – Introducing Ruby on Rails (Part B)</a></li>            
+
+      <li><b><em><a href="../chapter-7/">Chapter 7 – Introducing jQuery</a></em></b></li>          
+
+      <li><b><em><a href="../chapter-8/">Chapter 8 – Dedicated mobile site with jQuery mobile</a></em></b></li>          
+
+  </ul>
+</div>
+
+
+<div class="book-page-footer-nav"><ul><li>You’re reading <a href="/introducing-web-design/">introducing-web-design</a>.</li><li><a id='twitter-intent-link' href='https://twitter.com/intent/tweet?text=@makzan '>Discuss this post on Twitter.</a></li>         <li><a href='/'>Go back to home.</a></li><li>Go to <a href='#top'>top?</a></li> </ul><div class="mz-square"><img width="80" src="/images/mz-square.png" alt="Mz square" /></div></div><footer><div class="content"><p><small class="footer"><strong>Thanks for reading.</strong> All content is written by <a href='/about/'>Makzan</a>, from <a href='https://www.google.com/search?q=macau+china&safe=active&tbm=isch'>Macao</a>. Text are in <a href='http://creativecommons.org/licenses/by-nc/4.0/'>CC BY-NC 4.0</a> lincense. Code snippets in this site are in <a href='http://opensource.org/licenses/MIT'>MIT</a> license unless specified. Enjoy the rest of <span id='weekday'>day</span>!</small></p></div></footer>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-975238-12']);
+  _gaq.push(['_setDomainName', 'makzan.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<script src="/assets/application.js" data-turbolinks-track="true"></script>
+
+
+<script>
+mixpanel.track("Page Show", {"Parent": "introducing-web-design", "Title": "Chapter 5 – Media queries and responsive web designing"});
+mixpanel.track_links(".page-nav a", "Click page nav link");
+</script>
+<script data-no-instant>InstantClick.init();</script>
+<script type="text/javascript">
+  var FHChat = {product_id: "ae42b12bfcb3"};
+  FHChat.properties={};FHChat.set=function(key,data){this.properties[key]=data};FHChat.customAttributes=[];FHChat.sendCustomAttributes=function(data){this.customAttributes.push(data)};!function(){var a,b;return b=document.createElement("script"),a=document.getElementsByTagName("script")[0],b.src="https://chat-client-js.firehoseapp.com/chat-min.js",b.async=!0,a.parentNode.insertBefore(b,a)}();
+</script>
+  
+
+<script type="text/javascript">
+  var _sf_async_config = { uid: 59469, domain: 'makzan.net', useCanonical: true };
+  (function() {
+    function loadChartbeat() {
+      window._sf_endpt = (new Date()).getTime();
+      var e = document.createElement('script');
+      e.setAttribute('language', 'javascript');
+      e.setAttribute('type', 'text/javascript');
+      e.setAttribute('src','//static.chartbeat.com/js/chartbeat.js');
+      document.body.appendChild(e);
+    };
+    var oldonload = window.onload;
+    window.onload = (typeof window.onload != 'function') ?
+      loadChartbeat : function() { oldonload(); loadChartbeat(); };
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,417 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+  <title>
+      Building our own grid system – makzan’s sharings
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='http://fonts.googleapis.com/css?family=Bevan' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" media="all" href="/assets/application.css" data-turbolinks-track="true" />
+  <link href="https://makzan.net/mobile-web-design/building-our-own-grid-system" rel="canonical" />  <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+mixpanel.init("26e7a62bc13d535df35f3aca1c4a009f");</script><!-- end Mixpanel -->
+
+  
+    <link rel="next" href="../introducing-ungrid-another-minimal-grid-approach/">
+    
+  <script type="text/javascript" src="//use.typekit.net/gku5yms.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body id='top' class='book-page'>
+
+<header class="nav-bar centered"><a href="/" title="Back to makzan homepage"><canvas id="heading-canvas" width="572" height="200" style="background-color:#fffffa;width:143px;"><h1>makzan.</h1></canvas></a><div class="nav-text"><p>I build <a href="/works/#apps">utilities</a> and <a href="/works/#games">games</a>. <br />
+I share know-how via <a href="/works/#books">books</a>, <a href="/#courses">classes</a> and <a href="/essays/">essays</a>.</p>
+
+</div></header>
+
+<article class='book-page-content content'>
+  <div id='pjax-area' class="row">
+    <div id='side-bar-col' class="hidden col">
+
+    </div>
+    <div id='sheet-col' class="full col">
+<!--               <p><small class='aside'>You’re reading <a href="../">mobile-web-design</a>. This article is part of the <a href="../">mobile-web-design</a>, written by <a href="/">makzan</a>.</small></p>
+       -->
+            
+        <div class="page-nav header">
+ 
+  <p id='toggle-toc'>Table of Content</p>
+
+</div>
+
+  
+      <div class='sheet'>            
+
+          <h1>
+              Building our own grid system
+          </h1>
+
+
+        <p>The following CSS demonstrates a minimal grid system I created. It is inspired from the Zurb Foundation and I just keep the most essential part - the basic grid.</p>
+
+<p>You will find that actually it takes less than 50 lines of code to build a responsive grid system with row/column approach.</p>
+
+<p>By creating our own grid system, we learn the core of the row/ column grid. One more benefit is that we can use a basic grid at the beginning of the project. And only include the Foundation framework into the project until we need their rich features.</p>
+<div class="row"><div class="half wide-only col"><div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">*</span> {
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>    <span style="color:#606">box-sizing</span>: <span style="color:#088">border-box</span>;
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>}
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span><span style="color:#070;font-weight:bold">img</span> {
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>    <span style="color:#606">max-width</span>: <span style="color:#60E">100%</span>;
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>}
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span><span style="color:#B06;font-weight:bold">.row</span> {
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  <span style="color:#606">width</span>: <span style="color:#60E">100%</span>;
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>  <span style="color:#606">max-width</span>: <span style="color:#60E">600px</span>;
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>  <span style="color:#606">margin</span>: <span style="color:#60E">0</span> <span style="color:#088">auto</span>;
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>  <span style="color:#606">padding-top</span>: <span style="color:#60E">10px</span>;
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>  <span style="color:#606">padding-bottom</span>: <span style="color:#60E">10px</span>;
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>}
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span><span style="color:#B06;font-weight:bold">.row</span> <span style="color:#B06;font-weight:bold">.row</span> {
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>  <span style="color:#606">width</span>: <span style="color:#088">auto</span>;
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>  <span style="color:#606">max-width</span>: <span style="color:#088">none</span>;
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>  <span style="color:#606">margin</span>: <span style="color:#60E">0</span> <span style="color:#60E">-10px</span>;
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>}
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span><span style="color:#B06;font-weight:bold">.col</span> {
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>  <span style="color:#606">padding</span>: <span style="color:#60E">0</span> <span style="color:#60E">10px</span>;
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>  <span style="color:#606">width</span>: <span style="color:#60E">100%</span>;
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>}
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span><span style="color:#088;font-weight:bold">@media</span> <span style="color:#339;font-weight:bold">screen</span> <span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">d</span> (<span style="color:#F00;background-color:#FAA">m</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">-</span><span style="color:#F00;background-color:#FAA">w</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">d</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">h</span>: <span style="color:#60E">500px</span>) {
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>  <span style="color:#B06;font-weight:bold">.row</span> {
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>    <span style="color:#606">overflow</span>: <span style="color:#088">auto</span>;
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span>  }
+<span class="line-numbers"><a href="#n32" name="n32">32</a></span>  <span style="color:#B06;font-weight:bold">.col</span> {
+<span class="line-numbers"><a href="#n33" name="n33">33</a></span>    <span style="color:#606">float</span>:<span style="color:#088">left</span>;
+<span class="line-numbers"><a href="#n34" name="n34">34</a></span>  }
+<span class="line-numbers"><a href="#n35" name="n35">35</a></span>  <span style="color:#B06;font-weight:bold">.one</span> {
+<span class="line-numbers"><a href="#n36" name="n36">36</a></span>    <span style="color:#606">width</span>: <span style="color:#60E">25%</span>;
+<span class="line-numbers"><a href="#n37" name="n37">37</a></span>  }
+<span class="line-numbers"><a href="#n38" name="n38">38</a></span>  <span style="color:#B06;font-weight:bold">.two</span> {
+<span class="line-numbers"><a href="#n39" name="n39">39</a></span>    <span style="color:#606">width</span>: <span style="color:#60E">50%</span>;
+<span class="line-numbers"><strong><a href="#n40" name="n40">40</a></strong></span>  }
+<span class="line-numbers"><a href="#n41" name="n41">41</a></span>  <span style="color:#B06;font-weight:bold">.three</span> {
+<span class="line-numbers"><a href="#n42" name="n42">42</a></span>    <span style="color:#606">width</span>: <span style="color:#60E">75%</span>;
+<span class="line-numbers"><a href="#n43" name="n43">43</a></span>  }
+<span class="line-numbers"><a href="#n44" name="n44">44</a></span>  <span style="color:#B06;font-weight:bold">.four</span> {
+<span class="line-numbers"><a href="#n45" name="n45">45</a></span>  }
+<span class="line-numbers"><a href="#n46" name="n46">46</a></span>}
+</pre></div>
+</div>
+</div>
+</div><div class="half wide-only col"><div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;header&gt;</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  <span style="color:#070;font-weight:bold">&lt;div</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">row</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>    <span style="color:#070;font-weight:bold">&lt;div</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">four col</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>      Website Title here
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>    <span style="color:#070;font-weight:bold">&lt;/div&gt;</span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>  <span style="color:#070;font-weight:bold">&lt;/div&gt;</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span><span style="color:#070;font-weight:bold">&lt;/header&gt;</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span><span style="color:#070;font-weight:bold">&lt;nav&gt;</span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  <span style="color:#070;font-weight:bold">&lt;div</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">row</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>    <span style="color:#070;font-weight:bold">&lt;div</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">four col</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>      <span style="color:#070;font-weight:bold">&lt;ul&gt;</span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>        <span style="color:#070;font-weight:bold">&lt;li&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>Link 1<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>        <span style="color:#070;font-weight:bold">&lt;li&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>Link 2<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>        <span style="color:#070;font-weight:bold">&lt;li&gt;</span><span style="color:#070;font-weight:bold">&lt;a</span> <span style="color:#b48">href</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">#</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>Link 3<span style="color:#070;font-weight:bold">&lt;/a&gt;</span><span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>      <span style="color:#070;font-weight:bold">&lt;/ul&gt;</span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>    <span style="color:#070;font-weight:bold">&lt;/div&gt;</span>
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>  <span style="color:#070;font-weight:bold">&lt;/div&gt;</span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span><span style="color:#070;font-weight:bold">&lt;/nav&gt;</span>
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span><span style="color:#070;font-weight:bold">&lt;div</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">row</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>  <span style="color:#070;font-weight:bold">&lt;div</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">three col</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>    <span style="color:#070;font-weight:bold">&lt;article&gt;</span>
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>      <span style="color:#070;font-weight:bold">&lt;header&gt;</span>
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>        <span style="color:#070;font-weight:bold">&lt;h1&gt;</span>Heading of the content<span style="color:#070;font-weight:bold">&lt;/h1&gt;</span>
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>      <span style="color:#070;font-weight:bold">&lt;/header&gt;</span>
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>      <span style="color:#070;font-weight:bold">&lt;p&gt;</span>Content.<span style="color:#070;font-weight:bold">&lt;/p&gt;</span>
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>      <span style="color:#070;font-weight:bold">&lt;p&gt;</span>Demo of 2 columns inside parent column.<span style="color:#070;font-weight:bold">&lt;/p&gt;</span>
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span>      <span style="color:#070;font-weight:bold">&lt;div</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">row</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n32" name="n32">32</a></span>        <span style="color:#070;font-weight:bold">&lt;div</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">two col</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n33" name="n33">33</a></span>          <span style="color:#070;font-weight:bold">&lt;p&gt;</span>Content.<span style="color:#070;font-weight:bold">&lt;/p&gt;</span>
+<span class="line-numbers"><a href="#n34" name="n34">34</a></span>        <span style="color:#070;font-weight:bold">&lt;/div&gt;</span>
+<span class="line-numbers"><a href="#n35" name="n35">35</a></span>        <span style="color:#070;font-weight:bold">&lt;div</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">two col</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n36" name="n36">36</a></span>          <span style="color:#070;font-weight:bold">&lt;p&gt;</span>Content.<span style="color:#070;font-weight:bold">&lt;/p&gt;</span>
+<span class="line-numbers"><a href="#n37" name="n37">37</a></span>        <span style="color:#070;font-weight:bold">&lt;/div&gt;</span>
+<span class="line-numbers"><a href="#n38" name="n38">38</a></span>      <span style="color:#070;font-weight:bold">&lt;/div&gt;</span>
+<span class="line-numbers"><a href="#n39" name="n39">39</a></span>
+<span class="line-numbers"><strong><a href="#n40" name="n40">40</a></strong></span>
+<span class="line-numbers"><a href="#n41" name="n41">41</a></span>      <span style="color:#070;font-weight:bold">&lt;footer&gt;</span>
+<span class="line-numbers"><a href="#n42" name="n42">42</a></span>        Content
+<span class="line-numbers"><a href="#n43" name="n43">43</a></span>      <span style="color:#070;font-weight:bold">&lt;/footer&gt;</span>
+<span class="line-numbers"><a href="#n44" name="n44">44</a></span>
+<span class="line-numbers"><a href="#n45" name="n45">45</a></span>    <span style="color:#070;font-weight:bold">&lt;/article&gt;</span>
+<span class="line-numbers"><a href="#n46" name="n46">46</a></span>  <span style="color:#070;font-weight:bold">&lt;/div&gt;</span>
+<span class="line-numbers"><a href="#n47" name="n47">47</a></span>  <span style="color:#070;font-weight:bold">&lt;div</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">one col</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n48" name="n48">48</a></span>    <span style="color:#070;font-weight:bold">&lt;aside&gt;</span>
+<span class="line-numbers"><a href="#n49" name="n49">49</a></span>      Any thing related but not part of the content goes here.
+<span class="line-numbers"><strong><a href="#n50" name="n50">50</a></strong></span>    <span style="color:#070;font-weight:bold">&lt;/aside&gt;</span>
+<span class="line-numbers"><a href="#n51" name="n51">51</a></span>  <span style="color:#070;font-weight:bold">&lt;/div&gt;</span>
+<span class="line-numbers"><a href="#n52" name="n52">52</a></span><span style="color:#070;font-weight:bold">&lt;/div&gt;</span>
+<span class="line-numbers"><a href="#n53" name="n53">53</a></span>
+<span class="line-numbers"><a href="#n54" name="n54">54</a></span><span style="color:#070;font-weight:bold">&lt;footer&gt;</span>
+<span class="line-numbers"><a href="#n55" name="n55">55</a></span>  <span style="color:#070;font-weight:bold">&lt;div</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">row</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n56" name="n56">56</a></span>    <span style="color:#070;font-weight:bold">&lt;div</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">four col</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n57" name="n57">57</a></span>      Copyright goes here.
+<span class="line-numbers"><a href="#n58" name="n58">58</a></span>    <span style="color:#070;font-weight:bold">&lt;/div&gt;</span>
+<span class="line-numbers"><a href="#n59" name="n59">59</a></span>  <span style="color:#070;font-weight:bold">&lt;/div&gt;</span>
+<span class="line-numbers"><strong><a href="#n60" name="n60">60</a></strong></span><span style="color:#070;font-weight:bold">&lt;/footer&gt;</span>
+</pre></div>
+</div>
+</div>
+</div></div><div class="row"><div class="two col"><p><figure style='width:; float:none'><img title="Our own grid displayed in wide screen." alt="Our own grid displayed in wide screen." src="/images/mobile-web-design/our-own-grid-wide.png" /><figcaption>Our own grid displayed in wide screen.</figcaption></figure></p>
+</div><div class="one col"><p><figure style='width:; float:none'><img title="Our own grid displayed in small screen." alt="Our own grid displayed in small screen." src="/images/mobile-web-design/our-own-grid-small.png" /><figcaption>Our own grid displayed in small screen.</figcaption></figure></p>
+</div></div><p><figure style='width:20%; float:right'><img title="Our grid with footer navigation approach" alt="Our grid with footer navigation approach" src="/images/mobile-web-design/our-grid-with-footer-navigation.png" /><figcaption>Our grid with footer navigation approach</figcaption></figure></p>
+
+<p>An example of the grid system with placeholder image.</p>
+
+<p><a href="http://jsfiddle.net/makzan/jktAT/">http://jsfiddle.net/makzan/jktAT/</a></p>
+
+<p>An example of using our grid system with the block-grid navigation approach.</p>
+
+<p><a href="http://jsfiddle.net/makzan/GpKBX/">http://jsfiddle.net/makzan/GpKBX/</a></p>
+
+<p>An example of using our grid system with the footer navigation approach.</p>
+
+<p><a href="http://jsfiddle.net/makzan/jf2Ef/">http://jsfiddle.net/makzan/jf2Ef/</a></p>
+
+
+        <!-- What’s next? -->
+          <!-- TODO: move this condition away from view -->
+            <p>What’s next? We’re going to take a look at <a class='pjaxer' href='../introducing-ungrid-another-minimal-grid-approach/' title='Introducing ungrid another minimal grid approach'>“Introducing ungrid another minimal grid approach”</a>.</p>
+
+        <div class="page-nav">
+    <a class='left pjaxer' href='../putting-navigation-at-bottom/' title='Putting navigation at bottom'>◀ Putting navigation at bottom</a>
+
+    <a class='right pjaxer' href='../introducing-ungrid-another-minimal-grid-approach/' title='Introducing ungrid another minimal grid approach'>Introducing ungrid another minimal grid approach ▶</a>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+</article>
+
+<div id='overlay' class='out'>
+  <img id='overlay-img' src='' alt='overlaied image when clicked on thumbnail'>
+  <div id='overlay-caption'></div>
+</div>
+  
+<div id='toc-overlay' class='out'>
+  <h4><a href='/'>Makzan</a> | Mobile web design | Table of Content</h4>
+  <ul>
+      <li><a href="../chapter-1-getting-started/">Chapter 1 – Getting started</a></li>            
+
+      <li><a href="../setting-up-the-development-environment/">Setting up the development environment</a></li>            
+
+      <li><a href="../testing-environment/">Testing environment</a></li>            
+
+      <li><a href="../where-to-reference-documentation/">Where to reference documentation?</a></li>            
+
+      <li><a href="../chapter-2-content-strategy/">Chapter 2 – Content strategy</a></li>            
+
+      <li><a href="../document-title/">Document title</a></li>            
+
+      <li><a href="../content-strategy/">Content strategy</a></li>            
+
+      <li><a href="../content-structure/">Content structure</a></li>            
+
+      <li><a href="../mobile-first-approach/">Mobile first approach</a></li>            
+
+      <li><a href="../sketching-for-mobile-web/">Sketching for mobile web</a></li>            
+
+      <li><a href="../minimal-mobile-friendly-website/">Minimal mobile friendly website</a></li>            
+
+      <li><a href="../listview/">Listview</a></li>            
+
+      <li><a href="../do-mobile-web-has-to-be-a-webpage/">Do mobile web has to be a webpage?</a></li>            
+
+      <li><a href="../chapter-3-using-zurb-foundation/">Chapter 3 – Using Zurb foundation</a></li>            
+
+      <li><a href="../trying-zurb-foundation-on-jsfiddle/">Trying Zurb Foundation on jsFiddle</a></li>            
+
+      <li><a href="../setting-up-foundation/">Setting up Foundation</a></li>            
+
+      <li><a href="../foundation-grid/">Foundation grid</a></li>            
+
+      <li><a href="../centered-column/">Centered column</a></li>            
+
+      <li><a href="../push-and-pull-column/">Push and pull column</a></li>            
+
+      <li><a href="../block-grid/">Block grid</a></li>            
+
+      <li><a href="../flex-video/">Flex video</a></li>            
+
+      <li><a href="../foundation-topbar/">Foundation topbar</a></li>            
+
+      <li><a href="../off-canvas/">Off canvas</a></li>            
+
+      <li><a href="../interchangable-content/">Interchangable content</a></li>            
+
+      <li><a href="../chapter-3-assginment/">Assignment</a></li>            
+
+      <li><a href="../chapter-4-response-with-media-query/">Chapter 4 – Response with media query</a></li>            
+
+      <li><a href="../recap-minimal-mobile-friendly-website/">Recap minimal mobile friendly website</a></li>            
+
+      <li><a href="../using-viewport-to-define-initial-browser-rendering/">Using viewport to define initial browser rendering</a></li>            
+
+      <li><a href="../using-media-query-to-define-styles-with-condition/">Using media query to define styles with condition</a></li>            
+
+      <li><a href="../navigation-strategy-for-small-screen/">Navigation strategy for small screen</a></li>            
+
+      <li><a href="../putting-navigation-at-bottom/">Putting navigation at bottom</a></li>            
+
+      <li><strong>→<a href="../building-our-own-grid-system/">Building our own grid system</a></strong></li>            
+
+      <li><a href="../introducing-ungrid-another-minimal-grid-approach/">Introducing ungrid another minimal grid approach</a></li>            
+
+      <li><a href="../media-queries-in-zurb-foundation/">Media queries in Zurb Foundation</a></li>            
+
+      <li><a href="../chapter-5-css-preprocessing/">Chapter 5 – CSS preprocessing</a></li>            
+
+      <li><a href="../what-is-css-preprocessor/">What is CSS preprocessor?</a></li>            
+
+      <li><a href="../preprocessor-options/">Preprocessor options</a></li>            
+
+      <li><a href="../nested-styles/">Nested styles</a></li>            
+
+      <li><a href="../scss-variable/">Scss variable</a></li>            
+
+      <li><a href="../scss-mixin/">Scss mixin</a></li>            
+
+      <li><a href="../using-loop-to-define-grid/">Using loop to define grid</a></li>            
+
+      <li><a href="../chapter-6-typography/">Chapter 6 – Typography</a></li>            
+
+      <li><a href="../different-font-sizes/">Different font sizes</a></li>            
+
+      <li><a href="../font-size-and-distance/">Font size and distance</a></li>            
+
+      <li><a href="../adaptive-copywriting-basecamp/">Adaptive copywriting basecamp</a></li>            
+
+      <li><a href="../adaptive-copywriting-for-different-screens/">Adaptive copywriting for different screens</a></li>            
+
+      <li><a href="../chapter-7-handling-touches/">Chapter 7 – Handling touches</a></li>            
+
+      <li><a href="../click-delay/">Click delay</a></li>            
+
+      <li><a href="../using-slick/">Using slick</a></li>            
+
+      <li><a href="../hammerjs/">Hammerjs</a></li>            
+
+      <li><a href="../chapter-8-form-inputs/">Chapter 8 – Form inputs</a></li>            
+
+      <li><a href="../specify-input-types/">Specify input types</a></li>            
+
+      <li><a href="../styling-inputs-for-mobile/">Styling inputs for mobile</a></li>            
+
+      <li><a href="../styling-radio-button/">Styling radio button</a></li>            
+
+      <li><a href="../styling-input-range/">Styling input range</a></li>            
+
+      <li><a href="../using-file-button/">Using file button</a></li>            
+
+      <li><a href="../chapter-9-taking-the-web-offline/">Chapter 9 – Taking the web offline</a></li>            
+
+      <li><a href="../storing-data-with-localstorage/">Storing data with localstorage</a></li>            
+
+      <li><a href="../offline-access-with-app-cache/">Offline access with app cache</a></li>            
+
+      <li><a href="../chapter-10-create-dedicated-mobile-website/">Chapter 10 – Create dedicated mobile website</a></li>            
+
+      <li><a href="../quick-prototyping-jquery-mobile-with-online-code-editors/">Quick prototyping jquery mobile with online code editors</a></li>            
+
+      <li><a href="../jquery-mobile-one-page-application/">One page application</a></li>            
+
+      <li><a href="../jquery-mobile-link-between-pages/">Link between pages</a></li>            
+
+      <li><a href="../jquery-mobile-page-transition/">Page transition</a></li>            
+
+      <li><a href="../jquery-mobile-button/">jQuery mobile button</a></li>            
+
+      <li><a href="../ui-action-flow/">UI action flow</a></li>            
+
+      <li><a href="../ui-flow-exercise/">UI flow exercise</a></li>            
+
+      <li><a href="../jquery-mobile-list-view/">List view</a></li>            
+
+      <li><a href="../customizing-jquery-mobile/">Customizing jQuery mobile</a></li>            
+
+      <li><a href="../chapter-11-packing-the-web-as-app/">Chapter 11 – Packing the web as app</a></li>            
+
+      <li><a href="../add-web-page-to-homescreen/">Adding web page to home screen</a></li>            
+
+      <li><a href="../phonegap-build/">Phonegap build</a></li>            
+
+      <li><a href="../native-app-or-web-app/">Native app or web app</a></li>            
+
+      <li><a href="../chapter-12-summary/">Chapter 12 – Summary</a></li>            
+
+      <li><a href="../performance-tips/">Performance tips</a></li>            
+
+  </ul>
+</div>
+
+
+<div class="book-page-footer-nav"><ul><li>You’re reading <a href="/mobile-web-design/">mobile-web-design</a>.</li><li><a id='twitter-intent-link' href='https://twitter.com/intent/tweet?text=@makzan '>Discuss this post on Twitter.</a></li>         <li><a href='/'>Go back to home.</a></li><li>Go to <a href='#top'>top?</a></li> </ul><div class="mz-square"><img width="80" src="/images/mz-square.png" alt="Mz square" /></div></div><footer><div class="content"><p><small class="footer"><strong>Thanks for reading.</strong> All content is written by <a href='/about/'>Makzan</a>, from <a href='https://www.google.com/search?q=macau+china&safe=active&tbm=isch'>Macao</a>. Text are in <a href='http://creativecommons.org/licenses/by-nc/4.0/'>CC BY-NC 4.0</a> lincense. Code snippets in this site are in <a href='http://opensource.org/licenses/MIT'>MIT</a> license unless specified. Enjoy the rest of <span id='weekday'>day</span>!</small></p></div></footer>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-975238-12']);
+  _gaq.push(['_setDomainName', 'makzan.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<script src="/assets/application.js" data-turbolinks-track="true"></script>
+
+
+<script>
+mixpanel.track("Page Show", {"Parent": "mobile-web-design", "Title": "Building our own grid system"});
+mixpanel.track_links(".page-nav a", "Click page nav link");
+</script>
+<script data-no-instant>InstantClick.init();</script>
+<script type="text/javascript">
+  var FHChat = {product_id: "ae42b12bfcb3"};
+  FHChat.properties={};FHChat.set=function(key,data){this.properties[key]=data};FHChat.customAttributes=[];FHChat.sendCustomAttributes=function(data){this.customAttributes.push(data)};!function(){var a,b;return b=document.createElement("script"),a=document.getElementsByTagName("script")[0],b.src="https://chat-client-js.firehoseapp.com/chat-min.js",b.async=!0,a.parentNode.insertBefore(b,a)}();
+</script>
+  
+
+<script type="text/javascript">
+  var _sf_async_config = { uid: 59469, domain: 'makzan.net', useCanonical: true };
+  (function() {
+    function loadChartbeat() {
+      window._sf_endpt = (new Date()).getTime();
+      var e = document.createElement('script');
+      e.setAttribute('language', 'javascript');
+      e.setAttribute('type', 'text/javascript');
+      e.setAttribute('src','//static.chartbeat.com/js/chartbeat.js');
+      document.body.appendChild(e);
+    };
+    var oldonload = window.onload;
+    window.onload = (typeof window.onload != 'function') ?
+      loadChartbeat : function() { oldonload(); loadChartbeat(); };
+  })();
+</script>
+</body>
+</html>

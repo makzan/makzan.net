@@ -1,0 +1,269 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+  <title>
+      Partial json views – makzan’s sharings
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='http://fonts.googleapis.com/css?family=Bevan' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" media="all" href="/assets/application.css" data-turbolinks-track="true" />
+  <link href="https://makzan.net/ruby-on-rails-101/partial-json-views" rel="canonical" />  <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+mixpanel.init("26e7a62bc13d535df35f3aca1c4a009f");</script><!-- end Mixpanel -->
+
+  
+    <link rel="next" href="../introducing-behavior-driven-development/">
+    
+  <script type="text/javascript" src="//use.typekit.net/gku5yms.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body id='top' class='book-page'>
+
+<header class="nav-bar centered"><a href="/" title="Back to makzan homepage"><canvas id="heading-canvas" width="572" height="200" style="background-color:#fffffa;width:143px;"><h1>makzan.</h1></canvas></a><div class="nav-text"><p>I build <a href="/works/#apps">utilities</a> and <a href="/works/#games">games</a>. <br />
+I share know-how via <a href="/works/#books">books</a>, <a href="/#courses">classes</a> and <a href="/essays/">essays</a>.</p>
+
+</div></header>
+
+<article class='book-page-content content'>
+  <div id='pjax-area' class="row">
+    <div id='side-bar-col' class="hidden col">
+
+    </div>
+    <div id='sheet-col' class="full col">
+<!--               <p><small class='aside'>You’re reading <a href="../">ruby-on-rails-101</a>. This article is part of the <a href="../">ruby-on-rails-101</a>, written by <a href="/">makzan</a>.</small></p>
+       -->
+            
+        <div class="page-nav header">
+ 
+  <p id='toggle-toc'>Table of Content</p>
+
+</div>
+
+  
+      <div class='sheet'>            
+
+          <h1>
+              Partial json views
+          </h1>
+
+
+        <p>How about we need the photos JSON output in several API?</p>
+
+<p>We can use partial too in the JSON JBuilder. Same as ERB partial that begins with an underscore <code>_partial.html.erb</code>.</p>
+
+<p>Here is our <code>_photo.json.jbuilder</code> file. Please note that it only describe one photo object because the parent file handles the loop.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>json.id photo.id
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>json.title photo.title
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>json.image_url absolute_photo_url(photo)
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>json.thumb_url absolute_photo_url(photo, <span style="color:#A60">:thumb</span>)
+</pre></div>
+</div>
+</div>
+
+<p>And here is the full <code>show.json.jbuilder</code> file after using the partial.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>json.data <span style="color:#080;font-weight:bold">do</span> |json|
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  json.id <span style="color:#33B">@album</span>.id
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  json.title <span style="color:#33B">@album</span>.title
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>  json.created_at <span style="color:#33B">@album</span>.created_at
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>  json.link album_url(<span style="color:#33B">@album</span>)
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>  <span style="color:#777"># user</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>  json.user <span style="color:#080;font-weight:bold">do</span> |json|
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>    json.id <span style="color:#33B">@album</span>.user.id
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>    json.email <span style="color:#33B">@album</span>.user.email
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>  <span style="color:#777"># photos</span>
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>  json.photos <span style="color:#33B">@album</span>.photos <span style="color:#080;font-weight:bold">do</span> |json, photo|
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>    json.partial! photo
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+<div class="note"><p><em>Note</em>: Since <code>json.any_name</code> will create <code>any_name</code> node, all json special method – such as <code>json.partial!</code> – uses the <code>!</code> mark. Normally the <code>!</code> mark is used to indicate dangerous method that changes itself.</p></div>
+
+        <!-- What’s next? -->
+          <!-- TODO: move this condition away from view -->
+            <p>What’s next? We’re going to take a look at <a class='pjaxer' href='../introducing-behavior-driven-development/' title='Introducing behavior driven development'>“Introducing behavior driven development”</a>.</p>
+
+        <div class="page-nav">
+    <a class='left pjaxer' href='../extracting-view-code-to-helpers/' title='Extracting view code to helpers'>◀ Extracting view code to helpers</a>
+
+    <a class='right pjaxer' href='../introducing-behavior-driven-development/' title='Introducing behavior driven development'>Introducing behavior driven development ▶</a>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+</article>
+
+<div id='overlay' class='out'>
+  <img id='overlay-img' src='' alt='overlaied image when clicked on thumbnail'>
+  <div id='overlay-caption'></div>
+</div>
+  
+<div id='toc-overlay' class='out'>
+  <h4><a href='/'>Makzan</a> | Ruby on rails 101 | Table of Content</h4>
+  <ul>
+      <li><a href="../ruby-basic/">Ruby basic</a></li>            
+
+      <li><a href="../installing-rails/">Installing Rails</a></li>            
+
+      <li><a href="../rails-console/">Rails console</a></li>            
+
+      <li><a href="../lab-adding-category/">Lab – Adding category</a></li>            
+
+      <li><a href="../uploading-files/">Uploading files</a></li>            
+
+      <li><b><em><a href="../chapter5/">Ruby on Rails 101 – Chapter 5</a></em></b></li>          
+
+      <li><a href="../ch5-setting-up-the-project/">Setting up photo gallery project</a></li>            
+
+      <li><a href="../building-the-photo-model/">Building the photo model</a></li>            
+
+      <li><a href="../building-the-photo-controller-and-view/">Building the photo controller and view</a></li>            
+
+      <li><a href="../using-partial-file/">Using partial file</a></li>            
+
+      <li><a href="../dynamic-title-with-content-for/">Dynamic title with content for</a></li>            
+
+      <li><a href="../adding-album-resource/">Adding album resource</a></li>            
+
+      <li><a href="../associate-photo-to-album/">Associate photo to album</a></li>            
+
+      <li><a href="../introducing-asset-pipeline/">Introducing asset pipeline</a></li>            
+
+      <li><b><em><a href="../chapter6/">Ruby on Rails 101 – Chapter 6</a></em></b></li>          
+
+      <li><a href="../managing-asset-files/">Managing asset files</a></li>            
+
+      <li><a href="../creating-gallery-home-page/">Creating gallery home page</a></li>            
+
+      <li><a href="../adding-swipejs-library/">Adding swipejs library</a></li>            
+
+      <li><a href="../building-gallery-website-layout/">Building gallery website layout</a></li>            
+
+      <li><a href="../installing-devise-gem/">Installing devise gem</a></li>            
+
+      <li><a href="../authenticating-user/">Authenticating user</a></li>            
+
+      <li><a href="../protecting-upload/">Protecting upload</a></li>            
+
+      <li><a href="../ch6-challenges/">Challenges</a></li>            
+
+      <li><b><em><a href="../chapter7/">Ruby on Rails 101 – Chapter 7</a></em></b></li>          
+
+      <li><a href="../introducing-jbuilder/">Introducing jbuilder</a></li>            
+
+      <li><a href="../using-jbuilder/">Using jbuilder</a></li>            
+
+      <li><a href="../extracting-view-code-to-helpers/">Extracting view code to helpers</a></li>            
+
+      <li><strong>→<a href="../partial-json-views/">Partial json views</a></strong></li>            
+
+      <li><a href="../introducing-behavior-driven-development/">Introducing behavior driven development</a></li>            
+
+      <li><a href="../installing-cucumber-for-rails/">Installing cucumber for rails</a></li>            
+
+      <li><a href="../writing-our-first-feature/">Writing our first feature</a></li>            
+
+      <li><a href="../writing-the-user-authentication-component/">Writing the user authentication component</a></li>            
+
+      <li><a href="../writing-the-photo-upload-component/">Writing the photo upload component</a></li>            
+
+      <li><a href="../ch7-more/">What’s Next</a></li>            
+
+      <li><b><em><a href="../chapter8/">Ruby on Rails 101 – Chapter 8</a></em></b></li>          
+
+      <li><a href="../multilingual/">Multilingual</a></li>            
+
+      <li><a href="../adding-chinese/">Adding chinese</a></li>            
+
+      <li><a href="../switching-locale/">Switching locale</a></li>            
+
+      <li><a href="../pow-local-server/">Pow local server</a></li>            
+
+      <li><a href="../xip-io/">Mobile devices testing via local network</a></li>            
+
+      <li><a href="../deployment-database-config/">Deployment database config</a></li>            
+
+      <li><a href="../introducing-git/">Introducing git</a></li>            
+
+      <li><a href="../lab-try-git/">Lab – “Try Git”</a></li>            
+
+      <li><a href="../apply-git-to-our-project/">Apply git to our project</a></li>            
+
+      <li><a href="../push-git-to-server-repo/">Push git to server repo</a></li>            
+
+      <li><a href="../deploying-options/">Deploying options</a></li>            
+
+      <li><a href="../tutorial1/">Tutorial 1 – Task management</a></li>            
+
+      <li><a href="../tutorial2/">Tutorial 2 – Multiple Lists</a></li>            
+
+      <li><a href="../tutorial3/">Tutorial 3 – Misc Enhancement</a></li>            
+
+  </ul>
+</div>
+
+
+<div class="book-page-footer-nav"><ul><li>You’re reading <a href="/ruby-on-rails-101/">ruby-on-rails-101</a>.</li><li><a id='twitter-intent-link' href='https://twitter.com/intent/tweet?text=@makzan '>Discuss this post on Twitter.</a></li>         <li><a href='/'>Go back to home.</a></li><li>Go to <a href='#top'>top?</a></li> </ul><div class="mz-square"><img width="80" src="/images/mz-square.png" alt="Mz square" /></div></div><footer><div class="content"><p><small class="footer"><strong>Thanks for reading.</strong> All content is written by <a href='/about/'>Makzan</a>, from <a href='https://www.google.com/search?q=macau+china&safe=active&tbm=isch'>Macao</a>. Text are in <a href='http://creativecommons.org/licenses/by-nc/4.0/'>CC BY-NC 4.0</a> lincense. Code snippets in this site are in <a href='http://opensource.org/licenses/MIT'>MIT</a> license unless specified. Enjoy the rest of <span id='weekday'>day</span>!</small></p></div></footer>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-975238-12']);
+  _gaq.push(['_setDomainName', 'makzan.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<script src="/assets/application.js" data-turbolinks-track="true"></script>
+
+
+<script>
+mixpanel.track("Page Show", {"Parent": "ruby-on-rails-101", "Title": "Partial json views"});
+mixpanel.track_links(".page-nav a", "Click page nav link");
+</script>
+<script data-no-instant>InstantClick.init();</script>
+<script type="text/javascript">
+  var FHChat = {product_id: "ae42b12bfcb3"};
+  FHChat.properties={};FHChat.set=function(key,data){this.properties[key]=data};FHChat.customAttributes=[];FHChat.sendCustomAttributes=function(data){this.customAttributes.push(data)};!function(){var a,b;return b=document.createElement("script"),a=document.getElementsByTagName("script")[0],b.src="https://chat-client-js.firehoseapp.com/chat-min.js",b.async=!0,a.parentNode.insertBefore(b,a)}();
+</script>
+  
+
+<script type="text/javascript">
+  var _sf_async_config = { uid: 59469, domain: 'makzan.net', useCanonical: true };
+  (function() {
+    function loadChartbeat() {
+      window._sf_endpt = (new Date()).getTime();
+      var e = document.createElement('script');
+      e.setAttribute('language', 'javascript');
+      e.setAttribute('type', 'text/javascript');
+      e.setAttribute('src','//static.chartbeat.com/js/chartbeat.js');
+      document.body.appendChild(e);
+    };
+    var oldonload = window.onload;
+    window.onload = (typeof window.onload != 'function') ?
+      loadChartbeat : function() { oldonload(); loadChartbeat(); };
+  })();
+</script>
+</body>
+</html>

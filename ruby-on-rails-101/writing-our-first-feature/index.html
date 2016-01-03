@@ -1,0 +1,394 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+  <title>
+      Writing our first feature – makzan’s sharings
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='http://fonts.googleapis.com/css?family=Bevan' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" media="all" href="/assets/application.css" data-turbolinks-track="true" />
+  <link href="https://makzan.net/ruby-on-rails-101/writing-our-first-feature" rel="canonical" />  <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+mixpanel.init("26e7a62bc13d535df35f3aca1c4a009f");</script><!-- end Mixpanel -->
+
+  
+    <link rel="next" href="../writing-the-user-authentication-component/">
+    
+  <script type="text/javascript" src="//use.typekit.net/gku5yms.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body id='top' class='book-page'>
+
+<header class="nav-bar centered"><a href="/" title="Back to makzan homepage"><canvas id="heading-canvas" width="572" height="200" style="background-color:#fffffa;width:143px;"><h1>makzan.</h1></canvas></a><div class="nav-text"><p>I build <a href="/works/#apps">utilities</a> and <a href="/works/#games">games</a>. <br />
+I share know-how via <a href="/works/#books">books</a>, <a href="/#courses">classes</a> and <a href="/essays/">essays</a>.</p>
+
+</div></header>
+
+<article class='book-page-content content'>
+  <div id='pjax-area' class="row">
+    <div id='side-bar-col' class="hidden col">
+
+    </div>
+    <div id='sheet-col' class="full col">
+<!--               <p><small class='aside'>You’re reading <a href="../">ruby-on-rails-101</a>. This article is part of the <a href="../">ruby-on-rails-101</a>, written by <a href="/">makzan</a>.</small></p>
+       -->
+            
+        <div class="page-nav header">
+ 
+  <p id='toggle-toc'>Table of Content</p>
+
+</div>
+
+  
+      <div class='sheet'>            
+
+          <h1>
+              Writing our first feature
+          </h1>
+
+
+        <p>Let’s create the our first feature. Create a new file named <code>basic.feature</code> under the folder <code>features/</code> with the following content.</p>
+
+<pre><code>Feature: Basic
+  Scenario: In the homepage
+    Given I am on homepage
+    Then I should see "Welcome"
+</code></pre>
+
+<p>Now we can run <code>rake cucumber</code> to test the scenario.</p>
+
+<p>And here is the result.</p>
+
+<pre><code>Feature: Basic
+
+  Scenario: In the homepage     # features/basic.feature:2
+    Given I am on homepage      # features/basic.feature:3
+      Undefined step: "I am on homepage" (Cucumber::Undefined)
+      features/basic.feature:3:in `Given I am on homepage'
+    Then I should see "Welcome" # features/basic.feature:4
+      Undefined step: "I should see "Welcome"" (Cucumber::Undefined)
+      features/basic.feature:4:in `Then I should see "Welcome"'
+
+1 scenario (1 undefined)
+2 steps (2 undefined)
+0m0.398s
+
+You can implement step definitions for undefined steps with these snippets:
+
+Given(/^I am on homepage$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^I should see "(.*?)"$/) do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+</code></pre>
+
+<p>The cucumber is cleaver enough to find all non-handle English sentense and tell us how to handle them. And it will replace double-quoted string into variable. And rerember, the steps are just regular expression. Feel free to change it to whatever that works for you.</p>
+
+<p>So the next step is to create <code>step</code> files to describe how to deal with the feature sentences.</p>
+
+<p>Create a new file named <code>basic_steps.rb</code> under <code>features/step_definitions</code> folder.</p>
+
+<p>Then we copy the cucumber suggestions into the step file.</p>
+
+<pre><code>Given(/^I am on homepage$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^I should see "(.*?)"$/) do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+</code></pre>
+
+<p>When we run the <code>rake cucumber</code> command now, we see the step is reconized and in <code>pending</code> state.</p>
+
+<pre><code>Feature: Basic
+
+  Scenario: In the homepage     # features/basic.feature:2
+    Given I am on homepage      # features/step_definitions/basic_steps.rb:1
+      TODO (Cucumber::Pending)
+      ./features/step_definitions/basic_steps.rb:2:in `/^I am on homepage$/'
+      features/basic.feature:3:in `Given I am on homepage'
+    Then I should see "Welcome" # features/step_definitions/basic_steps.rb:5
+
+1 scenario (1 pending)
+2 steps (1 skipped, 1 pending)
+0m0.439s
+</code></pre>
+
+<p>Let’s implement the first pending step with the following code.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>Given(<span style="background-color:hsla(300,100%,50%,0.06)"><span style="color:#404">/</span><span style="color:#808">^I am on homepage$</span><span style="color:#404">/</span></span>) <span style="color:#080;font-weight:bold">do</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  visit root_path
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Now we get a fail when running <code>rake cucumber</code>.</p>
+
+<pre><code>Feature: Basic
+
+  Scenario: In the homepage     # features/basic.feature:2
+    Given I am on homepage      # features/step_definitions/basic_steps.rb:1
+      undefined local variable or method `root_path' for #&lt;Cucumber::Rails::World:0x007f8b6170afc8&gt; (NameError)
+      ./features/step_definitions/basic_steps.rb:2:in `/^I am on homepage$/'
+      features/basic.feature:3:in `Given I am on homepage'
+    Then I should see "Welcome" # features/step_definitions/basic_steps.rb:5
+
+Failing Scenarios:
+cucumber features/basic.feature:2 # Scenario: In the homepage
+
+1 scenario (1 failed)
+2 steps (1 failed, 1 skipped)
+0m0.322s
+</code></pre>
+
+<p>It is because we haven’t modify our root page yet.</p>
+
+<p>Now turn to the code ane create a <code>pages</code> controller with an <code>index</code> action.</p>
+
+<pre><code>$ rails generate controller pages index
+</code></pre>
+
+<p>And we add the <code>root_path</code> in the <code>routes.rb</code> file.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#036;font-weight:bold">Gallery</span>::<span style="color:#036;font-weight:bold">Application</span>.routes.draw <span style="color:#080;font-weight:bold">do</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  root <span style="color:#606">to</span>:<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">pages#index</span><span style="color:#710">'</span></span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Finally we remove the <code>public/index.html</code> file.</p>
+
+<p>Running <code>rake cucumber</code> now will pass the first step “Given I am on homepage”, and leave the second one “Then I should see "Welcome"”</p>
+
+<p>So the next step is to implement the remaining pending steps.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>Then(<span style="background-color:hsla(300,100%,50%,0.06)"><span style="color:#404">/</span><span style="color:#808">^I should see &quot;(.*?)&quot;$</span><span style="color:#404">/</span></span>) <span style="color:#080;font-weight:bold">do</span> |wording|
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  page.should have_content wording
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>And we get the error “expected to find text "Welcome"” after running the <code>rake cucumber</code> again.</p>
+
+<pre><code>Feature: Basic
+
+  Scenario: In the homepage     # features/basic.feature:2
+    Given I am on homepage      # features/step_definitions/basic_steps.rb:1
+    Then I should see "Welcome" # features/step_definitions/basic_steps.rb:5
+      expected to find text "Welcome" in "Pages#index Find me in app/views/pages/index.html.erb" (RSpec::Expectations::ExpectationNotMetError)
+      ./features/step_definitions/basic_steps.rb:6:in `/^I should see "(.*?)"$/'
+      features/basic.feature:4:in `Then I should see "Welcome"'
+
+Failing Scenarios:
+cucumber features/basic.feature:2 # Scenario: In the homepage
+
+1 scenario (1 failed)
+2 steps (1 failed, 1 passed)
+0m0.564s
+</code></pre>
+
+<p>So let’s add the “Welcome” to the root page. Then running the <code>rake cucumber</code> again will give us all passes.</p>
+
+<pre><code>Feature: Basic
+
+  Scenario: In the homepage     # features/basic.feature:2
+    Given I am on homepage      # features/step_definitions/basic_steps.rb:1
+    Then I should see "Welcome" # features/step_definitions/basic_steps.rb:5
+
+1 scenario (1 passed)
+2 steps (2 passed)
+0m0.520s
+</code></pre>
+
+<p>The idea of test-driven is to write the test first by describing how the work should work. Then obviously it is going to fail. And we observe what make the test fails and write code to make it just work. At last, we refractor the code to make it work in more generic way. Then we go to the next pending/failing case.</p>
+
+
+        <!-- What’s next? -->
+          <!-- TODO: move this condition away from view -->
+            <p>What’s next? We’re going to take a look at <a class='pjaxer' href='../writing-the-user-authentication-component/' title='Writing the user authentication component'>“Writing the user authentication component”</a>.</p>
+
+        <div class="page-nav">
+    <a class='left pjaxer' href='../installing-cucumber-for-rails/' title='Installing cucumber for rails'>◀ Installing cucumber for rails</a>
+
+    <a class='right pjaxer' href='../writing-the-user-authentication-component/' title='Writing the user authentication component'>Writing the user authentication component ▶</a>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+</article>
+
+<div id='overlay' class='out'>
+  <img id='overlay-img' src='' alt='overlaied image when clicked on thumbnail'>
+  <div id='overlay-caption'></div>
+</div>
+  
+<div id='toc-overlay' class='out'>
+  <h4><a href='/'>Makzan</a> | Ruby on rails 101 | Table of Content</h4>
+  <ul>
+      <li><a href="../ruby-basic/">Ruby basic</a></li>            
+
+      <li><a href="../installing-rails/">Installing Rails</a></li>            
+
+      <li><a href="../rails-console/">Rails console</a></li>            
+
+      <li><a href="../lab-adding-category/">Lab – Adding category</a></li>            
+
+      <li><a href="../uploading-files/">Uploading files</a></li>            
+
+      <li><b><em><a href="../chapter5/">Ruby on Rails 101 – Chapter 5</a></em></b></li>          
+
+      <li><a href="../ch5-setting-up-the-project/">Setting up photo gallery project</a></li>            
+
+      <li><a href="../building-the-photo-model/">Building the photo model</a></li>            
+
+      <li><a href="../building-the-photo-controller-and-view/">Building the photo controller and view</a></li>            
+
+      <li><a href="../using-partial-file/">Using partial file</a></li>            
+
+      <li><a href="../dynamic-title-with-content-for/">Dynamic title with content for</a></li>            
+
+      <li><a href="../adding-album-resource/">Adding album resource</a></li>            
+
+      <li><a href="../associate-photo-to-album/">Associate photo to album</a></li>            
+
+      <li><a href="../introducing-asset-pipeline/">Introducing asset pipeline</a></li>            
+
+      <li><b><em><a href="../chapter6/">Ruby on Rails 101 – Chapter 6</a></em></b></li>          
+
+      <li><a href="../managing-asset-files/">Managing asset files</a></li>            
+
+      <li><a href="../creating-gallery-home-page/">Creating gallery home page</a></li>            
+
+      <li><a href="../adding-swipejs-library/">Adding swipejs library</a></li>            
+
+      <li><a href="../building-gallery-website-layout/">Building gallery website layout</a></li>            
+
+      <li><a href="../installing-devise-gem/">Installing devise gem</a></li>            
+
+      <li><a href="../authenticating-user/">Authenticating user</a></li>            
+
+      <li><a href="../protecting-upload/">Protecting upload</a></li>            
+
+      <li><a href="../ch6-challenges/">Challenges</a></li>            
+
+      <li><b><em><a href="../chapter7/">Ruby on Rails 101 – Chapter 7</a></em></b></li>          
+
+      <li><a href="../introducing-jbuilder/">Introducing jbuilder</a></li>            
+
+      <li><a href="../using-jbuilder/">Using jbuilder</a></li>            
+
+      <li><a href="../extracting-view-code-to-helpers/">Extracting view code to helpers</a></li>            
+
+      <li><a href="../partial-json-views/">Partial json views</a></li>            
+
+      <li><a href="../introducing-behavior-driven-development/">Introducing behavior driven development</a></li>            
+
+      <li><a href="../installing-cucumber-for-rails/">Installing cucumber for rails</a></li>            
+
+      <li><strong>→<a href="../writing-our-first-feature/">Writing our first feature</a></strong></li>            
+
+      <li><a href="../writing-the-user-authentication-component/">Writing the user authentication component</a></li>            
+
+      <li><a href="../writing-the-photo-upload-component/">Writing the photo upload component</a></li>            
+
+      <li><a href="../ch7-more/">What’s Next</a></li>            
+
+      <li><b><em><a href="../chapter8/">Ruby on Rails 101 – Chapter 8</a></em></b></li>          
+
+      <li><a href="../multilingual/">Multilingual</a></li>            
+
+      <li><a href="../adding-chinese/">Adding chinese</a></li>            
+
+      <li><a href="../switching-locale/">Switching locale</a></li>            
+
+      <li><a href="../pow-local-server/">Pow local server</a></li>            
+
+      <li><a href="../xip-io/">Mobile devices testing via local network</a></li>            
+
+      <li><a href="../deployment-database-config/">Deployment database config</a></li>            
+
+      <li><a href="../introducing-git/">Introducing git</a></li>            
+
+      <li><a href="../lab-try-git/">Lab – “Try Git”</a></li>            
+
+      <li><a href="../apply-git-to-our-project/">Apply git to our project</a></li>            
+
+      <li><a href="../push-git-to-server-repo/">Push git to server repo</a></li>            
+
+      <li><a href="../deploying-options/">Deploying options</a></li>            
+
+      <li><a href="../tutorial1/">Tutorial 1 – Task management</a></li>            
+
+      <li><a href="../tutorial2/">Tutorial 2 – Multiple Lists</a></li>            
+
+      <li><a href="../tutorial3/">Tutorial 3 – Misc Enhancement</a></li>            
+
+  </ul>
+</div>
+
+
+<div class="book-page-footer-nav"><ul><li>You’re reading <a href="/ruby-on-rails-101/">ruby-on-rails-101</a>.</li><li><a id='twitter-intent-link' href='https://twitter.com/intent/tweet?text=@makzan '>Discuss this post on Twitter.</a></li>         <li><a href='/'>Go back to home.</a></li><li>Go to <a href='#top'>top?</a></li> </ul><div class="mz-square"><img width="80" src="/images/mz-square.png" alt="Mz square" /></div></div><footer><div class="content"><p><small class="footer"><strong>Thanks for reading.</strong> All content is written by <a href='/about/'>Makzan</a>, from <a href='https://www.google.com/search?q=macau+china&safe=active&tbm=isch'>Macao</a>. Text are in <a href='http://creativecommons.org/licenses/by-nc/4.0/'>CC BY-NC 4.0</a> lincense. Code snippets in this site are in <a href='http://opensource.org/licenses/MIT'>MIT</a> license unless specified. Enjoy the rest of <span id='weekday'>day</span>!</small></p></div></footer>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-975238-12']);
+  _gaq.push(['_setDomainName', 'makzan.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<script src="/assets/application.js" data-turbolinks-track="true"></script>
+
+
+<script>
+mixpanel.track("Page Show", {"Parent": "ruby-on-rails-101", "Title": "Writing our first feature"});
+mixpanel.track_links(".page-nav a", "Click page nav link");
+</script>
+<script data-no-instant>InstantClick.init();</script>
+<script type="text/javascript">
+  var FHChat = {product_id: "ae42b12bfcb3"};
+  FHChat.properties={};FHChat.set=function(key,data){this.properties[key]=data};FHChat.customAttributes=[];FHChat.sendCustomAttributes=function(data){this.customAttributes.push(data)};!function(){var a,b;return b=document.createElement("script"),a=document.getElementsByTagName("script")[0],b.src="https://chat-client-js.firehoseapp.com/chat-min.js",b.async=!0,a.parentNode.insertBefore(b,a)}();
+</script>
+  
+
+<script type="text/javascript">
+  var _sf_async_config = { uid: 59469, domain: 'makzan.net', useCanonical: true };
+  (function() {
+    function loadChartbeat() {
+      window._sf_endpt = (new Date()).getTime();
+      var e = document.createElement('script');
+      e.setAttribute('language', 'javascript');
+      e.setAttribute('type', 'text/javascript');
+      e.setAttribute('src','//static.chartbeat.com/js/chartbeat.js');
+      document.body.appendChild(e);
+    };
+    var oldonload = window.onload;
+    window.onload = (typeof window.onload != 'function') ?
+      loadChartbeat : function() { oldonload(); loadChartbeat(); };
+  })();
+</script>
+</body>
+</html>

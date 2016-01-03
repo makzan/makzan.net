@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+  <title>
+      CoffeeScript 學習手扎 – makzan’s sharings
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" media="all" href="/assets/application.css" data-turbolinks-track="true" />
+  <link href="https://makzan.net/coffeescript" rel="canonical" />  <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+mixpanel.init("26e7a62bc13d535df35f3aca1c4a009f");</script><!-- end Mixpanel -->
+
+
+  <script type="text/javascript" src="//use.typekit.net/gku5yms.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body id='top' class='normal-page'>
+
+<header class="nav-bar centered"><a href="/" title="Back to makzan homepage"><canvas id="heading-canvas" width="572" height="200" style="background-color:#fffffa;width:143px;"><h1>makzan.</h1></canvas></a><div class="nav-text"><p>I build <a href="/works/#apps">utilities</a> and <a href="/works/#games">games</a>. <br />
+I share know-how via <a href="/works/#books">books</a>, <a href="/#courses">classes</a> and <a href="/essays/">essays</a>.</p>
+
+</div></header>
+
+
+<article class="content"><h1 class="small">CoffeeScript 學習手扎</h1><p>This is <a href="/">makzan’s</a> new book about CoffeeScrite, written in Chinese. The book is in very early work-in-progress stage. For english reader, I recommend <a href="/mobile-web-app-dev-with-phonegap/learning-resources/#coffeescript">these books</a> from great authors of the CoffeeScript community.</p>
+
+<p>版本：0.1.0</p>
+
+<h2 id="coffeescript--variable">CoffeeScript 定義變量 (Variable)</h2>
+
+<p>在這一節，我們會介紹以下事項：</p>
+
+<ul>
+  <li>變數定義 (Variable)</li>
+  <li>函數定義 (Function)</li>
+</ul>
+
+<h3 id="coffeescript--variable-1">CoffeeScript 定義變量 (Variable)</h3>
+
+<p>JavaScript</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">var</span> name = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Thomas</span><span style="color:#710">&quot;</span></span>;
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span><span style="color:#080;font-weight:bold">var</span> greeting = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Good morning </span><span style="color:#710">&quot;</span></span> + name
+</pre></div>
+</div>
+</div>
+
+<p>CoffeeScript</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>name = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Thomas</span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>greeting = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Good morning </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>name<span style="font-weight:bold;color:#666">}</span></span><span style="color:#710">&quot;</span></span>
+</pre></div>
+</div>
+</div>
+
+<p>在 CoffeeScript，定義變量會自動加 var，所以不用自己寫，原因是若忘記了加 var，就會變成全域變量，所以 CoffeeScript 硬性規定全部自動加 var。加了 var 反而會有編譯錯誤。</p>
+
+<p>其次，行末的分號是是自動加的。</p>
+
+<p>而字串連接 (String Concat)，因為是經常要用的操作，所以 CoffeeScript允許我們用雙引號的字串中，用 <code>#{variable_name}</code> 來替換變量值。當然，傳統的字串相加還是可以用的。</p>
+
+<p>side info
+用 escape 來避開自動加 var.</p>
+
+<p>生成的 JavaScript</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>(<span style="color:#080;font-weight:bold">function</span>() {
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  <span style="color:#080;font-weight:bold">var</span> greeting, name;
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  name = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Thomas</span><span style="color:#710">&quot;</span></span>;
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>  greeting = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Good morning </span><span style="color:#710">&quot;</span></span> + name;
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>}).call(<span style="color:#950">this</span>);
+</pre></div>
+</div>
+</div>
+
+<p>解釋
+var 自動生成。
+而 <code>#{name}</code> 也會編譯成 String Concat
+Annonymous Function
+.call(this)</p>
+
+<h3 id="variable--">變量 (Variable) – 快速練習</h3>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">var</span> age = <span style="color:#00D">30</span>;
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span><span style="color:#080;font-weight:bold">var</span> name = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Mary</span><span style="color:#710">&quot;</span></span>;
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="color:#080;font-weight:bold">var</span> result = name + <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20"> is </span><span style="color:#710">&quot;</span></span> + age + <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20"> years old.</span><span style="color:#710">&quot;</span></span>;
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>console.log(result);
+</pre></div>
+</div>
+</div>
+
+<p>Correct Answer</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>age = <span style="color:#00D">30</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>name = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Mary</span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>result = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>name<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20"> is </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>ago<span style="font-weight:bold;color:#666">}</span></span><span style="color:#D20"> years old.</span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>console.log(result)
+</pre></div>
+</div>
+</div>
+
+<h3 id="function">函數 (Function)</h3>
+
+<p>JavaScript</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">var</span> <span style="color:#06B;font-weight:bold">hello</span> = <span style="color:#080;font-weight:bold">function</span>() {
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  <span style="color:#777">// do something in hello function</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>}
+</pre></div>
+</div>
+</div>
+
+<p>CoffeeScript</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>hello = -&gt;
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  <span style="color:#777"># do something in hello function</span>
+</pre></div>
+</div>
+</div>
+
+<p>注意，第二行是有2個空格的。因為 CoffeeScript 是以2個空格的 intentation 來做 scoping 的。</p>
+
+<p>而附註 (Comment) 則使用 #號而非 // 號。</p>
+
+<p>function 整個用 -&gt; 代替。如果有 argument，則使用以下方法：</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>hello = (message) -&gt;
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  alert <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">hello </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>message<span style="font-weight:bold;color:#666">}</span></span><span style="color:#710">&quot;</span></span>
+</pre></div>
+</div>
+</div>
+
+<p>於 <code>-&gt;</code> 前用 <code>(argument)</code>。</p>
+
+<h3 id="coffeescript-">於瀏覽器快速預覽 CoffeeScript 編譯結果</h3>
+
+<p>CoffeeScript 需要 <a href="http://nodejs.org">node.js</a> 來運行 Coffee 指令作編譯。如果想快速嘗試 CoffeeScript，可以到 CoffeeScript.org 上方有一個 Try CoffeeScript 的按鈕，打開後可以於左方試寫 CoffeeScript，右方得出編譯後的 JavaScript 結果。</p>
+
+<p>[[ screenshot ]]</p>
+
+<p>又或者另一個第三方出品的網上 JS &lt;=&gt; Coffee 轉換器 <a href="http://js2coffee.org">js2coffee</a>，這個的好處是雙向轉換，對初學者而言，可以將現有的JavaScript放進去，反轉換成CoffeeScript，對學習如何編寫CoffeeScript有一定幫助。</p>
+
+<p>[[ screenshot ]]</p>
+
+<h2 id="coffeescript">直接於瀏覽器運行 CoffeeScript</h2>
+
+<p>另一個快速試玩 CoffeeScritp 的方法是使用於瀏覽器運行的 JavaScript 版本 CoffeeScript Compiler。</p>
+
+<p>只需要在瀏覽器中載入 <code>&lt;script src=‘http://coffeescript.org/coffee-script.js&gt;&lt;/script&gt;</code></p>
+
+<p>（當然，也可以自己 Host 那個 Coffee-Script.js 檔案）</p>
+
+<p>然後，我們便可以直接在 HTML 中使用 <code>&lt;script type=‘text/coffeescript’&gt; &lt;/script&gt;</code> 直接編寫 CoffeeScript。而其內容則會由 Coffee-Script.js 編譯器於瀏覽器執行時即時編譯為 JavaScript 來執行。</p>
+
+<p>這個做法的好處是可以快速試玩 CoffeeScript，但不好處是瀏覽器每次載入網頁都要將 CoffeeScript 先編譯才能執行，對 Performance 會有一個很大的影響。</p>
+
+<h2 id="coffeescript--1">安裝CoffeeScript 編譯器</h2>
+
+<p>長遠來說，我們還是有一個編譯器會比較好，因為真實開發時我們不會將 CoffeeScript 放在瀏覽者的瀏覽器內編譯，這樣會令代碼執得得比較慢。要在自己的開發環境將 CoffeeScript 編譯成 JavaScript，有以下方法：</p>
+
+<ul>
+  <li>使用官方的編譯器</li>
+  <li>使用第三方軟件</li>
+</ul>
+<h3 id="official-compiler">使用官方的編譯器</h3><ul>
+  <li>LiveReload</li>
+  <li>CodeKit</li>
+  <li>Grunt</li>
+</ul>
+<h3 id="official-compiler">使用官方的編譯器</h3><p>CoffeeScript 的 CLI 系統指令模式是基於 Node.js 還境運行的。Node.js 是一套讓我們在 Terminal Shell 運行 JavaScript 的套件。由於 CoffeeScript 本身就是用 CoffeeScript 寫出來，再成為 JavaScript 版本的編譯器。所以順理成章地，要在 Shell 運行就需要到 Node.js。</p>
+
+<h3 id="nodejs">安裝 Node.js</h3>
+
+<p>若並未安裝 Node.js， 可以到 <a href="http://nodejs.org">nodejs.org</a> 下載安裝最新版。跟來的 node.js 會附加一個 npm 指令，全稱為 node package manager，用於管理及安裝不同的基於 node.js 的軟件。</p>
+
+<h3 id="coffee-script-">安裝 Coffee-Script 套件</h3>
+
+<p>Node.js 的插件分兩種儲存方法，Current Directory 現有目錄及全系統，若只安裝到現有目錄，則只有現有目錄下才可以執行相關指令，其安裝方式為：</p>
+
+<pre><code>npm install coffee-script
+</code></pre>
+
+<p>若要安裝到全系統均能使用，則需要 <code>--global</code> (或 <code>-g</code>) flag。而且通常需要 <code>sudo</code> 權限來執行：</p>
+
+<pre><code>sudo npm install -g coffee-script
+</code></pre>
+
+<p>Coffee 指令用法</p>
+
+<p>使用方法如下：</p>
+
+<p>在 Terminal 變更目錄至項目裝有 CoffeeScript 的目錄下，執行以下 <code>coffee</code> 指令：</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>$ coffee —watch —compile .
+</pre></div>
+</div>
+</div>
+
+<p>或</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>$ coffee -wc
+</pre></div>
+</div>
+</div>
+
+<p>簡介 Node.js</p>
+
+<p>app.js</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>console.log(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Hello Node</span><span style="color:#710">&quot;</span></span>);
+</pre></div>
+</div>
+</div>
+
+<p>或是 app.coffee</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>console.log <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Hello Node</span><span style="color:#710">&quot;</span></span>
+</pre></div>
+</div>
+</div>
+
+<p>用 Node 來運行，會得出以下結果</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>$ Node app.js
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>$ Hello Node
+</pre></div>
+</div>
+</div>
+
+<h3 id="loop">Loop</h3>
+
+<p>學好循環是另一個 CoffeeScript 的重點。</p>
+
+<p>以下是一個頗為常見的 JavaScript 算法，在一個集合內尋找合適的值，放入結果集合內，再將之返回。</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>data.<span style="color:#06B;font-weight:bold">findBooksByIsbns</span> = <span style="color:#080;font-weight:bold">function</span>(isbns) {
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  <span style="color:#080;font-weight:bold">var</span> result = [];
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  <span style="color:#080;font-weight:bold">for</span>(<span style="color:#080;font-weight:bold">var</span> i=<span style="color:#00D">0</span>, len=data.books.length; i&lt;len; i++) {
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>    <span style="color:#080;font-weight:bold">var</span> book = data.books[i];
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>    <span style="color:#080;font-weight:bold">if</span> (_.contains(isbns, book.isbn)) {
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>      result.push(book);
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>    }
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>  }
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>  <span style="color:#080;font-weight:bold">return</span> result;
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>};
+</pre></div>
+</div>
+</div>
+
+<p>在 CoffeeScript，因為有 for-in-when 的寫法，可以變成以下一句。亦因為 CoffeeScript 算動將最後一行加 return，所以整句就便得將陳述句一樣：在 books 集合內的每一個項目 (book)，當附合條件時，返回 book。</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>data.findBooksByIsbns = (isbns) -&gt;
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  book <span style="color:#080;font-weight:bold">for</span> book <span style="color:#080;font-weight:bold">in</span> books <span style="color:#080;font-weight:bold">when</span> _.contains(isbns, book.isbn)
+</pre></div>
+</div>
+</div>
+
+<p>[ graph of how the javascript 'variables' transform into for-in-when syntax ]</p>
+</article>
+
+<div id='overlay' class='out'>
+  <img id='overlay-img' src='' alt='overlaied image when clicked on thumbnail'>
+  <div id='overlay-caption'></div>
+</div>
+
+  
+<div class="book-page-footer-nav"><ul><li>You’re reading <a href="/coffeescript/">coffeescript</a>.</li><li><a id='twitter-intent-link' href='https://twitter.com/intent/tweet?text=@makzan '>Discuss this post on Twitter.</a></li>         <li><a href='/'>Go back to home.</a></li><li>Go to <a href='#top'>top?</a></li> </ul><div class="mz-square"><img width="80" src="/images/mz-square.png" alt="Mz square" /></div></div><footer><div class="content"><p><small class="footer"><strong>Thanks for reading.</strong> All content is written by <a href='/about/'>Makzan</a>, from <a href='https://www.google.com/search?q=macau+china&safe=active&tbm=isch'>Macao</a>. Text are in <a href='http://creativecommons.org/licenses/by-nc/4.0/'>CC BY-NC 4.0</a> lincense. Code snippets in this site are in <a href='http://opensource.org/licenses/MIT'>MIT</a> license unless specified. Enjoy the rest of <span id='weekday'>day</span>!</small></p></div></footer>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-975238-12']);
+  _gaq.push(['_setDomainName', 'makzan.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script src="/assets/application.js" data-turbolinks-track="true"></script>
+
+  <script>
+    mixpanel.track("Page Show", {"Parent": "Root", "Title": "CoffeeScript 學習手扎"});
+    mixpanel.track_links(".page-nav a", "Click page nav link");
+    mixpanel.track_links(".top-bar a", "Click top bar link");
+  </script>
+<script data-no-instant>InstantClick.init();</script>
+<script type="text/javascript">
+  var FHChat = {product_id: "ae42b12bfcb3"};
+  FHChat.properties={};FHChat.set=function(key,data){this.properties[key]=data};FHChat.customAttributes=[];FHChat.sendCustomAttributes=function(data){this.customAttributes.push(data)};!function(){var a,b;return b=document.createElement("script"),a=document.getElementsByTagName("script")[0],b.src="https://chat-client-js.firehoseapp.com/chat-min.js",b.async=!0,a.parentNode.insertBefore(b,a)}();
+</script>
+  
+
+  <script type="text/javascript">
+  var _sf_async_config = { uid: 59469, domain: 'makzan.net', useCanonical: true };
+  (function() {
+    function loadChartbeat() {
+      window._sf_endpt = (new Date()).getTime();
+      var e = document.createElement('script');
+      e.setAttribute('language', 'javascript');
+      e.setAttribute('type', 'text/javascript');
+      e.setAttribute('src','//static.chartbeat.com/js/chartbeat.js');
+      document.body.appendChild(e);
+    };
+    var oldonload = window.onload;
+    window.onload = (typeof window.onload != 'function') ?
+      loadChartbeat : function() { oldonload(); loadChartbeat(); };
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,547 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+  <title>
+      Chapter 6 – Introducing Ruby on Rails (Part B) – makzan’s sharings
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='http://fonts.googleapis.com/css?family=Bevan' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" media="all" href="/assets/application.css" data-turbolinks-track="true" />
+  <link href="https://makzan.net/introducing-web-design/chapter-6b" rel="canonical" />  <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+mixpanel.init("26e7a62bc13d535df35f3aca1c4a009f");</script><!-- end Mixpanel -->
+
+  
+    <link rel="next" href="../chapter-7/">
+    
+  <script type="text/javascript" src="//use.typekit.net/gku5yms.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body id='top' class='book-page'>
+
+<header class="nav-bar centered"><a href="/" title="Back to makzan homepage"><canvas id="heading-canvas" width="572" height="200" style="background-color:#fffffa;width:143px;"><h1>makzan.</h1></canvas></a><div class="nav-text"><p>I build <a href="/works/#apps">utilities</a> and <a href="/works/#games">games</a>. <br />
+I share know-how via <a href="/works/#books">books</a>, <a href="/#courses">classes</a> and <a href="/essays/">essays</a>.</p>
+
+</div></header>
+
+<article class='book-page-content content'>
+  <div id='pjax-area' class="row">
+    <div id='side-bar-col' class="hidden col">
+
+    </div>
+    <div id='sheet-col' class="full col">
+<!--               <p><small class='aside'>You’re reading <a href="../">introducing-web-design</a>. This article is part of the <a href="../">introducing-web-design</a>, written by <a href="/">makzan</a>.</small></p>
+       -->
+            
+        <div class="page-nav header">
+ 
+  <p id='toggle-toc'>Table of Content</p>
+
+</div>
+
+  
+      <div class='sheet'>            
+
+          <h1>
+              Chapter 6 – Introducing Ruby on Rails (Part B)
+          </h1>
+
+
+        <p><h2 id='section-1' class='separator'><span><a href='#section-1'>Let’s continue the CRM system</a></span></h2></p>
+<div class="row"><div class="one wide-only col"><p><img src="/images/introducing-web-design/customer-list.png" alt="Customer list" /></p>
+</div><div class="two wide-only col"><p>In <a href="../chapter-6/">last section</a>, we created a <em>Customer</em> resource management with Rails. We are able to create customer record. Edit existing record or list all the customers.</p>
+</div></div><div class="row"><div class="one wide-only col"><p><img src="/images/introducing-web-design/customer-note-relationshop.png" alt="Customer note relationshop" /></p>
+</div><div class="two wide-only col"><p>In this section, we continue on the project to create <em>Note</em> resource, which is associated to <em>Customer</em> in one-to-many relationship.</p>
+
+<p>One customer has many notes. One note belongs to one customer.</p>
+</div></div><p><h2 id='section-2' class='separator'><span><a href='#section-2'>Scaffolding the Note resource</a></span></h2></p>
+
+<p>We execute the following command to create a new <em>Note</em> resource.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>$ rails generate scaffold Note content:text customer_id:integer
+</pre></div>
+</div>
+</div>
+
+<p>We use <code>customer_id</code> to represent the relationship of note belongs to customer.</p>
+
+<p>As usual, we migrate the database.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>$ rake db:migrate
+</pre></div>
+</div>
+</div>
+
+<p>The console should have output likes the following.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>== 20140705052047 CreateNotes: migrating ======================================
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>-- create_table(:notes)
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>   -&gt; 0.0056s
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>== 20140705052047 CreateNotes: migrated (0.0058s) =============================
+</pre></div>
+</div>
+</div>
+
+<p><h2 id='section-3' class='separator'><span><a href='#section-3'>Updating the routes</a></span></h2></p>
+
+<p>In <code>config/routes.rb</code>, we nest the resources notes inside customers.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>resources <span style="color:#A60">:customers</span> <span style="color:#080;font-weight:bold">do</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  resources <span style="color:#A60">:notes</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>In addition, we can point the root path to our customers’ index page instead of using the default home screen.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>root <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">customers#index</span><span style="color:#710">'</span></span>
+</pre></div>
+</div>
+</div>
+
+<p>This creates the following routing table.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Verb</td>
+      <td>URI Pattern</td>
+      <td>Controller#Action</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/</td>
+      <td>customers#index</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/customers/:customer_id/notes(.:format)</td>
+      <td>notes#index</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td>/customers/:customer_id/notes(.:format)</td>
+      <td>notes#create</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/customers/:customer_id/notes/new(.:format)</td>
+      <td>notes#new</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/customers/:customer_id/notes/:id/edit(.:format)</td>
+      <td>notes#edit</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/customers/:customer_id/notes/:id(.:format)</td>
+      <td>notes#show</td>
+    </tr>
+    <tr>
+      <td>PATCH</td>
+      <td>/customers/:customer_id/notes/:id(.:format)</td>
+      <td>notes#update</td>
+    </tr>
+    <tr>
+      <td>PUT</td>
+      <td>/customers/:customer_id/notes/:id(.:format)</td>
+      <td>notes#update</td>
+    </tr>
+    <tr>
+      <td>DELETE</td>
+      <td>/customers/:customer_id/notes/:id(.:format)</td>
+      <td>notes#destroy</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/customers(.:format)</td>
+      <td>customers#index</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td>/customers(.:format)</td>
+      <td>customers#create</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/customers/new(.:format)</td>
+      <td>customers#new</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/customers/:id/edit(.:format)</td>
+      <td>customers#edit</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/customers/:id(.:format)</td>
+      <td>customers#show</td>
+    </tr>
+    <tr>
+      <td>PATCH</td>
+      <td>/customers/:id(.:format)</td>
+      <td>customers#update</td>
+    </tr>
+    <tr>
+      <td>PUT</td>
+      <td>/customers/:id(.:format)</td>
+      <td>customers#update</td>
+    </tr>
+    <tr>
+      <td>DELETE</td>
+      <td>/customers/:id(.:format)</td>
+      <td>customers#destroy</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="note">You can get the above information by running <code>rake routes</code> in console.</p>
+
+<p><h2 id='section-4' class='separator'><span><a href='#section-4'>Define the association in model</a></span></h2></p>
+<div class="row"><div class="one wide-only col"><p><img src="/images/introducing-web-design/customer-note-relationshop.png" alt="Customer note relationshop" /></p>
+</div><div class="two wide-only col"><p>In <code>app/models/customer.rb</code></p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Customer</span> &lt; <span style="color:#036;font-weight:bold">ActiveRecord</span>::<span style="color:#036;font-weight:bold">Base</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  has_many <span style="color:#A60">:notes</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>In <code>app/models/note.rb</code></p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Note</span> &lt; <span style="color:#036;font-weight:bold">ActiveRecord</span>::<span style="color:#036;font-weight:bold">Base</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  belongs_to <span style="color:#A60">:customer</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+</div></div><p><h2 id='section-5' class='separator'><span><a href='#section-5'>Updating note controller</a></span></h2></p>
+
+<p>In <code>app/controllers/notes_controllers.rb</code></p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">NotesController</span> &lt; <span style="color:#036;font-weight:bold">ApplicationController</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  before_action <span style="color:#A60">:set_customer</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  before_action <span style="color:#A60">:set_note</span>, <span style="color:#606">only</span>: [<span style="color:#A60">:show</span>, <span style="color:#A60">:edit</span>, <span style="color:#A60">:update</span>, <span style="color:#A60">:destroy</span>]
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>  <span style="color:#777"># GET /notes</span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>  <span style="color:#777"># GET /notes.json</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">index</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>    <span style="color:#33B">@notes</span> = <span style="color:#33B">@customer</span>.notes.all
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>  <span style="color:#777"># GET /notes/1</span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>  <span style="color:#777"># GET /notes/1.json</span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">show</span>
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>  <span style="color:#777"># GET /notes/new</span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">new</span>
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>    <span style="color:#33B">@note</span> = <span style="color:#33B">@customer</span>.notes.new
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>  <span style="color:#777"># GET /notes/1/edit</span>
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">edit</span>
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>  <span style="color:#777"># POST /notes</span>
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>  <span style="color:#777"># POST /notes.json</span>
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">create</span>
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>    <span style="color:#33B">@note</span> = <span style="color:#33B">@customer</span>.notes.new(note_params)
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>    respond_to <span style="color:#080;font-weight:bold">do</span> |format|
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span>      <span style="color:#080;font-weight:bold">if</span> <span style="color:#33B">@note</span>.save
+<span class="line-numbers"><a href="#n32" name="n32">32</a></span>        format.html { redirect_to [<span style="color:#33B">@customer</span>,<span style="color:#33B">@note</span>], <span style="color:#606">notice</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Note was successfully created.</span><span style="color:#710">'</span></span> }
+<span class="line-numbers"><a href="#n33" name="n33">33</a></span>        format.json { render <span style="color:#A60">:show</span>, <span style="color:#606">status</span>: <span style="color:#A60">:created</span>, <span style="color:#606">location</span>: <span style="color:#33B">@note</span> }
+<span class="line-numbers"><a href="#n34" name="n34">34</a></span>      <span style="color:#080;font-weight:bold">else</span>
+<span class="line-numbers"><a href="#n35" name="n35">35</a></span>        format.html { render <span style="color:#A60">:new</span> }
+<span class="line-numbers"><a href="#n36" name="n36">36</a></span>        format.json { render <span style="color:#606">json</span>: <span style="color:#33B">@note</span>.errors, <span style="color:#606">status</span>: <span style="color:#A60">:unprocessable_entity</span> }
+<span class="line-numbers"><a href="#n37" name="n37">37</a></span>      <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n38" name="n38">38</a></span>    <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n39" name="n39">39</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><strong><a href="#n40" name="n40">40</a></strong></span>
+<span class="line-numbers"><a href="#n41" name="n41">41</a></span>  <span style="color:#777"># PATCH/PUT /notes/1</span>
+<span class="line-numbers"><a href="#n42" name="n42">42</a></span>  <span style="color:#777"># PATCH/PUT /notes/1.json</span>
+<span class="line-numbers"><a href="#n43" name="n43">43</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">update</span>
+<span class="line-numbers"><a href="#n44" name="n44">44</a></span>    respond_to <span style="color:#080;font-weight:bold">do</span> |format|
+<span class="line-numbers"><a href="#n45" name="n45">45</a></span>      <span style="color:#080;font-weight:bold">if</span> <span style="color:#33B">@note</span>.update(note_params)
+<span class="line-numbers"><a href="#n46" name="n46">46</a></span>        format.html { redirect_to [<span style="color:#33B">@customer</span>,<span style="color:#33B">@note</span>], <span style="color:#606">notice</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Note was successfully updated.</span><span style="color:#710">'</span></span> }
+<span class="line-numbers"><a href="#n47" name="n47">47</a></span>        format.json { render <span style="color:#A60">:show</span>, <span style="color:#606">status</span>: <span style="color:#A60">:ok</span>, <span style="color:#606">location</span>: <span style="color:#33B">@note</span> }
+<span class="line-numbers"><a href="#n48" name="n48">48</a></span>      <span style="color:#080;font-weight:bold">else</span>
+<span class="line-numbers"><a href="#n49" name="n49">49</a></span>        format.html { render <span style="color:#A60">:edit</span> }
+<span class="line-numbers"><strong><a href="#n50" name="n50">50</a></strong></span>        format.json { render <span style="color:#606">json</span>: <span style="color:#33B">@note</span>.errors, <span style="color:#606">status</span>: <span style="color:#A60">:unprocessable_entity</span> }
+<span class="line-numbers"><a href="#n51" name="n51">51</a></span>      <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n52" name="n52">52</a></span>    <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n53" name="n53">53</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n54" name="n54">54</a></span>
+<span class="line-numbers"><a href="#n55" name="n55">55</a></span>  <span style="color:#777"># DELETE /notes/1</span>
+<span class="line-numbers"><a href="#n56" name="n56">56</a></span>  <span style="color:#777"># DELETE /notes/1.json</span>
+<span class="line-numbers"><a href="#n57" name="n57">57</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">destroy</span>
+<span class="line-numbers"><a href="#n58" name="n58">58</a></span>    <span style="color:#33B">@note</span>.destroy
+<span class="line-numbers"><a href="#n59" name="n59">59</a></span>    respond_to <span style="color:#080;font-weight:bold">do</span> |format|
+<span class="line-numbers"><strong><a href="#n60" name="n60">60</a></strong></span>      format.html { redirect_to customer_notes_url, <span style="color:#606">notice</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Note was successfully destroyed.</span><span style="color:#710">'</span></span> }
+<span class="line-numbers"><a href="#n61" name="n61">61</a></span>      format.json { head <span style="color:#A60">:no_content</span> }
+<span class="line-numbers"><a href="#n62" name="n62">62</a></span>    <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n63" name="n63">63</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n64" name="n64">64</a></span>
+<span class="line-numbers"><a href="#n65" name="n65">65</a></span>  private
+<span class="line-numbers"><a href="#n66" name="n66">66</a></span>    <span style="color:#777"># Use callbacks to share common setup or constraints between actions.</span>
+<span class="line-numbers"><a href="#n67" name="n67">67</a></span>    <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">set_customer</span>
+<span class="line-numbers"><a href="#n68" name="n68">68</a></span>      <span style="color:#33B">@customer</span> = <span style="color:#036;font-weight:bold">Customer</span>.find(params[<span style="color:#A60">:customer_id</span>])
+<span class="line-numbers"><a href="#n69" name="n69">69</a></span>    <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><strong><a href="#n70" name="n70">70</a></strong></span>    <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">set_note</span>
+<span class="line-numbers"><a href="#n71" name="n71">71</a></span>      <span style="color:#33B">@note</span> = <span style="color:#33B">@customer</span>.notes.find(params[<span style="color:#A60">:id</span>])
+<span class="line-numbers"><a href="#n72" name="n72">72</a></span>    <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n73" name="n73">73</a></span>
+<span class="line-numbers"><a href="#n74" name="n74">74</a></span>    <span style="color:#777"># Never trust parameters from the scary internet, only allow the white list through.</span>
+<span class="line-numbers"><a href="#n75" name="n75">75</a></span>    <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">note_params</span>
+<span class="line-numbers"><a href="#n76" name="n76">76</a></span>      params.require(<span style="color:#A60">:note</span>).permit(<span style="color:#A60">:content</span>, <span style="color:#A60">:customer_id</span>)
+<span class="line-numbers"><a href="#n77" name="n77">77</a></span>    <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n78" name="n78">78</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p><h2 id='section-6' class='separator'><span><a href='#section-6'>Updating all the links in view</a></span></h2></p>
+
+<p>In <code>app/views/notes/index.html.erb</code></p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;h1&gt;</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  Listing notes for
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  <span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> link_to <span style="color:#33B">@customer</span>.name, <span style="color:#33B">@customer</span> <span style="font-weight:bold;color:#666">%&gt;</span></span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span><span style="color:#070;font-weight:bold">&lt;/h1&gt;</span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span><span style="color:#070;font-weight:bold">&lt;table&gt;</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>  <span style="color:#070;font-weight:bold">&lt;thead&gt;</span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>    <span style="color:#070;font-weight:bold">&lt;tr&gt;</span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>      <span style="color:#070;font-weight:bold">&lt;th&gt;</span>Content<span style="color:#070;font-weight:bold">&lt;/th&gt;</span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>      <span style="color:#070;font-weight:bold">&lt;th&gt;</span>Customer<span style="color:#070;font-weight:bold">&lt;/th&gt;</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>      <span style="color:#070;font-weight:bold">&lt;th</span> <span style="color:#b48">colspan</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">3</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span><span style="color:#070;font-weight:bold">&lt;/th&gt;</span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>    <span style="color:#070;font-weight:bold">&lt;/tr&gt;</span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>  <span style="color:#070;font-weight:bold">&lt;/thead&gt;</span>
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>  <span style="color:#070;font-weight:bold">&lt;tbody&gt;</span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>    <span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%</span> <span style="color:#33B">@notes</span>.each <span style="color:#080;font-weight:bold">do</span> |note| <span style="font-weight:bold;color:#666">%&gt;</span></span>
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>      <span style="color:#070;font-weight:bold">&lt;tr&gt;</span>
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>        <span style="color:#070;font-weight:bold">&lt;td&gt;</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> note.content <span style="font-weight:bold;color:#666">%&gt;</span></span><span style="color:#070;font-weight:bold">&lt;/td&gt;</span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>        <span style="color:#070;font-weight:bold">&lt;td&gt;</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> note.customer_id <span style="font-weight:bold;color:#666">%&gt;</span></span><span style="color:#070;font-weight:bold">&lt;/td&gt;</span>
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>        <span style="color:#070;font-weight:bold">&lt;td&gt;</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> link_to <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Show</span><span style="color:#710">'</span></span>, [<span style="color:#33B">@customer</span>, note] <span style="font-weight:bold;color:#666">%&gt;</span></span><span style="color:#070;font-weight:bold">&lt;/td&gt;</span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>        <span style="color:#070;font-weight:bold">&lt;td&gt;</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> link_to <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Edit</span><span style="color:#710">'</span></span>, edit_customer_note_path(<span style="color:#33B">@customer</span>, note) <span style="font-weight:bold;color:#666">%&gt;</span></span><span style="color:#070;font-weight:bold">&lt;/td&gt;</span>
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>        <span style="color:#070;font-weight:bold">&lt;td&gt;</span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> link_to <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Destroy</span><span style="color:#710">'</span></span>, [<span style="color:#33B">@customer</span>, note], <span style="color:#606">method</span>: <span style="color:#A60">:delete</span>, <span style="color:#606">data</span>: { <span style="color:#606">confirm</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Are you sure?</span><span style="color:#710">'</span></span> } <span style="font-weight:bold;color:#666">%&gt;</span></span><span style="color:#070;font-weight:bold">&lt;/td&gt;</span>
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>      <span style="color:#070;font-weight:bold">&lt;/tr&gt;</span>
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>    <span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%</span> <span style="color:#080;font-weight:bold">end</span> <span style="font-weight:bold;color:#666">%&gt;</span></span>
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>  <span style="color:#070;font-weight:bold">&lt;/tbody&gt;</span>
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span><span style="color:#070;font-weight:bold">&lt;/table&gt;</span>
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span><span style="color:#070;font-weight:bold">&lt;br&gt;</span>
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> link_to <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">New Note</span><span style="color:#710">'</span></span>, new_customer_note_path <span style="font-weight:bold;color:#666">%&gt;</span></span>
+</pre></div>
+</div>
+</div>
+
+<p>In <code>app/views/notes/show.html.erb</code></p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>...
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> link_to <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Edit</span><span style="color:#710">'</span></span>, edit_customer_note_path(<span style="color:#33B">@customer</span>, <span style="color:#33B">@note</span>) <span style="font-weight:bold;color:#666">%&gt;</span></span> |
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> link_to <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Back</span><span style="color:#710">'</span></span>, customer_notes_path <span style="font-weight:bold;color:#666">%&gt;</span></span>
+</pre></div>
+</div>
+</div>
+
+<p>In <code>app/views/notes/new.html.erb</code></p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;h1&gt;</span>New note<span style="color:#070;font-weight:bold">&lt;/h1&gt;</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> render <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">form</span><span style="color:#710">'</span></span> <span style="font-weight:bold;color:#666">%&gt;</span></span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> link_to <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Back</span><span style="color:#710">'</span></span>, customer_notes_path <span style="font-weight:bold;color:#666">%&gt;</span></span>
+</pre></div>
+</div>
+</div>
+
+<p>In <code>app/views/notes/edit.html.erb</code></p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;h1&gt;</span>Editing note<span style="color:#070;font-weight:bold">&lt;/h1&gt;</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> render <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">form</span><span style="color:#710">'</span></span> <span style="font-weight:bold;color:#666">%&gt;</span></span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> link_to <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Show</span><span style="color:#710">'</span></span>, <span style="color:#33B">@note</span> <span style="font-weight:bold;color:#666">%&gt;</span></span> |
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> link_to <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Back</span><span style="color:#710">'</span></span>, customer_notes_path <span style="font-weight:bold;color:#666">%&gt;</span></span>
+</pre></div>
+</div>
+</div>
+
+<p>In <code>app/views/notes/_form.html.erb</code></p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> form_for([<span style="color:#33B">@customer</span>,<span style="color:#33B">@note</span>]) <span style="color:#080;font-weight:bold">do</span> |f| <span style="font-weight:bold;color:#666">%&gt;</span></span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>...
+</pre></div>
+</div>
+</div>
+
+<p>Almost done. In <code>app/views/customers/show.html.erb</code></p>
+
+<p>add:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>&lt;<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">%=</span><span style="color:#D20"> link_to 'Create Note', new_customer_note_path(@customer) %&gt;</span></span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span><span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">&lt;%</span><span style="color:#710">=</span></span> link_to <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Show Notes</span><span style="color:#710">'</span></span>, customer_notes_path(<span style="color:#33B">@customer</span>) %&gt;
+</pre></div>
+</div>
+</div>
+
+<p>in <code>app/views/notes/index.html.erb</code></p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;h1&gt;</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  Listing notes for
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  <span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> link_to <span style="color:#33B">@customer</span>.name, <span style="color:#33B">@customer</span> <span style="font-weight:bold;color:#666">%&gt;</span></span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span><span style="color:#070;font-weight:bold">&lt;/h1&gt;</span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>...
+</pre></div>
+</div>
+</div>
+
+<p><h2 id='section-7' class='separator'><span><a href='#section-7'>Add global navigation</a></span></h2></p>
+
+<p>Now we want to add a link back to “All Customers” page on all pages. We can add the link in the layout template. Add the following code in <code>app/layouts/application.html.erb</code>.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> link_to <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">All Customers</span><span style="color:#710">'</span></span>, customers_path <span style="font-weight:bold;color:#666">%&gt;</span></span>
+</pre></div>
+</div>
+</div>
+
+<p>So the body of the layout file becomes:</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;body&gt;</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> link_to <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">All Customers</span><span style="color:#710">'</span></span>, customers_path <span style="font-weight:bold;color:#666">%&gt;</span></span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">&lt;%=</span> <span style="color:#080;font-weight:bold">yield</span> <span style="font-weight:bold;color:#666">%&gt;</span></span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span><span style="color:#070;font-weight:bold">&lt;/body&gt;</span>
+</pre></div>
+</div>
+</div>
+
+<p>This is the rusult we get after these steps.</p>
+
+<p><img src="/images/introducing-web-design/result-after-part-b.png" alt="Result after part b" /></p>
+
+
+        <!-- What’s next? -->
+
+        <div class="page-nav">
+    <a class='left pjaxer' href='../chapter-6/' title='Chapter 6 – Introducing Ruby on Rails'>◀ Chapter 6 – Introducing Ruby on Rails</a>
+
+    <a class='right pjaxer' href='../chapter-7/' title='Chapter 7 – Introducing jQuery'>Chapter 7 – Introducing jQuery ▶</a>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+</article>
+
+<div id='overlay' class='out'>
+  <img id='overlay-img' src='' alt='overlaied image when clicked on thumbnail'>
+  <div id='overlay-caption'></div>
+</div>
+  
+<div id='toc-overlay' class='out'>
+  <h4><a href='/'>Makzan</a> | Introducing web design | Table of Content</h4>
+  <ul>
+      <li><b><em><a href="../chapter-1/">Chapter 1 – Tools web designers use</a></em></b></li>          
+
+      <li><b><em><a href="../chapter-2/">Chapter 2 – Introducing HTML5</a></em></b></li>          
+
+      <li><b><em><a href="../chapter-3/">Chapter 3 – CSS and new features</a></em></b></li>          
+
+      <li><b><em><a href="../chapter-4/">Chapter 4 – PSD to HTML/CSS layout with Zurb Foundation</a></em></b></li>          
+
+      <li><b><em><a href="../chapter-5/">Chapter 5 – Media queries and responsive web designing</a></em></b></li>          
+
+      <li><b><em><a href="../chapter-6/">Chapter 6 – Introducing Ruby on Rails</a></em></b></li>          
+
+      <li><strong>→<a href="../chapter-6b/">Chapter 6 – Introducing Ruby on Rails (Part B)</a></strong></li>            
+
+      <li><b><em><a href="../chapter-7/">Chapter 7 – Introducing jQuery</a></em></b></li>          
+
+      <li><b><em><a href="../chapter-8/">Chapter 8 – Dedicated mobile site with jQuery mobile</a></em></b></li>          
+
+  </ul>
+</div>
+
+
+<div class="book-page-footer-nav"><ul><li>You’re reading <a href="/introducing-web-design/">introducing-web-design</a>.</li><li><a id='twitter-intent-link' href='https://twitter.com/intent/tweet?text=@makzan '>Discuss this post on Twitter.</a></li>         <li><a href='/'>Go back to home.</a></li><li>Go to <a href='#top'>top?</a></li> </ul><div class="mz-square"><img width="80" src="/images/mz-square.png" alt="Mz square" /></div></div><footer><div class="content"><p><small class="footer"><strong>Thanks for reading.</strong> All content is written by <a href='/about/'>Makzan</a>, from <a href='https://www.google.com/search?q=macau+china&safe=active&tbm=isch'>Macao</a>. Text are in <a href='http://creativecommons.org/licenses/by-nc/4.0/'>CC BY-NC 4.0</a> lincense. Code snippets in this site are in <a href='http://opensource.org/licenses/MIT'>MIT</a> license unless specified. Enjoy the rest of <span id='weekday'>day</span>!</small></p></div></footer>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-975238-12']);
+  _gaq.push(['_setDomainName', 'makzan.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<script src="/assets/application.js" data-turbolinks-track="true"></script>
+
+
+<script>
+mixpanel.track("Page Show", {"Parent": "introducing-web-design", "Title": "Chapter 6 – Introducing Ruby on Rails (Part B)"});
+mixpanel.track_links(".page-nav a", "Click page nav link");
+</script>
+<script data-no-instant>InstantClick.init();</script>
+<script type="text/javascript">
+  var FHChat = {product_id: "ae42b12bfcb3"};
+  FHChat.properties={};FHChat.set=function(key,data){this.properties[key]=data};FHChat.customAttributes=[];FHChat.sendCustomAttributes=function(data){this.customAttributes.push(data)};!function(){var a,b;return b=document.createElement("script"),a=document.getElementsByTagName("script")[0],b.src="https://chat-client-js.firehoseapp.com/chat-min.js",b.async=!0,a.parentNode.insertBefore(b,a)}();
+</script>
+  
+
+<script type="text/javascript">
+  var _sf_async_config = { uid: 59469, domain: 'makzan.net', useCanonical: true };
+  (function() {
+    function loadChartbeat() {
+      window._sf_endpt = (new Date()).getTime();
+      var e = document.createElement('script');
+      e.setAttribute('language', 'javascript');
+      e.setAttribute('type', 'text/javascript');
+      e.setAttribute('src','//static.chartbeat.com/js/chartbeat.js');
+      document.body.appendChild(e);
+    };
+    var oldonload = window.onload;
+    window.onload = (typeof window.onload != 'function') ?
+      loadChartbeat : function() { oldonload(); loadChartbeat(); };
+  })();
+</script>
+</body>
+</html>

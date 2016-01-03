@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+	<!--
+	
+	 Chicken Rain Game
+	 
+	 Copyright 2011, 42games
+	 makzan@42games.net
+	   
+	 All Right Reserved.
+	 
+	-->
+	
+	<meta charset=utf-8>
+	<title>Chicken Rain HTML5 Game</title>	
+	<link rel="stylesheet" href="css/chickenRain.min.css" />
+	<script src="lib/modernizr.custom.js"></script>							
+				
+</head>
+<body class='mac-app'>
+	<header>
+		<h1>Chicken Rain</h1>
+	</header>
+	
+	<div id="preload" style="display: none">
+		<img src='images/SlotAnimation.png'>
+		<img src='images/SlotAnimationEnding1.png'>
+		<img src='images/SlotAnimationEnding10.png'>
+		<img src='images/SlotAnimationEnding2.png'>
+		<img src='images/SlotAnimationEnding3.png'>
+		<img src='images/SlotAnimationEnding4.png'>
+		<img src='images/SlotAnimationEnding5.png'>
+		<img src='images/SlotAnimationEnding6.png'>
+		<img src='images/SlotAnimationEnding7.png'>
+		<img src='images/SlotAnimationEnding8.png'>
+		<img src='images/SlotAnimationEnding9.png'>
+		<img src='images/TapMeToEarn_01.png'>
+		<img src='images/back_menu_btn.png'>
+		<img src='images/backlight.png'>
+		<img src='images/bg1.png'>
+		<img src='images/bg2.png'>
+		<img src='images/bg3.png'>
+		<img src='images/bg4.png'>
+		<img src='images/bg_fever_tree.png'>
+		<img src='images/bg_fever_tree_back_light.png'>
+		<img src='images/bgm_off.png'>
+		<img src='images/bgm_on.png'>
+		<img src='images/bonus_border.png'>
+		<img src='images/challenge_mode_btn.png'>
+		<img src='images/challenge_start_page.png'>
+		<img src='images/chickEmo.png'>
+		<img src='images/coin_counter_full.png'>
+		<img src='images/digit.png'>
+		<img src='images/digit2.png'>
+		<img src='images/digit_1.png'>
+		<img src='images/digit_2.png'>
+		<img src='images/digit_3.png'>
+		<img src='images/digit_coin.png'>
+		<img src='images/dim.png'>
+		<img src='images/explosion.png'>
+		<img src='images/free_play_mode_btn.png'>
+		<img src='images/go.png'>
+		<img src='images/leaderboard.png'>
+		<img src='images/mouse.png'>
+		<img src='images/pin_fever_empty.png'>
+		<img src='images/pin_fever_full.png'>
+		<img src='images/pin_lv1_empty.png'>
+		<img src='images/pin_lv1_full.png'>
+		<img src='images/pin_lv2_empty.png'>
+		<img src='images/pin_lv2_full.png'>
+		<img src='images/pin_lv3_empty.png'>
+		<img src='images/pin_lv3_full.png'>
+		<img src='images/pins.png'>
+		<img src='images/pins_fever.png'>
+		<img src='images/play_again_btn.png'>
+		<img src='images/prize_alert_large.png'>
+		<img src='images/sfx_off.png'>
+		<img src='images/sfx_on.png'>
+		<img src='images/slide.png'>
+		<img src='images/slot_machine.png'>
+		<img src='images/spotlight.png'>
+		<img src='images/stage.png'>
+		<img src='images/stage_door.png'>
+		<img src='images/start-menu-bg.png'>
+		<img src='images/start_btn.png'>
+		<img src='images/time_is_up.png'>
+		<img src='images/trigger-animation.png'>
+		<img src='images/trigger-indicator-1.png'>
+		<img src='images/trigger-indicator-2.png'>
+		<img src='images/trigger-indicator-4.png'>
+		<img src='images/trigger-indicator-5.png'>
+		<img src='images/tunnel.png'>
+		<img src='images/tuto_chicken_lost.png'>
+		<img src='images/tuto_chicken_lost_animation.png'>
+		<img src='images/tuto_coin_table.png'>
+		<img src='images/tuto_fever_stage.png'>
+		<img src='images/tuto_fever_trigger.png'>
+		<img src='images/tuto_pin_level_up.png'>
+		<img src='images/tuto_spotlight.png'>
+		<img src='images/windmill_large.png'>
+		<img src='images/windmill_small.png'>
+		<img src='images/windmill_top.png'>
+	</div>
+	
+	<div id='game-wrapper'>
+	
+		<div id="loading">
+			<p>Loading Game Assets...</p>
+		</div>
+	
+		<div id="game-container">		
+			<div id="stage-door-container">
+				<div id="stage-door"></div>
+			</div>
+			<div id="explosion-container"> 
+				<div id="explosion"></div>
+			</div>
+			
+			
+			<div id="fever-tree-light-container">
+			</div>
+			
+			<div id="fever-tree-container">
+			</div>
+
+			<div id="chickEmo-container"> 
+				<div id="chickEmo"></div>
+			</div>
+
+			<!-- <canvas id="game" width='320' height='480'></canvas> -->
+			<div id="game-physics"></div>
+			
+			<div id="nail-container"> 
+				<div id="nail"></div>
+				<div id="fever-nail"></div>
+			</div>
+			
+			<div id="stage-container"></div>
+			
+			<div id="indicators-container">
+				<div id="slide-indicator-left-images" class="indicator">
+					<div class="left-up"><img src="images/trigger-indicator-1.png" /></div>
+					<div class="left-down"><img src="images/trigger-indicator-2.png" />	</div>
+				</div>
+				<div id="slide-indicator-right-images" class="indicator">
+					<div class="left-up"><img src="images/trigger-indicator-1.png" /></div>
+					<div class="left-down"><img src="images/trigger-indicator-2.png" />	</div>
+				</div>
+				<div id="windmill-indicator-left-images" class="indicator">
+					<div class="rotate-clockwise"><img src="images/trigger-indicator-4.png" /></div>
+					<div class="rotate-anti-clockwise"><img src="images/trigger-indicator-5.png" />	</div>
+				</div>
+				<div id="windmill-indicator-top-images" class="indicator">
+					<div class="rotate-clockwise"><img src="images/trigger-indicator-4.png" /></div>
+					<div class="rotate-anti-clockwise"><img src="images/trigger-indicator-5.png" />	</div>
+				</div>
+				<div id="windmill-indicator-right-images" class="indicator">
+					<div class="rotate-clockwise"><img src="images/trigger-indicator-4.png" /></div>
+					<div class="rotate-anti-clockwise"><img src="images/trigger-indicator-5.png" />	</div>
+				</div>
+			</div>
+			
+			<div id="score-container">
+				<div id="coin-counter"><img src="images/coin_counter_full.png" /></div>
+				<div id="coin-regen-digits-container"><span id="coin-regen-digits-text"></span></div>
+				<div id="score-digits-container">
+					<div id="score-units" class="digit-coin"></div>
+					<div id="score-tens" class="digit-coin"></div>
+					<div id="score-hundreds" class="digit-coin"></div>
+					<div id="score-thousands" class="digit-coin"></div>
+					<div id="score-tenThousands" class="digit-coin"></div>
+				</div>
+			</div>
+			
+			<div id="pin-lv-progress-bar-container">
+				<div id="pin-lv-progress-bar-empty"></div>
+				<div id="pin-lv-progress-bar-full"></div>
+			</div>
+			
+			<div id="earn-coin-digits-container">
+				<div id="earn-coin-units" class="digit-unit"></div>
+				<div id="earn-coin-tens" class="digit-unit"></div>
+				<div id="earn-coin-hundreds" class="digit-unit"></div>
+				<div id="earn-coin-plus-sign" class="digit-unit"></div>				
+			</div>	
+			
+			<div id="challenge-mode-score-container">
+				<div id="challenge-mode-score-units" class="digit-coin"></div>
+				<div id="challenge-mode-score-tens" class="digit-coin"></div>
+				<div id="challenge-mode-score-hundreds" class="digit-coin"></div>
+				<div id="challenge-mode-score-thousands" class="digit-coin"></div>
+				<div id="challenge-mode-score-tenThousands" class="digit-coin"></div>
+			</div>
+			
+			<div id="challenge-mode-counter-container">
+				<div id="challenge-mode-counter-units" class="digit-unit"></div>
+				<div id="challenge-mode-counter-tens" class="digit-unit"></div>
+				<div id="challenge-mode-counter-hundreds" class="digit-unit"></div>
+			</div>
+			
+			<div id="fever-bonus-container">
+				<div id="fever-bonus-border"></div>
+				<div id="fever-bonus-digits-container">
+					<div id="fever-bonus-units" class="digit-unit"></div>
+					<div id="fever-bonus-tens" class="digit-unit"></div>
+					<div id="fever-bonus-hundreds" class="digit-unit"></div>
+				</div>
+			</div>
+			
+			<div id="spotlight-container"> 
+				<div id="spotlight"></div>
+			</div>
+			<div id="fever-trigger-container"> 
+				<div id="fever-trigger-1-coin" class="fever-trigger">
+					<div id="fever-trigger-1-digit" class="fever-trigger-digit"> </div>
+				</div>
+				<div id="fever-trigger-3-coin" class="fever-trigger">
+					<div id="fever-trigger-3-digit" class="fever-trigger-digit"> </div>
+				</div>
+			</div>
+			<div id="fever-slot-bonus-container">
+				<div id="fever-slot0-bonus" class="fever-slot"><div class="plus-sign"></div></div>
+				<div id="fever-slot1-bonus" class="fever-slot"><div class="plus-sign"></div></div>
+				<div id="fever-slot2-bonus" class="fever-slot"><div class="plus-sign"></div></div>
+				<div id="fever-slot3-bonus" class="fever-slot"><div class="plus-sign"></div></div>
+				<div id="fever-slot4-bonus" class="fever-slot"><div class="plus-sign"></div></div>
+				<div id="fever-slot5-bonus" class="fever-slot"><div class="plus-sign"></div></div>
+				<div id="fever-slot6-bonus" class="fever-slot"><div class="plus-sign"></div></div>
+				<div id="fever-slot7-bonus" class="fever-slot"><div class="plus-sign"></div></div>
+			</div>
+			
+			<div id="tap-me-to-earn-container">
+				<div id="tap-me-to-earn"><img src="images/TapMeToEarn_01.png" /></div>
+			</div>
+			
+			<div id="dim-screen"><img src="images/dim.png" /></div>
+			<div id="backlight-screen"><img src="images/backlight.png" /></div>
+			
+			<div id="slot-machine-container">
+				<div class='white-pane'></div>
+				<div id="slot1"></div>
+				<div id="slot2"></div>
+				<div id="slot-machine"></div>
+			</div>
+			
+			<div id="alert-container">
+				<div id="alert-word"></div>
+			</div>
+			
+			<div id="ui-button-container">
+				<a href='#' id='addCoinButton'></a>
+				<a href='#' id='earnCoinButton'></a>
+				<a href='#' id='pauseButton'></a>
+			</div>
+			
+			<div id="tuto-container">
+				<div id="tuto"></div>
+				<div id="tuto-chicken-lost-animation"></div>
+				<a href='#' id='closeTutoButton'></a>
+			</div>
+			
+			<div id="leaderboard-page-container">
+				<div id="leaderboard-page"><img src="images/leaderboard.png" /></div>
+				<a href='#' id='playAgainButton'><img src="images/play_again_btn.png" /></a>
+				<a href='#' id='backToMenuButton'><img src="images/back_menu_btn.png" /></a>
+			</div>
+			
+			<div id="challenge-mode-menu-container">
+				<div id="challenge-mode-start-page"><img src="images/challenge_start_page.png" /></div>
+				<a href='#' id='challengModeStartButton'><img src="images/start_btn.png" /></a>
+			</div>
+			
+			<div id="time-is-up-container">
+				<div><img id="time-is-up" src="images/time_is_up.png" /></div>
+			</div>
+			
+			<div id="challeng-mode-countdown-container">
+				<div><img id="challeng-mode-countdown" src="images/digit_3.png" /></div>
+			</div>
+			
+			<div id="start-menu-container">
+
+			</div>
+			
+		</div>
+		
+	</div>
+	
+	<div id="fb-root"></div>
+
+	
+	<!-- <div id='stats'></div> -->
+	
+	<script src="lib/jquery-1.6.min.js"></script>
+	<script src="lib/box2dweb-2.1.a.3.min.js"></script>	
+	<script src="lib/soundmanager2-jsmin.js"></script>
+
+	<script src='js/ChickenRain.all.min.js'></script>
+</body>
+</html>

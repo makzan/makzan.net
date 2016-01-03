@@ -1,0 +1,446 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+  <title>
+      Ruby basic – makzan’s sharings
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='http://fonts.googleapis.com/css?family=Bevan' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" media="all" href="/assets/application.css" data-turbolinks-track="true" />
+  <link href="https://makzan.net/ruby-on-rails-101/ruby-basic" rel="canonical" />  <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+mixpanel.init("26e7a62bc13d535df35f3aca1c4a009f");</script><!-- end Mixpanel -->
+
+  
+    <link rel="next" href="../installing-rails/">
+    
+  <script type="text/javascript" src="//use.typekit.net/gku5yms.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body id='top' class='book-page'>
+
+<header class="nav-bar centered"><a href="/" title="Back to makzan homepage"><canvas id="heading-canvas" width="572" height="200" style="background-color:#fffffa;width:143px;"><h1>makzan.</h1></canvas></a><div class="nav-text"><p>I build <a href="/works/#apps">utilities</a> and <a href="/works/#games">games</a>. <br />
+I share know-how via <a href="/works/#books">books</a>, <a href="/#courses">classes</a> and <a href="/essays/">essays</a>.</p>
+
+</div></header>
+
+<article class='book-page-content content'>
+  <div id='pjax-area' class="row">
+    <div id='side-bar-col' class="hidden col">
+
+    </div>
+    <div id='sheet-col' class="full col">
+<!--               <p><small class='aside'>You’re reading <a href="../">ruby-on-rails-101</a>. This article is part of the <a href="../">ruby-on-rails-101</a>, written by <a href="/">makzan</a>.</small></p>
+       -->
+            
+        <div class="page-nav header">
+ 
+  <p id='toggle-toc'>Table of Content</p>
+
+</div>
+
+  
+      <div class='sheet'>            
+
+          <h1>
+              Ruby basic
+          </h1>
+
+
+        <p>In this page, we cover the essential ruby syntax.</p>
+
+<ul>
+  <li>Variable</li>
+  <li>Method</li>
+  <li>Class</li>
+</ul>
+
+<h3 id="variable">Variable</h3>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>foo = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">bar</span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>multiple_words_variable = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">using underline</span><span style="color:#710">&quot;</span></span>
+</pre></div>
+</div>
+</div>
+
+<p>We use <em>snake_case</em> with multiple words variable.</p>
+
+<h3 id="method">Method</h3>
+
+<p>The following we define a method that takes no parameters.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">method_name</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  do_something
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>When calling a method with parameters, we can just type the name.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>method_name
+</pre></div>
+</div>
+</div>
+
+<p>The following method definition takes one parameter.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">hello</span>(name)
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  puts <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">hello </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>name<span style="font-weight:bold;color:#666">}</span></span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>In string, we can use <code>#{}</code> to put variable inside <em>double quoted</em> string.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">hello </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>name<span style="font-weight:bold;color:#666">}</span></span><span style="color:#710">&quot;</span></span>
+</pre></div>
+</div>
+</div>
+
+<p>When we call the method with parameters, we can either use the <code>()</code> or a spaces.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>hello <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Thomas</span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>hello(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Thomas</span><span style="color:#710">&quot;</span></span>)
+</pre></div>
+</div>
+</div>
+
+<h3 id="class">Class</h3>
+
+<p>Class are defined in <em>CamelCase</em>.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#777"># Class definition</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Foo</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">hello</span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>    puts <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Hello Ruby</span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Comments line begins with <code>#</code> symbol. The comment valid till the line end.</p>
+
+<p>All methods below the <code>private</code> keywoard are private.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#777"># Class definition</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Foo</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">hello</span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>    puts <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Hello Ruby</span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>  private
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">internal_method</span>
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>    do_something
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Define the method with <code>self.</code> makes it a <em>class method</em>.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">def</span> <span style="color:#069">self</span>.<span style="color:#06B;font-weight:bold">another_method</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  do_something
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>An <code>initialize</code> method is a constructor method.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#777"># Class definition</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Foo</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">initialize</span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>    init_things_here
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Here we create instance from a class definition with the <code>new</code> class method.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Foo</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span><span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>obj = <span style="color:#036;font-weight:bold">Foo</span>.new
+</pre></div>
+</div>
+</div>
+
+<p><code>@variable</code> with the <code>@</code> sign is instance variable.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#777"># Class definition</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Foo</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">initialize</span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>    <span style="color:#33B">@bar</span> = <span style="color:#00D">123</span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Attribute setting <code>attr_reader</code> allows us to define instance variable with <em>read-only</em> public access.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Foo</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  attr_reader <span style="color:#A60">:bar</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">initialize</span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>    <span style="color:#33B">@bar</span> = <span style="color:#00D">123</span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span><span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>obj = <span style="color:#036;font-weight:bold">Foo</span>.new
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>obj.bar <span style="color:#777"># returns 123</span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>obj.bar = <span style="color:#00D">456</span> <span style="color:#777"># error</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span><span style="color:#777"># NoMethodError: undefined method 'bar='</span>
+</pre></div>
+</div>
+</div>
+
+<p>Did you notice the <code>bar=</code> method?</p>
+
+<p>Here we have instance variable with _read-write- public access with <code>attr_accessor</code>.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Foo</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  attr_accessor <span style="color:#A60">:bar</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">initialize</span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>    <span style="color:#33B">@bar</span> = <span style="color:#00D">123</span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>And we can define custom setter method.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">Foo</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  attr_accessor <span style="color:#A60">:bar</span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">initialize</span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>    <span style="color:#33B">@bar</span> = <span style="color:#00D">123</span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>  <span style="color:#080;font-weight:bold">def</span> <span style="color:#06B;font-weight:bold">b=</span>(value)
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>    <span style="color:#33B">@bar</span> = value
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>    puts <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Setting bar value to </span><span style="background-color:hsla(0,0%,0%,0.07);color:black"><span style="font-weight:bold;color:#666">#{</span>value<span style="font-weight:bold;color:#666">}</span></span><span style="color:#710">&quot;</span></span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  <span style="color:#080;font-weight:bold">end</span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span><span style="color:#080;font-weight:bold">end</span>
+</pre></div>
+</div>
+</div>
+
+<p>Let's test our Foo class with custom setter method.</p>
+
+<div class="highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>obj = <span style="color:#036;font-weight:bold">Foo</span>.new
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>obj.bar <span style="color:#777"># returns 123</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>obj.b = <span style="color:#00D">321</span> <span style="color:#777"># able to set bar value</span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>obj.bar <span style="color:#777"># returns 321</span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>obj.b <span style="color:#777"># error</span>
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span><span style="color:#777"># NoMethodError: undefined method 'b'</span>
+</pre></div>
+</div>
+</div>
+
+<p>What's more? Please go te <a href="http://tryruby.org">TryRuby</a> to learn the ruby syntax.</p>
+
+<p><p class=center><img src="/images/ruby-on-rails-101/tryruby.png" alt="Tryruby" /></p></p>
+
+
+        <!-- What’s next? -->
+          <!-- TODO: move this condition away from view -->
+            <p>What’s next? We’re going to take a look at <a class='pjaxer' href='../installing-rails/' title='Installing Rails'>“Installing Rails”</a>.</p>
+
+        <div class="page-nav">
+    <a class='invisible' href='#'>Prev</a>
+
+    <a class='right pjaxer' href='../installing-rails/' title='Installing Rails'>Installing Rails ▶</a>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+</article>
+
+<div id='overlay' class='out'>
+  <img id='overlay-img' src='' alt='overlaied image when clicked on thumbnail'>
+  <div id='overlay-caption'></div>
+</div>
+  
+<div id='toc-overlay' class='out'>
+  <h4><a href='/'>Makzan</a> | Ruby on rails 101 | Table of Content</h4>
+  <ul>
+      <li><strong>→<a href="../ruby-basic/">Ruby basic</a></strong></li>            
+
+      <li><a href="../installing-rails/">Installing Rails</a></li>            
+
+      <li><a href="../rails-console/">Rails console</a></li>            
+
+      <li><a href="../lab-adding-category/">Lab – Adding category</a></li>            
+
+      <li><a href="../uploading-files/">Uploading files</a></li>            
+
+      <li><b><em><a href="../chapter5/">Ruby on Rails 101 – Chapter 5</a></em></b></li>          
+
+      <li><a href="../ch5-setting-up-the-project/">Setting up photo gallery project</a></li>            
+
+      <li><a href="../building-the-photo-model/">Building the photo model</a></li>            
+
+      <li><a href="../building-the-photo-controller-and-view/">Building the photo controller and view</a></li>            
+
+      <li><a href="../using-partial-file/">Using partial file</a></li>            
+
+      <li><a href="../dynamic-title-with-content-for/">Dynamic title with content for</a></li>            
+
+      <li><a href="../adding-album-resource/">Adding album resource</a></li>            
+
+      <li><a href="../associate-photo-to-album/">Associate photo to album</a></li>            
+
+      <li><a href="../introducing-asset-pipeline/">Introducing asset pipeline</a></li>            
+
+      <li><b><em><a href="../chapter6/">Ruby on Rails 101 – Chapter 6</a></em></b></li>          
+
+      <li><a href="../managing-asset-files/">Managing asset files</a></li>            
+
+      <li><a href="../creating-gallery-home-page/">Creating gallery home page</a></li>            
+
+      <li><a href="../adding-swipejs-library/">Adding swipejs library</a></li>            
+
+      <li><a href="../building-gallery-website-layout/">Building gallery website layout</a></li>            
+
+      <li><a href="../installing-devise-gem/">Installing devise gem</a></li>            
+
+      <li><a href="../authenticating-user/">Authenticating user</a></li>            
+
+      <li><a href="../protecting-upload/">Protecting upload</a></li>            
+
+      <li><a href="../ch6-challenges/">Challenges</a></li>            
+
+      <li><b><em><a href="../chapter7/">Ruby on Rails 101 – Chapter 7</a></em></b></li>          
+
+      <li><a href="../introducing-jbuilder/">Introducing jbuilder</a></li>            
+
+      <li><a href="../using-jbuilder/">Using jbuilder</a></li>            
+
+      <li><a href="../extracting-view-code-to-helpers/">Extracting view code to helpers</a></li>            
+
+      <li><a href="../partial-json-views/">Partial json views</a></li>            
+
+      <li><a href="../introducing-behavior-driven-development/">Introducing behavior driven development</a></li>            
+
+      <li><a href="../installing-cucumber-for-rails/">Installing cucumber for rails</a></li>            
+
+      <li><a href="../writing-our-first-feature/">Writing our first feature</a></li>            
+
+      <li><a href="../writing-the-user-authentication-component/">Writing the user authentication component</a></li>            
+
+      <li><a href="../writing-the-photo-upload-component/">Writing the photo upload component</a></li>            
+
+      <li><a href="../ch7-more/">What’s Next</a></li>            
+
+      <li><b><em><a href="../chapter8/">Ruby on Rails 101 – Chapter 8</a></em></b></li>          
+
+      <li><a href="../multilingual/">Multilingual</a></li>            
+
+      <li><a href="../adding-chinese/">Adding chinese</a></li>            
+
+      <li><a href="../switching-locale/">Switching locale</a></li>            
+
+      <li><a href="../pow-local-server/">Pow local server</a></li>            
+
+      <li><a href="../xip-io/">Mobile devices testing via local network</a></li>            
+
+      <li><a href="../deployment-database-config/">Deployment database config</a></li>            
+
+      <li><a href="../introducing-git/">Introducing git</a></li>            
+
+      <li><a href="../lab-try-git/">Lab – “Try Git”</a></li>            
+
+      <li><a href="../apply-git-to-our-project/">Apply git to our project</a></li>            
+
+      <li><a href="../push-git-to-server-repo/">Push git to server repo</a></li>            
+
+      <li><a href="../deploying-options/">Deploying options</a></li>            
+
+      <li><a href="../tutorial1/">Tutorial 1 – Task management</a></li>            
+
+      <li><a href="../tutorial2/">Tutorial 2 – Multiple Lists</a></li>            
+
+      <li><a href="../tutorial3/">Tutorial 3 – Misc Enhancement</a></li>            
+
+  </ul>
+</div>
+
+
+<div class="book-page-footer-nav"><ul><li>You’re reading <a href="/ruby-on-rails-101/">ruby-on-rails-101</a>.</li><li><a id='twitter-intent-link' href='https://twitter.com/intent/tweet?text=@makzan '>Discuss this post on Twitter.</a></li>         <li><a href='/'>Go back to home.</a></li><li>Go to <a href='#top'>top?</a></li> </ul><div class="mz-square"><img width="80" src="/images/mz-square.png" alt="Mz square" /></div></div><footer><div class="content"><p><small class="footer"><strong>Thanks for reading.</strong> All content is written by <a href='/about/'>Makzan</a>, from <a href='https://www.google.com/search?q=macau+china&safe=active&tbm=isch'>Macao</a>. Text are in <a href='http://creativecommons.org/licenses/by-nc/4.0/'>CC BY-NC 4.0</a> lincense. Code snippets in this site are in <a href='http://opensource.org/licenses/MIT'>MIT</a> license unless specified. Enjoy the rest of <span id='weekday'>day</span>!</small></p></div></footer>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-975238-12']);
+  _gaq.push(['_setDomainName', 'makzan.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<script src="/assets/application.js" data-turbolinks-track="true"></script>
+
+
+<script>
+mixpanel.track("Page Show", {"Parent": "ruby-on-rails-101", "Title": "Ruby basic"});
+mixpanel.track_links(".page-nav a", "Click page nav link");
+</script>
+<script data-no-instant>InstantClick.init();</script>
+<script type="text/javascript">
+  var FHChat = {product_id: "ae42b12bfcb3"};
+  FHChat.properties={};FHChat.set=function(key,data){this.properties[key]=data};FHChat.customAttributes=[];FHChat.sendCustomAttributes=function(data){this.customAttributes.push(data)};!function(){var a,b;return b=document.createElement("script"),a=document.getElementsByTagName("script")[0],b.src="https://chat-client-js.firehoseapp.com/chat-min.js",b.async=!0,a.parentNode.insertBefore(b,a)}();
+</script>
+  
+
+<script type="text/javascript">
+  var _sf_async_config = { uid: 59469, domain: 'makzan.net', useCanonical: true };
+  (function() {
+    function loadChartbeat() {
+      window._sf_endpt = (new Date()).getTime();
+      var e = document.createElement('script');
+      e.setAttribute('language', 'javascript');
+      e.setAttribute('type', 'text/javascript');
+      e.setAttribute('src','//static.chartbeat.com/js/chartbeat.js');
+      document.body.appendChild(e);
+    };
+    var oldonload = window.onload;
+    window.onload = (typeof window.onload != 'function') ?
+      loadChartbeat : function() { oldonload(); loadChartbeat(); };
+  })();
+</script>
+</body>
+</html>
